@@ -27,5 +27,5 @@ export const startServer = async (port?: number) => {
 		listen: { port: port ?? 4000 },
 	});
 
-	console.log(`🚀 Server: \x1b[32m ${url} \x1b[0m`);
+	console.log(`✅ Server:\x1b[32m ${url} \x1b[0m`);
 };

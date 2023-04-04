@@ -5,7 +5,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "tsx watch src/app.ts"
+		"start": "SET NODE_ENV=development&& tsx watch src/app.ts"
 	},
 	"keywords": [],
 	"author": "Rafael Cesário",
@@ -13,8 +13,10 @@
 	"dependencies": {
 		"@apollo/server": "^4.6.0",
 		"@graphql-tools/schema": "^9.0.17",
+		"dotenv": "^16.0.3",
 		"graphql": "^16.6.0",
 		"graphql-tag": "^2.12.6",
+		"mongoose": "^7.0.3",
 		"tsx": "^3.12.6",
 		"typescript": "^5.0.3"
 	},
