@@ -6,3 +6,7 @@ export interface IUser {
 export interface IGetUser {
 	email: string;
 }
+
+export interface ICreateUser {
+	createUser: IUser;
+}
