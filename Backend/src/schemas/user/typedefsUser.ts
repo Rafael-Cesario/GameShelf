@@ -7,6 +7,6 @@ export const typedefsUser = gql`
 	}
 
 	type Query {
-		getUsers: [User]!
+		getUser(email: String!): User!
 	}
 `;

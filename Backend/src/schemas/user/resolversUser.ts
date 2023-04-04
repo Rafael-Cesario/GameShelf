@@ -1,12 +1,10 @@
+import { IGetUser } from '../../interfaces/interfacesUser';
+import { ServicesUser } from '../../services/servicesUser';
+
+const servicesUser = new ServicesUser();
+
 export const resolversUser = {
 	Query: {
-		getUsers: () => {
-			return [
-				{
-					email: 'user@email.com',
-					password: '123',
-				},
-			];
-		},
+		getUser: (parent: never, variables: IGetUser) => servicesUser.getUser(variables),
 	},
 };
