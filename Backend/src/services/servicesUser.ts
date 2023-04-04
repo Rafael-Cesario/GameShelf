@@ -18,7 +18,7 @@ export class ServicesUser {
 		if (!password) throw new GraphQLError(Errors.emptyVariable + ': Password was not provided');
 
 		const isDuplicatedEmail = await ModelUser.findOne({ email });
-		if (isDuplicatedEmail) throw new GraphQLError(Errors.duplicated + ': Email is already in use');
+		if (isDuplicatedEmail) throw new GraphQLError(Errors.duplicatedUser + ': Email is already in use');
 
 		await ModelUser.create({ email, password });
 

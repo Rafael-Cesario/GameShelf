@@ -1,7 +1,7 @@
 export interface IErrors {
 	emptyVariable: string;
 	userNotFound: string;
-	duplicated: string;
+	duplicatedUser: string;
 }
 
 export interface ISuccess {
