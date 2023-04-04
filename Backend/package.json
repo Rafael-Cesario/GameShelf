@@ -4,13 +4,18 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
-	"scripts": {},
+	"scripts": {
+		"start": "tsx watch src/app.ts"
+	},
 	"keywords": [],
 	"author": "Rafael Cesário",
 	"license": "MIT",
 	"dependencies": {
 		"@apollo/server": "^4.6.0",
+		"@graphql-tools/schema": "^9.0.17",
 		"graphql": "^16.6.0",
+		"graphql-tag": "^2.12.6",
+		"tsx": "^3.12.6",
 		"typescript": "^5.0.3"
 	},
 	"devDependencies": {
