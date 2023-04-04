@@ -1,0 +1,16 @@
+{
+	"name": "game-shelf-backend",
+	"private": "true",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {},
+	"keywords": [],
+	"author": "Rafael Cesário",
+	"license": "MIT",
+	"dependencies": {
+		"@apollo/server": "^4.6.0",
+		"graphql": "^16.6.0",
+		"typescript": "^5.0.3"
+	}
+}
