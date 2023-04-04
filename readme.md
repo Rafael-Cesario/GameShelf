@@ -1,9 +1,12 @@
 ## GameShelf
+
 ###### FullStack
 
 ##### Here you can save the games you want to play or games that you played, think of it as your game shelf. Save your games, add filters and tags to organize and have a nice place to look for all the games you finished ( or watched ).
 
-#### Features
+#### Todo / Ideias
+
+##### Frontend
 
 - Show total of games added, total of games finished, total of games on want to play.
 - user can add any tag to his game. eg: playing, finished, wishlist, want to play, favorite, good, normal, bad, droped.
@@ -22,16 +25,10 @@
 - Add some dates like, game release and when user finished play.
 - User can choose between images horizontal or vertical in configs.
 
-#### Stack
-
-##### Frontend
-
 ##### Backend
 
-
-
-#### Roadmap
-
-
-
-#### Preview
+- read user
+- Create user
+- save hashed password
+- login
+- generate token with jwt
