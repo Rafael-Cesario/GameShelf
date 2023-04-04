@@ -1,24 +1,6 @@
-import gql from 'graphql-tag';
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import { makeExecutableSchema } from '@graphql-tools/schema';
-
-const typeDefs = gql`
-	type Query {
-		hello: String
-	}
-`;
-
-const resolvers = {
-	Query: {
-		hello: () => 'Hello, server is up and ready',
-	},
-};
-
-const schema = makeExecutableSchema({
-	typeDefs,
-	resolvers,
-});
+import { schema } from './schemas/schema';
 
 const server = new ApolloServer({ schema });
 
