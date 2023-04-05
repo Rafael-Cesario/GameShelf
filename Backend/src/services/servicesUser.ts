@@ -47,7 +47,6 @@ export class ServicesUser {
 		return { message: Success.login, token };
 	}
 
-	// todo > tests
 	async validateToken({ token }: IValidateToken) {
 		const isTokenValid = verifyToken(token);
 		return { message: String(!!isTokenValid) };

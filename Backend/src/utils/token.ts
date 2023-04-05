@@ -15,6 +15,10 @@ export const verifyToken = (token: string) => {
 	const secret = process.env.SECRET;
 	if (!secret) throw new Error('Secret not found');
 
-	const decoded = jwt.verify(token, secret);
-	return decoded as { email: string; iat: number; exp: number };
+	try {
+		const decoded = jwt.verify(token, secret);
+		return decoded as { email: string; iat: number; exp: number };
+	} catch (error: any) {
+		return false;
+	}
 };

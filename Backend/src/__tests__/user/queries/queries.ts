@@ -1,6 +1,6 @@
 import { ICreateUser, IGetUser, ILogin, IValidateToken } from '../../../interfaces/interfacesUser';
 import request from 'supertest-graphql';
-import { ResponseCreateUser, ResponseGetUser, ResponseLogin, TypesQueriesUser } from './types';
+import { ResponseCreateUser, ResponseGetUser, ResponseLogin, ResponseValidateToken, TypesQueriesUser } from './types';
 
 const typesQueriesUser = new TypesQueriesUser();
 
@@ -30,7 +30,7 @@ export class QueriesUser {
 	}
 
 	async validateToken(url: string, variables: IValidateToken) {
-		const { data, errors } = await request(url)
+		const { data, errors } = await request<ResponseValidateToken>(url)
 			.mutate(typesQueriesUser.VALIDATE_TOKEN)
 			.variables({ ...variables });
 

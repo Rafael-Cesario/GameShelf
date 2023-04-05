@@ -47,3 +47,7 @@ export interface ResponseGetUser {
 export interface ResponseLogin {
 	login: { message: string; token: string };
 }
+
+export interface ResponseValidateToken {
+	validateToken: { message: string };
+}
