@@ -15,4 +15,6 @@ export const startServer = async (port?: number) => {
 	});
 
 	console.log(`✅ Server:\x1b[32m ${url} \x1b[0m`);
+
+	return url;
 };

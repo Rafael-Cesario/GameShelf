@@ -7,6 +7,7 @@ import { generateToken, verifyToken } from '../utils/token';
 import { Errors, Success } from '../utils/responses';
 
 export class ServicesUser {
+	// todo > tests
 	async getUser({ email }: IGetUser) {
 		if (!email) throw new GraphQLError(Errors.emptyVariable + 'Email was not provided');
 
@@ -30,6 +31,7 @@ export class ServicesUser {
 		return { message: Success.newUser };
 	}
 
+	// todo > tests
 	async login({ login }: ILogin) {
 		const hasEmptyValues = checkValues(login);
 		if (hasEmptyValues) throw new GraphQLError(Errors.emptyVariable + hasEmptyValues);
@@ -47,6 +49,7 @@ export class ServicesUser {
 		return { message: Success.login, token };
 	}
 
+	// todo > tests
 	async validateToken({ token }: IValidateToken) {
 		const isTokenValid = verifyToken(token);
 		return { message: String(!!isTokenValid) };
