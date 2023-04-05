@@ -8,39 +8,39 @@ import { Errors, Success } from '../utils/responses';
 
 export class ServicesUser {
 	async getUser({ email }: IGetUser) {
-		if (!email) throw new GraphQLError(Errors.emptyVariable + ': email was not provided');
+		if (!email) throw new GraphQLError(Errors.emptyVariable + 'Email was not provided');
 
 		const user = await ModelUser.findOne({ email });
-		if (!user) throw new GraphQLError(Errors.userNotFound + ': user not found');
+		if (!user) throw new GraphQLError(Errors.userNotFound);
 
 		return { email: user.email, password: '' };
 	}
 
 	async createUser({ createUser }: ICreateUser) {
 		const hasEmptyValues = checkValues(createUser);
-		if (hasEmptyValues) throw new GraphQLError(Errors.emptyVariable + ': ' + hasEmptyValues);
+		if (hasEmptyValues) throw new GraphQLError(Errors.emptyVariable + hasEmptyValues);
 
 		const { email, password } = createUser;
 
 		const isDuplicatedEmail = await ModelUser.findOne({ email });
-		if (isDuplicatedEmail) throw new GraphQLError(Errors.duplicatedUser + ': Email is already in use');
+		if (isDuplicatedEmail) throw new GraphQLError(Errors.duplicatedUser);
 
 		await ModelUser.create({ email, password });
 
-		return { message: Success.newUser + `: A new user was created` };
+		return { message: Success.newUser };
 	}
 
 	async login({ login }: ILogin) {
 		const hasEmptyValues = checkValues(login);
-		if (hasEmptyValues) throw new GraphQLError(Errors.emptyVariable + ': ' + hasEmptyValues);
+		if (hasEmptyValues) throw new GraphQLError(Errors.emptyVariable + hasEmptyValues);
 
 		const { email, password } = login;
 
 		const user = await ModelUser.findOne({ email });
-		if (!user) throw new GraphQLError(Errors.authentication + ': Email/Password is wrong');
+		if (!user) throw new GraphQLError(Errors.authentication);
 
 		const isSamePassword = checkPassword(password, user.password);
-		if (!isSamePassword) throw new GraphQLError(Errors.authentication + ': Email/Password is wrong');
+		if (!isSamePassword) throw new GraphQLError(Errors.authentication);
 
 		const token = generateToken(email);
 
