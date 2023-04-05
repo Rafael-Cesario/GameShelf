@@ -5,7 +5,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "SET NODE_ENV=development&& tsx watch src/app.ts"
+		"dev": "SET NODE_ENV=development&& tsx watch src/app.ts"
 	},
 	"keywords": [],
 	"author": "Rafael Cesário",
@@ -18,12 +18,14 @@
 		"dotenv": "^16.0.3",
 		"graphql": "^16.6.0",
 		"graphql-tag": "^2.12.6",
+		"jsonwebtoken": "^9.0.0",
 		"mongoose": "^7.0.3",
 		"tsx": "^3.12.6",
 		"typescript": "^5.0.3"
 	},
 	"devDependencies": {
 		"@types/bcrypt": "^5.0.0",
+		"@types/jsonwebtoken": "^9.0.1",
 		"@typescript-eslint/eslint-plugin": "^5.57.1",
 		"@typescript-eslint/parser": "^5.57.1",
 		"eslint": "^8.37.0"

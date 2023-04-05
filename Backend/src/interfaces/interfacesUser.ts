@@ -10,3 +10,7 @@ export interface IGetUser {
 export interface ICreateUser {
 	createUser: IUser;
 }
+
+export interface ILogin {
+	login: IUser;
+}

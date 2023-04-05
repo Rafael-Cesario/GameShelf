@@ -10,16 +10,23 @@ export const typedefsUser = gql`
 		getUser(email: String!): User!
 	}
 
+	type Response {
+		message: String!
+		token: String
+	}
+
 	input CreateUser {
 		email: String!
 		password: String!
 	}
 
-	type Response {
-		message: String!
+	input Login {
+		email: String!
+		password: String!
 	}
 
 	type Mutation {
 		createUser(createUser: CreateUser!): Response!
+		login(login: Login!): Response!
 	}
 `;
