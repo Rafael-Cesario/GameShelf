@@ -1,4 +1,4 @@
-import { ICreateUser, IGetUser, ILogin } from '../../interfaces/interfacesUser';
+import { ICreateUser, IGetUser, ILogin, IValidateToken } from '../../interfaces/interfacesUser';
 import { ServicesUser } from '../../services/servicesUser';
 
 const servicesUser = new ServicesUser();
@@ -6,6 +6,7 @@ const servicesUser = new ServicesUser();
 export const resolversUser = {
 	Query: {
 		getUser: (parent: never, variables: IGetUser) => servicesUser.getUser(variables),
+		validateToken: (parent: never, variables: IValidateToken) => servicesUser.validateToken(variables),
 	},
 
 	Mutation: {

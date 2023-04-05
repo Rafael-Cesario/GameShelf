@@ -6,10 +6,6 @@ export const typedefsUser = gql`
 		password: String!
 	}
 
-	type Query {
-		getUser(email: String!): User!
-	}
-
 	type Response {
 		message: String!
 		token: String
@@ -23,6 +19,11 @@ export const typedefsUser = gql`
 	input Login {
 		email: String!
 		password: String!
+	}
+
+	type Query {
+		getUser(email: String!): User!
+		validateToken(token: String!): Response!
 	}
 
 	type Mutation {

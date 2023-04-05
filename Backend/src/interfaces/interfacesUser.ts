@@ -14,3 +14,7 @@ export interface ICreateUser {
 export interface ILogin {
 	login: IUser;
 }
+
+export interface IValidateToken {
+	token: string;
+}

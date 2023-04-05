@@ -1,9 +1,9 @@
 import { GraphQLError } from 'graphql';
-import { ICreateUser, IGetUser, ILogin } from '../interfaces/interfacesUser';
+import { ICreateUser, IGetUser, ILogin, IValidateToken } from '../interfaces/interfacesUser';
 import { ModelUser } from '../models/modelUser';
 import { checkPassword } from '../utils/crypt';
 import { checkValues } from '../utils/emptyValues';
-import { generateToken } from '../utils/generateToken';
+import { generateToken, verifyToken } from '../utils/token';
 import { Errors, Success } from '../utils/responses';
 
 export class ServicesUser {
@@ -45,5 +45,10 @@ export class ServicesUser {
 		const token = generateToken(email);
 
 		return { message: Success.login, token };
+	}
+
+	async validateToken({ token }: IValidateToken) {
+		const isTokenValid = verifyToken(token);
+		return { message: String(!!isTokenValid) };
 	}
 }
