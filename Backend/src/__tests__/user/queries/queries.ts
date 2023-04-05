@@ -1,12 +1,12 @@
 import { ICreateUser, IGetUser, ILogin, IValidateToken } from '../../../interfaces/interfacesUser';
 import request from 'supertest-graphql';
-import { ResponseCreateUser, TypesQueriesUser } from './types';
+import { ResponseCreateUser, ResponseGetUser, TypesQueriesUser } from './types';
 
 const typesQueriesUser = new TypesQueriesUser();
 
 export class QueriesUser {
 	async getUser(url: string, variables: IGetUser) {
-		const { data, errors } = await request(url)
+		const { data, errors } = await request<ResponseGetUser>(url)
 			.mutate(typesQueriesUser.GET_USER)
 			.variables({ ...variables });
 

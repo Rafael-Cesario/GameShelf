@@ -39,3 +39,7 @@ export class TypesQueriesUser {
 export interface ResponseCreateUser {
 	createUser: { message: string };
 }
+
+export interface ResponseGetUser {
+	getUser: { email: string; password: string };
+}

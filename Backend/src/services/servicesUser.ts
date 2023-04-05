@@ -7,7 +7,6 @@ import { generateToken, verifyToken } from '../utils/token';
 import { Errors, Success } from '../utils/responses';
 
 export class ServicesUser {
-	// todo > tests
 	async getUser({ email }: IGetUser) {
 		if (!email) throw new GraphQLError(Errors.emptyVariable + 'Email was not provided');
 
