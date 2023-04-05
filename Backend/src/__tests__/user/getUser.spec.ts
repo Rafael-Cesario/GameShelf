@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import { describe, it, expect, afterAll, afterEach, beforeAll } from 'vitest';
 import { startDatabase } from '../../database';
-import { ModelUser } from '../../models/modelUser';
 import { startServer } from '../../server';
 import { Errors } from '../../utils/responses';
 import { QueriesUser } from './queries/queries';

@@ -43,3 +43,7 @@ export interface ResponseCreateUser {
 export interface ResponseGetUser {
 	getUser: { email: string; password: string };
 }
+
+export interface ResponseLogin {
+	login: { message: string; token: string };
+}

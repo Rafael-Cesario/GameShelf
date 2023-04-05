@@ -30,7 +30,6 @@ export class ServicesUser {
 		return { message: Success.newUser };
 	}
 
-	// todo > tests
 	async login({ login }: ILogin) {
 		const hasEmptyValues = checkValues(login);
 		if (hasEmptyValues) throw new GraphQLError(Errors.emptyVariable + hasEmptyValues);
