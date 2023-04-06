@@ -12,7 +12,6 @@ export const StyledForm = styled.div`
 
 	.title,
 	.change-form,
-	form input,
 	form button {
 		margin: 1.2rem 0;
 	}

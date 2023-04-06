@@ -12,7 +12,7 @@ export const theme: { [key: string]: DefaultTheme } = {
 		fadedText: '#8b8b8b',
 		placeHolder: '#666666',
 		primary: '#134683',
-		textRed: '#773030',
+		textRed: '#941e1e',
 		padding: '5px 20px',
 	},
 };
