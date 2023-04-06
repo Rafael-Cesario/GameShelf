@@ -35,7 +35,6 @@ const privateRoute = <T extends JSX.IntrinsicAttributes>(Component: NextComponen
 			verifyAuthentication();
 		}, []);
 
-		// todo > Loading component
 		if (isLoading) return <Loading />;
 		if (!isLoggedIn) return <Authentication />;
 

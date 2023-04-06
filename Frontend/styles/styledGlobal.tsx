@@ -12,4 +12,27 @@ export const StyledGlobal = createGlobalStyle`
         background-color: ${({ theme }) => theme.mainBackground};
         color: ${({ theme }) => theme.mainText};
     }
+
+    button, input {
+        outline:none;
+        border: none;
+        color: ${({ theme }) => theme.mainText};
+        padding: ${({ theme }) => theme.padding};
+        border-radius: ${({ theme }) => theme.borderRadius};
+        font-weight: bold;
+    }
+    
+    input {
+        background-color: ${({ theme }) => theme.insideContainer} ;
+    }
+
+    button {
+        cursor: pointer;
+        background-color: ${({ theme }) => theme.primary} ;
+
+        :hover {
+            background-color: ${({ theme }) => theme.mainText};
+            color: ${({ theme }) => theme.mainBackground};
+        }
+    }
 `;
