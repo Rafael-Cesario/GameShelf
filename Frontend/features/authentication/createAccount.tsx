@@ -1,6 +1,13 @@
+import { FormNames } from '@/pages/authentication';
 import { StyledForm } from './styles/styledForm';
 
-export const CreateAccount = () => {
+interface Props {
+	props: {
+		setFormName: (formName: FormNames) => void;
+	};
+}
+
+export const CreateAccount = ({ props: { setFormName } }: Props) => {
 	return (
 		<StyledForm>
 			<h1 className="title">Criar conta</h1>
@@ -10,10 +17,12 @@ export const CreateAccount = () => {
 				<input type="text" placeholder="Nome" />
 				<input type="text" placeholder="Senha" />
 				<input type="text" placeholder="Confirme sua senha" />
-				<button>Entrar</button>
+				<button>Criar conta</button>
 			</form>
 
-			<button className="change-form">Voltar para a tela de login</button>
+			<button onClick={() => setFormName('login')} className="change-form">
+				Voltar para a tela de login
+			</button>
 		</StyledForm>
 	);
 };
