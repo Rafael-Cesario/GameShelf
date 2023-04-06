@@ -4,7 +4,7 @@ import { ModelUser } from '../models/modelUser';
 import { checkPassword } from '../utils/crypt';
 import { searchForEmptyValues } from '../utils/emptyValues';
 import { generateToken, verifyToken } from '../utils/token';
-import { Errors, Success } from '../utils/responses';
+import { Errors, Success } from '../interfaces/interfaceResponses';
 
 export class ServicesUser {
 	async getUser({ email }: IGetUser) {
