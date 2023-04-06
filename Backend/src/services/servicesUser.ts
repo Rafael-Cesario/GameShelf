@@ -2,7 +2,7 @@ import { GraphQLError } from 'graphql';
 import { ICreateUser, IGetUser, ILogin, IValidateToken } from '../interfaces/interfacesUser';
 import { ModelUser } from '../models/modelUser';
 import { checkPassword } from '../utils/crypt';
-import { checkValues } from '../utils/emptyValues';
+import { searchForEmptyValues } from '../utils/emptyValues';
 import { generateToken, verifyToken } from '../utils/token';
 import { Errors, Success } from '../utils/responses';
 
@@ -17,7 +17,7 @@ export class ServicesUser {
 	}
 
 	async createUser({ createUser }: ICreateUser) {
-		const hasEmptyValues = checkValues(createUser);
+		const hasEmptyValues = searchForEmptyValues(createUser);
 		if (hasEmptyValues) throw new GraphQLError(Errors.emptyVariable + hasEmptyValues);
 
 		const { email, password } = createUser;
@@ -31,7 +31,7 @@ export class ServicesUser {
 	}
 
 	async login({ login }: ILogin) {
-		const hasEmptyValues = checkValues(login);
+		const hasEmptyValues = searchForEmptyValues(login);
 		if (hasEmptyValues) throw new GraphQLError(Errors.emptyVariable + hasEmptyValues);
 
 		const { email, password } = login;
