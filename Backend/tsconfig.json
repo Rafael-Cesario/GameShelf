@@ -12,5 +12,5 @@
 		"skipLibCheck": true /* Skip type checking all .d.ts files. */
 	},
 	"include": ["vitest.config.ts", "src/**/*.ts"],
-	"exclude": ["**/__tests__/**"]
+	// "exclude": ["**/__tests__/**"]
 }
