@@ -5,6 +5,7 @@ import { client } from '@/services/client';
 import { TypesQueriesUser } from '@/services/queries/user';
 import { NextComponentType } from 'next';
 import { useEffect, useState } from 'react';
+import { Loading } from './loading';
 
 const privateRoute = <T extends JSX.IntrinsicAttributes>(Component: NextComponentType<T>) => {
 	const Auth = (props: T) => {
@@ -35,7 +36,7 @@ const privateRoute = <T extends JSX.IntrinsicAttributes>(Component: NextComponen
 		}, []);
 
 		// todo > Loading component
-		if (isLoading) return <h1>Loading...</h1>;
+		if (isLoading) return <Loading />;
 		if (!isLoggedIn) return <Authentication />;
 
 		return <Component {...props} />;
