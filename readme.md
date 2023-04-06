@@ -1,12 +1,35 @@
 ## GameShelf
 
-###### FullStack
+###### FullStack // Nextjs, React, Styled-components, graphql, apollo-server, vitest, jwt, eslint, mongodb, typegoose, mongoose.
 
-##### Here you can save the games you want to play or games that you played, think of it as your game shelf. Save your games, add filters and tags to organize and have a nice place to look for all the games you finished ( or watched ).
+Here you can save the games you want to play or games that you played, think of it as your game shelf. Save your games, add filters and tags to organize and have a nice place to look for all the games you finished ( or watched ).
 
-#### Todo / Ideias
+</br>
 
-##### Frontend
+### 🗺 RoadMap
+###### Frontend
+
+- ✅ High order component for private routes.
+- ✅ Styled-components, theme provider, pattern to add new themes.
+- ▶ Pages: Authentication, Index
+- ▶ Form Validations
+
+
+###### Backend
+- Create User, Login, getUser, validateToken.
+- Password with bcrypt
+- Authentication with jwt
+- Tests
+
+</br>
+
+### Preview
+
+![Slide 16_9 - 1](https://user-images.githubusercontent.com/88716893/230511358-068edeb6-ee19-4915-b59a-1e752a82ad52.png)
+
+
+
+#### 💡 Todo / Ideias
 
 - Show total of games added, total of games finished, total of games on want to play.
 - user can add any tag to his game. eg: playing, finished, wishlist, want to play, favorite, good, normal, bad, droped.
@@ -24,11 +47,3 @@
 - Draw a random game to play. User can add filters to it. User can choose how much games will be drawed.
 - Add some dates like, game release and when user finished play.
 - User can choose between images horizontal or vertical in configs.
-
-##### Backend
-
-- read user
-- Create user
-- save hashed password
-- login
-- generate token with jwt
