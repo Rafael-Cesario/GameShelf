@@ -12,10 +12,8 @@ interface Props {
 export const Login = ({ props: { setFormName } }: Props) => {
 	type FieldName = keyof typeof formValues.fields;
 
-	const [formValues, setFormValues] = useState({
-		fields: { email: '', password: '' },
-		errors: { email: '', password: '' },
-	});
+	const defaultValues = { email: '', password: '' };
+	const [formValues, setFormValues] = useState({ fields: defaultValues, errors: defaultValues });
 
 	const changeValue = (newValue: string, fieldName: FieldName) => {
 		const newState = produce(formValues, (draft) => {
