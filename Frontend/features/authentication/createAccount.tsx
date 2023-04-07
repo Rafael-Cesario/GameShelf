@@ -2,7 +2,7 @@ import { FormNames } from '@/pages/authentication';
 import { StyledForm } from './styles/styledForm';
 import { useState } from 'react';
 import produce from 'immer';
-import { Validations } from '@/utils/validations';
+import { Validations } from '@/features/authentication/utils/validations';
 
 interface Props {
 	props: {
@@ -20,6 +20,14 @@ export const CreateAccount = ({ props: { setFormName } }: Props) => {
 		errors: defaultValues,
 	});
 
+	const showErrors = (errors: typeof formValues.errors) => {
+		const newState = produce(formValues, (draft) => {
+			draft.errors = errors;
+		});
+
+		setFormValues(newState);
+	};
+
 	const validateFields = () => {
 		const fields = Object.entries(formValues.fields);
 		const errors = { ...formValues.errors };
@@ -34,15 +42,7 @@ export const CreateAccount = ({ props: { setFormName } }: Props) => {
 			}
 		});
 
-		if (hasError) {
-			const newState = produce(formValues, (draft) => {
-				draft.errors = errors;
-			});
-
-			setFormValues(newState);
-		}
-
-		return hasError;
+		return { errors, hasError };
 	};
 
 	const changeValue = (newValue: string, fieldName: FieldName) => {
@@ -61,8 +61,8 @@ export const CreateAccount = ({ props: { setFormName } }: Props) => {
 	const createAccount = (e: React.FormEvent) => {
 		e.preventDefault();
 
-		const hasError = validateFields();
-		if (hasError) return;
+		const { hasError, errors } = validateFields();
+		if (hasError) return showErrors(errors);
 	};
 
 	return (
