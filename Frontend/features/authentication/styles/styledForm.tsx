@@ -29,6 +29,11 @@ export const StyledForm = styled.div`
 			height: 40px;
 			width: 300px;
 		}
+
+		button:focus {
+			background-color: ${({ theme }) => theme.mainText};
+			color: ${({ theme }) => theme.mainBackground};
+		}
 	}
 
 	.change-form {
@@ -39,6 +44,26 @@ export const StyledForm = styled.div`
 
 		:hover {
 			color: ${({ theme }) => theme.mainText};
+		}
+	}
+
+	.field {
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: column;
+		margin: 1.2rem 0;
+		width: 100%;
+
+		input {
+			margin-top: 0.5rem;
+		}
+
+		label {
+			width: 300px;
+			font-size: 0.8rem;
+			font-weight: bold;
+			color: ${({ theme }) => theme.textRed};
+			line-height: 1.1rem;
 		}
 	}
 `;

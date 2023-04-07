@@ -1,7 +1,7 @@
 import { FormNames } from '@/pages/authentication';
 import { StyledForm } from './styles/styledForm';
-import { Input } from './inputs';
 import { useState } from 'react';
+import produce from 'immer';
 
 interface Props {
 	props: {
@@ -10,18 +10,45 @@ interface Props {
 }
 
 export const Login = ({ props: { setFormName } }: Props) => {
-	const [formValues, setFormValues] = useState<{ errors: object; fields: object }>({
+	type FieldName = keyof typeof formValues.fields;
+
+	const [formValues, setFormValues] = useState({
 		fields: { email: '', password: '' },
 		errors: { email: '', password: '' },
 	});
+
+	const changeValue = (newValue: string, fieldName: FieldName) => {
+		const newState = produce(formValues, (draft) => {
+			if (!newValue) draft.errors[fieldName] = 'Este campo não pode ficar vazio';
+			else draft.errors[fieldName] = '';
+
+			draft.fields[fieldName] = newValue;
+		});
+
+		setFormValues(newState);
+	};
 
 	return (
 		<StyledForm>
 			<h1 className="title">Login</h1>
 
 			<form>
-				<Input props={{ type: 'text', placeHolder: 'Email', fieldName: 'email', formValues, setFormValues }} />
-				<Input props={{ type: 'password', placeHolder: 'Senha', fieldName: 'password', formValues, setFormValues }} />
+				<div className="field">
+					<label htmlFor="email">{formValues.errors.email}</label>
+					<input type="text" id="email" placeholder="Email" value={formValues.fields.email} onChange={(e) => changeValue(e.target.value, 'email')} />
+				</div>
+
+				<div className="field">
+					<label htmlFor="password">{formValues.errors.password}</label>
+					<input
+						type="text"
+						id="password"
+						placeholder="Senha"
+						value={formValues.fields.password}
+						onChange={(e) => changeValue(e.target.value, 'password')}
+					/>
+				</div>
+
 				<button>Entrar</button>
 			</form>
 
