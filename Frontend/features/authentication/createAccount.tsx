@@ -4,6 +4,7 @@ import { StyledForm } from './styles/styledForm';
 import { useState } from 'react';
 import { Validations } from '@/features/authentication/utils/validations';
 import { useQueriesUser } from './hooks/useQueriesUser';
+import { Loading } from '@/components/loading';
 
 interface ICreateAccount {
 	props: {
@@ -122,7 +123,7 @@ export const CreateAccount = ({ props: { setFormName } }: ICreateAccount) => {
 					/>
 				</div>
 
-				{loading && <p>...</p>}
+				{loading && <Loading />}
 				<button>Criar conta</button>
 			</form>
 
