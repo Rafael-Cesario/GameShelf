@@ -1,17 +1,20 @@
+import produce from 'immer';
 import { FormNames } from '@/pages/authentication';
 import { StyledForm } from './styles/styledForm';
 import { useState } from 'react';
-import produce from 'immer';
 import { Validations } from '@/features/authentication/utils/validations';
+import { useQueriesUser } from './hooks/useQueriesUser';
 
-interface Props {
+interface ICreateAccount {
 	props: {
 		setFormName: (formName: FormNames) => void;
 	};
 }
 
-export const CreateAccount = ({ props: { setFormName } }: Props) => {
+export const CreateAccount = ({ props: { setFormName } }: ICreateAccount) => {
 	type FieldName = keyof typeof formValues.fields;
+	type FormErrors = typeof formValues.errors;
+
 	const validations = new Validations();
 
 	const defaultValues = { email: '', name: '', password: '', confirmPassword: '' };
@@ -20,7 +23,9 @@ export const CreateAccount = ({ props: { setFormName } }: Props) => {
 		errors: defaultValues,
 	});
 
-	const showErrors = (errors: typeof formValues.errors) => {
+	const { createUser, loading } = useQueriesUser();
+
+	const showErrors = (errors: FormErrors) => {
 		const newState = produce(formValues, (draft) => {
 			draft.errors = errors;
 		});
@@ -58,11 +63,26 @@ export const CreateAccount = ({ props: { setFormName } }: Props) => {
 		setFormValues(newState);
 	};
 
-	const createAccount = (e: React.FormEvent) => {
+	const clearInputs = () => {
+		setFormValues(
+			produce(formValues, (draft) => {
+				draft.fields = defaultValues;
+			})
+		);
+	};
+
+	const createAccount = async (e: React.FormEvent) => {
 		e.preventDefault();
 
 		const { hasError, errors } = validateFields();
 		if (hasError) return showErrors(errors);
+
+		const { email, password } = formValues.fields;
+		const { error } = await createUser({ email, password });
+		if (error) return console.log({ error });
+
+		console.log('Conta criada com sucesso.');
+		clearInputs();
 	};
 
 	return (
@@ -102,6 +122,7 @@ export const CreateAccount = ({ props: { setFormName } }: Props) => {
 					/>
 				</div>
 
+				{loading && <p>...</p>}
 				<button>Criar conta</button>
 			</form>
 
