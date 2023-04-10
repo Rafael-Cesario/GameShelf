@@ -7,7 +7,7 @@ export interface IErrors {
 
 export const Errors: IErrors = {
 	userNotFound: 'userNotFound: User not found.',
-	emptyVariable: 'emptyVarialbe: ',
+	emptyVariable: 'emptyVariable: ',
 	duplicatedUser: 'duplicatedUser: This email is already in use.',
 	authentication: 'authentication: Email/Password is wrong.',
 };

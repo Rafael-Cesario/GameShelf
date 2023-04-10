@@ -79,10 +79,10 @@ export const CreateAccount = ({ props: { setFormName } }: ICreateAccount) => {
 		if (hasError) return showErrors(errors);
 
 		const { email, password } = formValues.fields;
-		const { error } = await createUser({ email, password });
+		const { error, data } = await createUser({ email, password });
 		if (error) return console.log({ error });
 
-		console.log('Conta criada com sucesso.');
+		console.log(data);
 		clearInputs();
 	};
 
