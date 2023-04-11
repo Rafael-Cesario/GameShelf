@@ -1,15 +1,9 @@
-import { FormNames } from '@/pages/authentication';
 import { StyledForm } from './styles/styledForm';
 import { useState } from 'react';
 import produce from 'immer';
+import { IFormProps } from './interfaces/forms';
 
-interface Props {
-	props: {
-		setFormName: (formName: FormNames) => void;
-	};
-}
-
-export const Login = ({ props: { setFormName } }: Props) => {
+export const Login = ({ props: { setFormName } }: IFormProps) => {
 	type FieldName = keyof typeof formValues.fields;
 
 	const defaultValues = { email: '', password: '' };

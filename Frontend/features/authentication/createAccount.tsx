@@ -1,19 +1,13 @@
 import produce from 'immer';
-import { FormNames } from '@/pages/authentication';
 import { StyledForm } from './styles/styledForm';
 import { useState } from 'react';
 import { Validations } from '@/features/authentication/utils/validations';
 import { useQueriesUser } from './hooks/useQueriesUser';
 import { Loading } from '@/components/loading';
 import { useNotification } from '@/utils/useNotification';
+import { IFormProps } from './interfaces/forms';
 
-interface ICreateAccount {
-	props: {
-		setFormName: (formName: FormNames) => void;
-	};
-}
-
-export const CreateAccount = ({ props: { setFormName } }: ICreateAccount) => {
+export const CreateAccount = ({ props: { setFormName } }: IFormProps) => {
 	type FieldName = keyof typeof formValues.fields;
 	type FormErrors = typeof formValues.errors;
 
