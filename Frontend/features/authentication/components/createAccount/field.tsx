@@ -1,5 +1,10 @@
-export const Field = () => {
-	const changeValue = (newValue: string, fieldName: FieldName) => {
+import produce from 'immer';
+import { Validations } from '../../utils/validations';
+import { IFieldProps } from './interfaces/fieldProps';
+import { CreateAccountFields } from '../../interfaces/forms';
+
+export const Field = ({ props: { name, type, placeholder, formValues, setFormValues } }: IFieldProps) => {
+	const changeValue = (newValue: string, fieldName: CreateAccountFields) => {
 		const validations = new Validations();
 
 		const newState = produce(formValues, (draft) => {
@@ -16,8 +21,14 @@ export const Field = () => {
 
 	return (
 		<div className="field">
-			<label htmlFor="email">{formValues.errors.email}</label>
-			<input type="text" id="email" placeholder="Email" value={formValues.fields.email} onChange={(e) => changeValue(e.target.value, 'email')} />
+			<label htmlFor={name}>{formValues.errors[name as keyof typeof formValues.errors]}</label>
+			<input
+				type={type}
+				id={name}
+				placeholder={placeholder}
+				value={formValues.fields[name as keyof typeof formValues.fields]}
+				onChange={(e) => changeValue(e.target.value, name)}
+			/>
 		</div>
 	);
 };
