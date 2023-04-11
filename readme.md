@@ -7,15 +7,17 @@ Here you can save the games you want to play or games that you played, think of 
 </br>
 
 ### 🗺 RoadMap
+
 ###### Frontend
 
-- ✅ High order component for private routes.
-- ✅ Styled-components, theme provider, pattern to add new themes.
-- ▶ Pages: Authentication, Index
-- ▶ Form Validations
-
+- High order component for private routes.
+- Styled-components, theme provider, pattern to add new themes.
+- Redux Store, slices: notification.
+- Pages: Authentication.
+- Form Validations.
 
 ###### Backend
+
 - Create User, Login, getUser, validateToken.
 - Password with bcrypt
 - Authentication with jwt
@@ -26,8 +28,6 @@ Here you can save the games you want to play or games that you played, think of 
 ### Preview
 
 ![Slide 16_9 - 1](https://user-images.githubusercontent.com/88716893/230511358-068edeb6-ee19-4915-b59a-1e752a82ad52.png)
-
-
 
 #### 💡 Todo / Ideias
 

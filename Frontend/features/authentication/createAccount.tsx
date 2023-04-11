@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { Validations } from '@/features/authentication/utils/validations';
 import { useQueriesUser } from './hooks/useQueriesUser';
 import { Loading } from '@/components/loading';
+import { sliceNotification } from '@/context/sliceNotification';
+import { useDispatch } from 'react-redux';
 
 interface ICreateAccount {
 	props: {
@@ -16,8 +18,6 @@ export const CreateAccount = ({ props: { setFormName } }: ICreateAccount) => {
 	type FieldName = keyof typeof formValues.fields;
 	type FormErrors = typeof formValues.errors;
 
-	const validations = new Validations();
-
 	const defaultValues = { email: '', name: '', password: '', confirmPassword: '' };
 	const [formValues, setFormValues] = useState({
 		fields: defaultValues,
@@ -25,6 +25,7 @@ export const CreateAccount = ({ props: { setFormName } }: ICreateAccount) => {
 	});
 
 	const { createUser, loading } = useQueriesUser();
+	const dispatch = useDispatch();
 
 	const showErrors = (errors: FormErrors) => {
 		const newState = produce(formValues, (draft) => {
@@ -35,6 +36,7 @@ export const CreateAccount = ({ props: { setFormName } }: ICreateAccount) => {
 	};
 
 	const validateFields = () => {
+		const validations = new Validations();
 		const fields = Object.entries(formValues.fields);
 		const errors = { ...formValues.errors };
 		let hasError = false;
@@ -52,6 +54,8 @@ export const CreateAccount = ({ props: { setFormName } }: ICreateAccount) => {
 	};
 
 	const changeValue = (newValue: string, fieldName: FieldName) => {
+		const validations = new Validations();
+
 		const newState = produce(formValues, (draft) => {
 			const invalidField = validations[fieldName](newValue, formValues.fields.password);
 
@@ -72,6 +76,14 @@ export const CreateAccount = ({ props: { setFormName } }: ICreateAccount) => {
 		);
 	};
 
+	const sendNotification = (type: 'Erro' | 'Sucesso', txt: string) => {
+		dispatch(sliceNotification.actions.sendNotification({ isOpen: true, type, txt }));
+
+		setTimeout(() => {
+			dispatch(sliceNotification.actions.close());
+		}, 1000 * 10); // 10 seconds
+	};
+
 	const createAccount = async (e: React.FormEvent) => {
 		e.preventDefault();
 
@@ -80,9 +92,10 @@ export const CreateAccount = ({ props: { setFormName } }: ICreateAccount) => {
 
 		const { email, password } = formValues.fields;
 		const { error, data } = await createUser({ email, password });
-		if (error) return console.log({ error });
+		if (error) return sendNotification('Erro', error);
 
-		console.log(data);
+		sendNotification('Sucesso', data!);
+		setFormName('login');
 		clearInputs();
 	};
 

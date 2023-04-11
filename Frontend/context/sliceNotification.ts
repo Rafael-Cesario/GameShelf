@@ -21,7 +21,9 @@ export const sliceNotification = createSlice({
 		},
 
 		sendNotification: (state, action: { payload: typeof state }) => {
-			state = { ...action.payload };
+			state.isOpen = action.payload.isOpen;
+			state.type = action.payload.type;
+			state.txt = action.payload.txt;
 		},
 	},
 });

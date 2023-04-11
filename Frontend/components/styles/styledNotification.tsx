@@ -11,6 +11,7 @@ export const StyledNotification = styled.div<{ type: string }>`
 	border-radius: ${({ theme }) => theme.borderRadius};
 	box-shadow: ${({ theme }) => theme.boxShadow};
 	min-width: 300px;
+	max-width: 500px;
 	animation: show 0.2s both;
 
 	@keyframes show {
