@@ -13,6 +13,8 @@ export const theme: { [key: string]: DefaultTheme } = {
 		placeHolder: '#666666',
 		primary: '#134683',
 		textRed: '#941e1e',
+		textGreen: '#1fad4a',
 		padding: '5px 20px',
+		boxShadow: '5px 5px 5px #10101020',
 	},
 };

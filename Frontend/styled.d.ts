@@ -13,6 +13,8 @@ declare module 'styled-components' {
 		fadedText: string;
 		primary: string;
 		textRed: string;
+		textGreen: string;
 		padding: string;
+		boxShadow: string;
 	}
 }

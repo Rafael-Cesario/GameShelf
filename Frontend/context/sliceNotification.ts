@@ -2,13 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 
 interface Notification {
 	isOpen: boolean;
-	type: 'error' | 'success';
+	type: 'Erro' | 'Sucesso';
 	txt: string;
 }
 
 const initialState: Notification = {
 	isOpen: false,
-	type: 'error',
+	type: 'Erro',
 	txt: '',
 };
 
