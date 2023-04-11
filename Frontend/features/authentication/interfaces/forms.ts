@@ -1,4 +1,5 @@
 export type CreateAccountFields = keyof ICreateAccount;
+export type LoginFields = keyof ILogin;
 export type FormNames = 'login' | 'create';
 
 export interface IFormProps {

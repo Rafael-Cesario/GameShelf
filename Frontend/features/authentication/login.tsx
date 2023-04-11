@@ -1,20 +1,19 @@
 import { StyledForm } from './styles/styledForm';
 import { useState } from 'react';
 import produce from 'immer';
-import { IFormProps } from './interfaces/forms';
+import { IFormProps, LoginFields } from './interfaces/forms';
+import { Field } from './field';
 
 export const Login = ({ props: { setFormName } }: IFormProps) => {
-	type FieldName = keyof typeof formValues.fields;
-
 	const defaultValues = { email: '', password: '' };
 	const [formValues, setFormValues] = useState({ fields: defaultValues, errors: defaultValues });
 
-	const changeValue = (newValue: string, fieldName: FieldName) => {
+	const changeValue = (newValue: string, fieldName: string) => {
 		const newState = produce(formValues, (draft) => {
-			if (!newValue) draft.errors[fieldName] = 'Este campo não pode ficar vazio';
-			else draft.errors[fieldName] = '';
+			if (!newValue) draft.errors[fieldName as LoginFields] = 'Este campo não pode ficar vazio';
+			else draft.errors[fieldName as LoginFields] = '';
 
-			draft.fields[fieldName] = newValue;
+			draft.fields[fieldName as LoginFields] = newValue;
 		});
 
 		setFormValues(newState);
@@ -25,21 +24,27 @@ export const Login = ({ props: { setFormName } }: IFormProps) => {
 			<h1 className="title">Login</h1>
 
 			<form>
-				<div className="field">
-					<label htmlFor="email">{formValues.errors.email}</label>
-					<input type="text" id="email" placeholder="Email" value={formValues.fields.email} onChange={(e) => changeValue(e.target.value, 'email')} />
-				</div>
+				<Field
+					props={{
+						name: 'email',
+						type: 'text',
+						placeholder: 'Email',
+						error: formValues.errors.email,
+						value: formValues.fields.email,
+						changeValue,
+					}}
+				/>
 
-				<div className="field">
-					<label htmlFor="password">{formValues.errors.password}</label>
-					<input
-						type="text"
-						id="password"
-						placeholder="Senha"
-						value={formValues.fields.password}
-						onChange={(e) => changeValue(e.target.value, 'password')}
-					/>
-				</div>
+				<Field
+					props={{
+						name: 'password',
+						type: 'password',
+						placeholder: 'Senha',
+						error: formValues.errors.password,
+						value: formValues.fields.password,
+						changeValue,
+					}}
+				/>
 
 				<button>Entrar</button>
 			</form>
