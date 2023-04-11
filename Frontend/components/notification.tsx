@@ -1,15 +1,12 @@
-import { Store } from '@/context/store';
 import { StyledNotification } from './styles/styledNotification';
-import { useSelector, useDispatch } from 'react-redux';
-import { sliceNotification } from '@/context/sliceNotification';
+import { useNotification } from '@/utils/useNotification';
 
 export const Notification = () => {
-	const dispatch = useDispatch();
-	const { txt, type } = useSelector((state: Store) => state.notification);
+	const { txt, type, closeNotification } = useNotification();
 
 	return (
 		<StyledNotification type={type}>
-			<button className="close" onClick={() => dispatch(sliceNotification.actions.close())}>
+			<button className="close" onClick={() => closeNotification()}>
 				x
 			</button>
 

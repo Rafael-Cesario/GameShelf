@@ -5,8 +5,7 @@ import { useState } from 'react';
 import { Validations } from '@/features/authentication/utils/validations';
 import { useQueriesUser } from './hooks/useQueriesUser';
 import { Loading } from '@/components/loading';
-import { sliceNotification } from '@/context/sliceNotification';
-import { useDispatch } from 'react-redux';
+import { useNotification } from '@/utils/useNotification';
 
 interface ICreateAccount {
 	props: {
@@ -25,7 +24,7 @@ export const CreateAccount = ({ props: { setFormName } }: ICreateAccount) => {
 	});
 
 	const { createUser, loading } = useQueriesUser();
-	const dispatch = useDispatch();
+	const { sendNotification } = useNotification();
 
 	const showErrors = (errors: FormErrors) => {
 		const newState = produce(formValues, (draft) => {
@@ -74,14 +73,6 @@ export const CreateAccount = ({ props: { setFormName } }: ICreateAccount) => {
 				draft.fields = defaultValues;
 			})
 		);
-	};
-
-	const sendNotification = (type: 'Erro' | 'Sucesso', txt: string) => {
-		dispatch(sliceNotification.actions.sendNotification({ isOpen: true, type, txt }));
-
-		setTimeout(() => {
-			dispatch(sliceNotification.actions.close());
-		}, 1000 * 10); // 10 seconds
 	};
 
 	const createAccount = async (e: React.FormEvent) => {
