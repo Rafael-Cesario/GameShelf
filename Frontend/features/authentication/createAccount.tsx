@@ -12,7 +12,7 @@ import { Validations } from './utils/validations';
 import produce from 'immer';
 
 export const CreateAccount = ({ props: { setFormName } }: IFormProps) => {
-	const { createUser, loading } = useQueriesUser();
+	const { requestCreateUser, loadingCreateUser } = useQueriesUser();
 	const { sendNotification } = useNotification();
 
 	const defaultValues: ICreateAccount = { email: '', name: '', password: '', confirmPassword: '' };
@@ -28,7 +28,7 @@ export const CreateAccount = ({ props: { setFormName } }: IFormProps) => {
 		if (hasError) return showErrors(errors, formValues, setFormValues);
 
 		const { email, password } = formValues.fields;
-		const { error, data } = await createUser({ email, password });
+		const { error, data } = await requestCreateUser({ email, password });
 		if (error) return sendNotification('Erro', error);
 
 		setFormName('login');
@@ -54,7 +54,7 @@ export const CreateAccount = ({ props: { setFormName } }: IFormProps) => {
 
 	return (
 		<StyledForm>
-			{loading && <Loading />}
+			{loadingCreateUser && <Loading />}
 			<h1 className="title">Criar conta</h1>
 
 			<form onSubmit={(e) => createAccount(e)}>

@@ -1,14 +1,15 @@
 import { useMutation } from '@apollo/client';
-import { ResponseCreateUser, ICreateUser, IUser } from '../../../interfaces/queriesUser';
+import { ResponseCreateUser, ICreateUser, IUser, ILogin, ResponseLogin } from '../../../interfaces/queriesUser';
 import { TypesQueriesUser } from '@/services/queries/user';
 import { Errors, Success } from '@/interfaces/interfaceResponses';
 
 export const useQueriesUser = () => {
 	const typesQueriesUser = new TypesQueriesUser();
 
-	const [queryCreateUser, { loading }] = useMutation<ResponseCreateUser, ICreateUser>(typesQueriesUser.CREATE_USER);
+	const [queryCreateUser, { loading: loadingCreateUser }] = useMutation<ResponseCreateUser, ICreateUser>(typesQueriesUser.CREATE_USER);
+	const [queryLogin, { loading: loadingLogin }] = useMutation<ResponseLogin, ILogin>(typesQueriesUser.LOGIN);
 
-	const createUser = async ({ email, password }: IUser) => {
+	const requestCreateUser = async ({ email, password }: IUser) => {
 		try {
 			const { data } = await queryCreateUser({ variables: { createUser: { email, password } } });
 			const [successCode] = data!.createUser.message.split(': ');
@@ -20,5 +21,17 @@ export const useQueriesUser = () => {
 		}
 	};
 
-	return { createUser, loading };
+	const requestLogin = async ({ email, password }: IUser) => {
+		try {
+			const { data } = await queryLogin({ variables: { login: { email, password } } });
+			const [successCode] = data!.login.message.split(': ');
+			return { data: Success[successCode as keyof typeof Success], token: data!.login.token };
+		} catch (error: any) {
+			const [errorCode, errorMessage] = error.message.split(': ');
+			console.log({ errorMessage });
+			return { error: Errors[errorCode as keyof typeof Errors] ?? Errors.default };
+		}
+	};
+
+	return { requestCreateUser, loadingCreateUser, requestLogin, loadingLogin };
 };

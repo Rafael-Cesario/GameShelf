@@ -3,10 +3,18 @@ import { useState } from 'react';
 import produce from 'immer';
 import { IFormProps, LoginFields } from './interfaces/forms';
 import { Field } from './field';
+import { useNotification } from '@/utils/useNotification';
+import { useQueriesUser } from './hooks/useQueriesUser';
+import { Loading } from '@/components/loading';
+import { useRouter } from 'next/router';
+import { storageKeys } from '@/interfaces/interfaceStorageKeys';
 
 export const Login = ({ props: { setFormName } }: IFormProps) => {
 	const defaultValues = { email: '', password: '' };
 	const [formValues, setFormValues] = useState({ fields: defaultValues, errors: defaultValues });
+	const { loadingLogin, requestLogin } = useQueriesUser();
+	const { sendNotification } = useNotification();
+	const router = useRouter();
 
 	const changeValue = (newValue: string, fieldName: string) => {
 		const newState = produce(formValues, (draft) => {
@@ -19,11 +27,52 @@ export const Login = ({ props: { setFormName } }: IFormProps) => {
 		setFormValues(newState);
 	};
 
+	const validateValues = () => {
+		const fields = Object.entries(formValues.fields);
+		const errors: typeof defaultValues = { email: '', password: '' };
+		let hasError = false;
+
+		fields.forEach(([key, value]) => {
+			if (!value) {
+				errors[key as keyof typeof errors] = `Este campo não pode ficar vazio`;
+				hasError = true;
+			}
+		});
+
+		return { hasError, errors };
+	};
+
+	const showErrors = (errors: typeof defaultValues) => {
+		const newState = produce(formValues, (draft) => {
+			draft.errors = errors;
+		});
+
+		setFormValues(newState);
+	};
+
+	const login = async (e: React.FormEvent) => {
+		e.preventDefault();
+
+		const { hasError, errors } = validateValues();
+		if (hasError) return showErrors(errors);
+
+		const { email, password } = formValues.fields;
+		const { data, token, error } = await requestLogin({ email, password });
+		if (error) return sendNotification('Erro', error);
+
+		const storageUser = { email, token };
+		localStorage.setItem(storageKeys.user, JSON.stringify(storageUser));
+
+		sendNotification('Sucesso', data!);
+		router.reload();
+	};
+
 	return (
 		<StyledForm>
+			{loadingLogin && <Loading />}
 			<h1 className="title">Login</h1>
 
-			<form>
+			<form onSubmit={(e) => login(e)}>
 				<Field
 					props={{
 						name: 'email',
