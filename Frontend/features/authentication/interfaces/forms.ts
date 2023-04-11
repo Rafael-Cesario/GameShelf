@@ -13,3 +13,13 @@ export interface ICreateAccount {
 	password: string;
 	confirmPassword: string;
 }
+
+export interface ILogin {
+	email: string;
+	password: string;
+}
+
+export interface FormValues {
+	fields: ICreateAccount;
+	errors: ICreateAccount;
+}
