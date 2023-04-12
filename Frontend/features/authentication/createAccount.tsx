@@ -1,15 +1,12 @@
-import { validateFields } from './utils/validateFields';
+import produce from 'immer';
+import { Validations } from './utils/validations';
 import { StyledForm } from './styles/styledForm';
 import { useState } from 'react';
 import { useQueriesUser } from './hooks/useQueriesUser';
 import { Loading } from '@/components/loading';
 import { useNotification } from '@/utils/useNotification';
-import { ICreateAccount, IFormProps } from './interfaces/forms';
+import { CreateAccountFields, ICreateAccount, IFormProps } from './interfaces/forms';
 import { Field } from './field';
-import { showErrors } from './utils/showErrors';
-import { clearInputs } from './utils/clearInputs';
-import { Validations } from './utils/validations';
-import produce from 'immer';
 
 export const CreateAccount = ({ props: { setFormName } }: IFormProps) => {
 	const { requestCreateUser, loadingCreateUser } = useQueriesUser();
@@ -20,21 +17,6 @@ export const CreateAccount = ({ props: { setFormName } }: IFormProps) => {
 		fields: defaultValues,
 		errors: defaultValues,
 	});
-
-	const createAccount = async (e: React.FormEvent) => {
-		e.preventDefault();
-
-		const { hasError, errors } = validateFields(formValues.fields);
-		if (hasError) return showErrors(errors, formValues, setFormValues);
-
-		const { email, password } = formValues.fields;
-		const { error, data } = await requestCreateUser({ email, password });
-		if (error) return sendNotification('Erro', error);
-
-		setFormName('login');
-		sendNotification('Sucesso', data!);
-		clearInputs(formValues, setFormValues, defaultValues);
-	};
 
 	const changeValue = (newValue: string, fieldName: string) => {
 		const validations = new Validations();
@@ -50,6 +32,55 @@ export const CreateAccount = ({ props: { setFormName } }: IFormProps) => {
 		});
 
 		setFormValues(newState);
+	};
+
+	const clearInputs = () => {
+		setFormValues(
+			produce(formValues, (draft) => {
+				draft.fields = defaultValues;
+			})
+		);
+	};
+
+	const showErrors = (errors: ICreateAccount) => {
+		const newState = produce(formValues, (draft) => {
+			draft.errors = errors;
+		});
+
+		setFormValues(newState);
+	};
+
+	const validateFields = () => {
+		const validations = new Validations();
+		const entries = Object.entries(formValues.fields);
+		const errors: ICreateAccount = { email: '', name: '', password: '', confirmPassword: '' };
+		let hasError = false;
+
+		entries.forEach(([key, value]) => {
+			const invalidField = validations[key as CreateAccountFields](value, formValues.fields.password);
+
+			if (invalidField) {
+				hasError = true;
+				errors[key as CreateAccountFields] = invalidField;
+			}
+		});
+
+		return { errors, hasError };
+	};
+
+	const createAccount = async (e: React.FormEvent) => {
+		e.preventDefault();
+
+		const { hasError, errors } = validateFields();
+		if (hasError) return showErrors(errors);
+
+		const { email, password } = formValues.fields;
+		const { error, data } = await requestCreateUser({ email, password });
+		if (error) return sendNotification('Erro', error);
+
+		setFormName('login');
+		sendNotification('Sucesso', data!);
+		clearInputs();
 	};
 
 	return (
