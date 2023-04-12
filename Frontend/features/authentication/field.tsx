@@ -8,10 +8,19 @@ export const Field = ({ props: { name, type, placeholder, error, value, changeVa
 
 	return (
 		<StyledField>
-			<label htmlFor={name}>{error}</label>
+			<label role="label" htmlFor={name}>
+				{error}
+			</label>
 
 			<div className="input">
-				<input type={currentType} id={name} placeholder={placeholder} value={value} onChange={(e) => changeValue(e.target.value, name)} />
+				<input
+					role="input"
+					type={currentType}
+					id={name}
+					placeholder={placeholder}
+					value={value}
+					onChange={(e) => changeValue(e.target.value, name)}
+				/>
 				{type === 'password' && currentType === 'password' && <AiFillEyeInvisible onClick={() => setCurrentType('text')} className="icon" />}
 				{type === 'password' && currentType === 'text' && <AiFillEye onClick={() => setCurrentType('password')} className="icon" />}
 			</div>

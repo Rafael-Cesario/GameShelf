@@ -97,7 +97,7 @@ export const Login = ({ props: { setFormName } }: IFormProps) => {
 					}}
 				/>
 
-				<button>Entrar</button>
+				<button role="login">Entrar</button>
 			</form>
 
 			<button role="change-form" onClick={() => setFormName('create')} className="change-form">

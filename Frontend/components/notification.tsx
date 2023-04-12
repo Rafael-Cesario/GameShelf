@@ -5,7 +5,7 @@ export const Notification = () => {
 	const { txt, type, closeNotification } = useNotification();
 
 	return (
-		<StyledNotification type={type}>
+		<StyledNotification type={type} role="notification">
 			<button className="close" onClick={() => closeNotification()}>
 				x
 			</button>
