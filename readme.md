@@ -10,11 +10,11 @@ Here you can save the games you want to play or games that you played, think of 
 
 ###### Frontend
 
-- High order component for private routes.
-- Styled-components, theme provider, pattern to add new themes.
-- Redux Store, slices: notification.
 - Pages: Authentication.
-- Form Validations.
+- Styled-components, theme provider, pattern to add new themes.
+- High order component for private routes.
+- Redux Store, slices: notification.
+- Forms: login and createAccount.
 
 ###### Backend
 

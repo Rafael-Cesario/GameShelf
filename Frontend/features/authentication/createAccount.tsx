@@ -86,7 +86,9 @@ export const CreateAccount = ({ props: { setFormName } }: IFormProps) => {
 	return (
 		<StyledForm>
 			{loadingCreateUser && <Loading />}
-			<h1 className="title">Criar conta</h1>
+			<h1 role="title" className="title">
+				Criar conta
+			</h1>
 
 			<form onSubmit={(e) => createAccount(e)}>
 				<Field
@@ -136,7 +138,7 @@ export const CreateAccount = ({ props: { setFormName } }: IFormProps) => {
 				<button>Criar conta</button>
 			</form>
 
-			<button onClick={() => setFormName('login')} className="change-form">
+			<button role="change-form" onClick={() => setFormName('login')} className="change-form">
 				Voltar para a tela de login
 			</button>
 		</StyledForm>
