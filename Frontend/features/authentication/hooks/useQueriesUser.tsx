@@ -27,8 +27,8 @@ export const useQueriesUser = () => {
 			const [successCode] = data!.login.message.split(': ');
 			return { data: Success[successCode as keyof typeof Success], token: data!.login.token };
 		} catch (error: any) {
-			const [errorCode, errorMessage] = error.message.split(': ');
-			console.log({ errorMessage });
+			console.log({ error: error.message });
+			const [errorCode] = error.message.split(': ');
 			return { error: Errors[errorCode as keyof typeof Errors] ?? Errors.default };
 		}
 	};
