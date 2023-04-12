@@ -12,7 +12,7 @@ export const Field = ({ props: { name, type, placeholder, error, value, changeVa
 				{error}
 			</label>
 
-			<div className="input">
+			<div role="field" className="input">
 				<input
 					role="input"
 					type={currentType}
