@@ -14,14 +14,14 @@ Here you can save the games you want to play or games that you played, think of 
 - Styled-components, theme provider, pattern to add new themes.
 - High order component for private routes.
 - Redux Store, slices: notification.
-- Forms: login and createAccount.
+- Forms: login and createAccount. Validations.
+- Tests, MockServiceWorker, vitest, react-testing-library.
 
 ###### Backend
 
 - Create User, Login, getUser, validateToken.
-- Password with bcrypt
-- Authentication with jwt
-- Tests
+- Password with bcrypt, authentication with jwt.
+- Tests, supertest-graphql.
 
 </br>
 
