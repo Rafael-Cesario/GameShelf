@@ -135,7 +135,7 @@ export const CreateAccount = ({ props: { setFormName } }: IFormProps) => {
 					}}
 				/>
 
-				<button>Criar conta</button>
+				<button role="submit">Criar conta</button>
 			</form>
 
 			<button role="change-form" onClick={() => setFormName('login')} className="change-form">

@@ -74,4 +74,47 @@ describe('Authentication page', () => {
 		expect(notificationType).toHaveTextContent('Sucesso');
 		expect(notificationText).toHaveTextContent('Login efetuado com sucesso, boas vindas');
 	});
+
+	it('Show a notification, email is duplicated', async () => {
+		await user.click(screen.getByRole('change-form'));
+
+		const [email, name, password, confirmPassword] = screen.getAllByRole('input');
+		await user.type(email, 'wrong@hotmail.com');
+		await user.type(name, 'qweqwe');
+		await user.type(password, 'QWEqwe123123');
+		await user.type(confirmPassword, 'QWEqwe123123');
+
+		const submitButton = screen.getByRole('submit');
+		await user.click(submitButton);
+
+		const notification = screen.getByRole('notification');
+		const notificationType = notification.querySelector('.title');
+		const notificationText = notification.querySelector('.txt');
+
+		expect(notificationType).toHaveTextContent('Erro');
+		expect(notificationText).toHaveTextContent('Este email já esta sendo usado');
+	});
+
+	it('Show a notification, new user created', async () => {
+		await user.click(screen.getByRole('change-form'));
+
+		const [email, name, password, confirmPassword] = screen.getAllByRole('input');
+		await user.type(email, 'qwe@hotmail.com');
+		await user.type(name, 'qweqwe');
+		await user.type(password, 'QWEqwe123123');
+		await user.type(confirmPassword, 'QWEqwe123123');
+
+		const submitButton = screen.getByRole('submit');
+		await user.click(submitButton);
+
+		const notification = screen.getByRole('notification');
+		const notificationType = notification.querySelector('.title');
+		const notificationText = notification.querySelector('.txt');
+
+		expect(notificationType).toHaveTextContent('Sucesso');
+		expect(notificationText).toHaveTextContent('Novo usuário criado com sucesso, você já pode fazer login');
+
+		const title = screen.getByRole('title');
+		expect(title).toHaveTextContent('Login');
+	});
 });
