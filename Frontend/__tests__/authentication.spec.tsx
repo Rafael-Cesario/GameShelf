@@ -2,12 +2,11 @@ import '@testing-library/jest-dom';
 import Authentication from '@/pages/authentication';
 import userEvent from '@testing-library/user-event';
 import { cleanup, render, screen } from '@testing-library/react';
-import { describe, it, expect, vi, beforeAll, afterAll } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { Provider } from 'react-redux';
 import { store } from '@/context/store';
 import { ApolloProvider } from '@apollo/client';
 import { client } from '@/services/client';
-import { server } from '@/services/mocks/server';
 
 vi.mock('next/router', () => ({
 	useRouter: () => ({

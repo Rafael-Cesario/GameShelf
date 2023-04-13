@@ -5,7 +5,7 @@ import { IErrors, ISuccess } from '@/interfaces/interfaceResponses';
 export const handlers = [
 	graphql.mutation('Login', (req, res, ctx) => {
 		const { login } = req.variables as ILogin;
-		const { email, password } = login;
+		const { email } = login;
 
 		if (email === 'wrong') {
 			const errorCode: keyof IErrors = 'authentication';
