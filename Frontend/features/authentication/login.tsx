@@ -1,6 +1,6 @@
+import produce from 'immer';
 import { StyledForm } from './styles/styledForm';
 import { useState } from 'react';
-import produce from 'immer';
 import { IFormProps, LoginFields } from './interfaces/forms';
 import { Field } from './field';
 import { useNotification } from '@/utils/useNotification';

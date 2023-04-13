@@ -10,7 +10,9 @@ import { client } from '@/services/client';
 import { server } from '@/services/mocks/server';
 
 vi.mock('next/router', () => ({
-	useRouter: vi.fn(),
+	useRouter: () => ({
+		reload: vi.fn(),
+	}),
 }));
 
 const renderComponent = () => {
@@ -43,18 +45,10 @@ describe('Authentication page', () => {
 		expect(title).toHaveTextContent('Login');
 	});
 
-	// todo > unit test
-	it('Show errors if user click on the submit button without filling the inptus', async () => {
-		await user.click(screen.getByRole('login'));
-
-		const label = screen.getAllByRole('label')[0];
-		expect(label).toHaveTextContent('Este campo não pode ficar vazio');
-	});
-
 	it('Show a notification if password or email is wrong', async () => {
 		const [email, password] = screen.getAllByRole('input');
 
-		await user.type(email, 'qwe');
+		await user.type(email, 'wrong');
 		await user.type(password, '123');
 		await user.click(screen.getByRole('login'));
 
@@ -64,5 +58,20 @@ describe('Authentication page', () => {
 
 		expect(notificationType).toHaveTextContent('Erro');
 		expect(notificationText).toHaveTextContent('Seu email ou sua senha não estão corretos');
+	});
+
+	it('Show a notification if login is successful', async () => {
+		const [email, password] = screen.getAllByRole('input');
+
+		await user.type(email, 'qwe@qwe.com');
+		await user.type(password, '123');
+		await user.click(screen.getByRole('login'));
+
+		const notification = screen.getByRole('notification');
+		const notificationType = notification.querySelector('.title');
+		const notificationText = notification.querySelector('.txt');
+
+		expect(notificationType).toHaveTextContent('Sucesso');
+		expect(notificationText).toHaveTextContent('Login efetuado com sucesso, boas vindas');
 	});
 });
