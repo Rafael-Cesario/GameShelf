@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import { describe, it, expect, beforeAll, afterAll, afterEach } from 'vitest';
-import { IAddMarker } from '../../interfaces/interfacesMarkers';
 import { startServer } from '../../server';
 import { startDatabase } from '../../database';
 import { ModelMarkers } from '../../models/modelMarkers';
@@ -26,8 +25,11 @@ describe('Add markers', () => {
 	});
 
 	it('Add a new marker', async () => {
-		const variables: IAddMarker = { addMarker: { email: defaultUser.email, name: 'marker01' } };
-		const { response } = await queriesMarkers.addMarker(url, variables);
-		expect(response).toEqual({ newMarkers: ['marker01'] });
+		const marker = { name: 'marker01', filters: { tags: ['tag01'], genre: ['genre01'], rate: ['rate01'] } };
+		const { response } = await queriesMarkers.addMarker(url, {
+			addMarker: { email: defaultUser.email, ...marker },
+		});
+
+		expect(response).toEqual({ newMarkers: [marker] });
 	});
 });

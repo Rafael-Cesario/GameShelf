@@ -15,9 +15,16 @@ export class QueriesMarkers {
 }
 
 const ADD_MARKER = gql`
-	mutation AddMarker($addMarker: AddMarker!) {
+	mutation AddMarker($addMarker: IAddMarker!) {
 		addMarker(addMarker: $addMarker) {
-			newMarkers
+			newMarkers {
+				name
+				filters {
+					tags
+					genre
+					rate
+				}
+			}
 		}
 	}
 `;
