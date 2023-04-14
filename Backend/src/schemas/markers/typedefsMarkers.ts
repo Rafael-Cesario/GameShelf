@@ -1,31 +1,34 @@
 import gql from 'graphql-tag';
 
 export const typedefsMarkers = gql`
-	# type Games {
-	# 	user: String!
-	# 	markers: [String]!
-	# 	games: [String]!
-	# }
-
-	# type Game {
-	# 	name: String!
-	# 	genre: String!
-	# 	rate: String!
-	# 	release: String!
-	# 	category: [String]!
-	# 	tags: [String]!
-	# }
-
-	type ResponseAddMarker {
-		newMarkers: [String]!
+	type Filters {
+		tags: [String]!
+		genre: [String]!
+		rate: [String]!
 	}
 
-	input AddMarker {
+	type Marker {
+		name: String!
+		filters: Filters!
+	}
+
+	type ResponseAddMarker {
+		newMarkers: [Marker]!
+	}
+
+	input IFilters {
+		tags: [String]!
+		genre: [String]!
+		rate: [String]!
+	}
+
+	input IAddMarker {
 		email: String!
 		name: String!
+		filters: IFilters!
 	}
 
 	type Mutation {
-		addMarker(addMarker: AddMarker!): ResponseAddMarker!
+		addMarker(addMarker: IAddMarker!): ResponseAddMarker!
 	}
 `;
