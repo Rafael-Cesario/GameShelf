@@ -1,10 +1,17 @@
 import { GraphQLError } from 'graphql';
-import { IAddMarker } from '../interfaces/interfacesMarkers';
+import { IAddMarker, IGetMarkers } from '../interfaces/interfacesMarkers';
 import { searchForEmptyValues } from '../utils/emptyValues';
 import { Errors } from '../interfaces/interfaceResponses';
 import { ModelMarkers } from '../models/modelMarkers';
 
 export class ServicesMarkers {
+	async getMarkers({ email }: IGetMarkers) {
+		if (!email) throw new GraphQLError(`${Errors.emptyVariable}Email was not provided`);
+		const user = await ModelMarkers.findOne({ email });
+		const markers = { markers: user ? user.markers : [] };
+		return markers;
+	}
+
 	async addMarker({ addMarker }: IAddMarker) {
 		const { email, name, filters } = addMarker;
 

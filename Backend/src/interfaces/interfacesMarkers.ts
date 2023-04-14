@@ -15,3 +15,7 @@ export interface ResponseAddMarker {
 		newMarkers: string[];
 	};
 }
+
+export interface IGetMarkers {
+	email: string;
+}
