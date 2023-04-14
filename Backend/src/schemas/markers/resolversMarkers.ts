@@ -1,4 +1,4 @@
-import { IAddMarker, IGetMarkers } from '../../interfaces/interfacesMarkers';
+import { IAddMarker, IGetMarkers, IUpdateMarker } from '../../interfaces/interfacesMarkers';
 import { ServicesMarkers } from '../../services/servicesMarkers';
 
 const servicesMarkers = new ServicesMarkers();
@@ -10,5 +10,6 @@ export const resolversMarkers = {
 
 	Mutation: {
 		addMarker: (parent: never, variables: IAddMarker) => servicesMarkers.addMarker(variables),
+		updateMarker:(parent:never, variables: IUpdateMarker) => servicesMarkers.updateMarker(variables),
 	},
 };

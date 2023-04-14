@@ -4,6 +4,7 @@ export interface IErrors {
 	duplicatedUser: string;
 	duplicatedMarker: string;
 	authentication: string;
+	markerNotFound: string;
 }
 
 export const Errors: IErrors = {
@@ -12,6 +13,7 @@ export const Errors: IErrors = {
 	duplicatedUser: 'duplicatedUser: This email is already in use.',
 	authentication: 'authentication: Email/Password is wrong.',
 	duplicatedMarker: 'duplicatedMarker: A marker with the same name already exist',
+	markerNotFound: 'markerNotFound: A marker with this name was not found',
 };
 
 export interface ISuccess {

@@ -1,5 +1,5 @@
-import { GraphQLError } from 'graphql';
-import { IAddMarker, IGetMarkers } from '../interfaces/interfacesMarkers';
+import { GraphQLError, graphql } from 'graphql';
+import { IAddMarker, IGetMarkers, IUpdateMarker } from '../interfaces/interfacesMarkers';
 import { searchForEmptyValues } from '../utils/emptyValues';
 import { Errors } from '../interfaces/interfaceResponses';
 import { ModelMarkers } from '../models/modelMarkers';
@@ -28,5 +28,26 @@ export class ServicesMarkers {
 		await user.save();
 
 		return { newMarkers: user.markers };
+	}
+
+	async updateMarker({ updateMarker }: IUpdateMarker) {
+		const { email, name, update } = updateMarker;
+
+		const hasEmptyValues = searchForEmptyValues(updateMarker);
+		if (hasEmptyValues) throw new GraphQLError(`${Errors.emptyVariable}${hasEmptyValues}`);
+
+		const user = await ModelMarkers.findOne({ email });
+		if (!user) throw new GraphQLError(Errors.userNotFound);
+
+		const markerIndex = user.markers.findIndex((marker) => marker.name === name);
+		if (markerIndex < 0) throw new GraphQLError(Errors.markerNotFound);
+
+		const marker = user.markers[markerIndex];
+		marker.name = update.name || marker.name;
+		marker.filters = update.filters;
+		user.markers[markerIndex] = marker;
+
+		await user.save();
+		return { newMarker: marker };
 	}
 }
