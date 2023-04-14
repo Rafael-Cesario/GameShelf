@@ -4,3 +4,9 @@ export interface IAddMarker {
 		name: string;
 	};
 }
+
+export interface ResponseAddMarker {
+	addMarker: {
+		newMarkers: string[];
+	};
+}
