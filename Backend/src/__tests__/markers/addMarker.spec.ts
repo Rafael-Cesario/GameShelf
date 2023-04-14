@@ -24,32 +24,56 @@ describe('Add markers', () => {
 		await mongoose.connection.close();
 	});
 
-	it('Add a new marker', async () => {
-		const marker = { name: 'marker01', filters: { tags: ['tag01'], genre: ['genre01'], rate: ['rate01'] } };
-		const { response } = await queriesMarkers.addMarker(url, {
-			addMarker: { email: defaultUser.email, ...marker },
+	describe('Add markers', () => {
+		it('Add a new marker', async () => {
+			const marker = { name: 'marker01', filters: { tags: ['tag01'], genre: ['genre01'], rate: ['rate01'] } };
+			const { response } = await queriesMarkers.addMarker(url, {
+				addMarker: { email: defaultUser.email, ...marker },
+			});
+
+			expect(response).toEqual({ newMarkers: [marker] });
 		});
 
-		expect(response).toEqual({ newMarkers: [marker] });
+		it('throws a error, emptyVariables', async () => {
+			const marker = { name: '', filters: { tags: [], genre: [], rate: [] } };
+			const { error } = await queriesMarkers.addMarker(url, {
+				addMarker: { email: '', ...marker },
+			});
+
+			expect(error).toMatch(/emptyVariable/);
+		});
+
+		it('Throws a error, duplicatedMarker', async () => {
+			const marker = { name: 'helloAgain', filters: { tags: [], genre: [], rate: [] } };
+			await queriesMarkers.addMarker(url, { addMarker: { email: defaultUser.email, ...marker } });
+
+			const { error } = await queriesMarkers.addMarker(url, {
+				addMarker: { email: defaultUser.email, ...marker },
+			});
+
+			expect(error).toMatch(/duplicatedMarker/);
+		});
 	});
 
-	it('throws a error, emptyVariables', async () => {
-		const marker = { name: '', filters: { tags: [], genre: [], rate: [] } };
-		const { error } = await queriesMarkers.addMarker(url, {
-			addMarker: { email: '', ...marker },
+	describe('Get markers', () => {
+		it('return markers', async () => {
+			const marker = { name: 'marker01', filters: { tags: [], genre: [], rate: [] } };
+			await queriesMarkers.addMarker(url, { addMarker: { email: defaultUser.email, ...marker } });
+
+			const { response } = await queriesMarkers.getMarkers(url, { email: defaultUser.email });
+
+			expect(response?.markers.length).toBe(1);
+			expect(response?.markers[0]).toEqual(marker);
 		});
 
-		expect(error).toMatch(/emptyVariable/);
-	});
-
-	it('Throws a error, duplicatedMarker', async () => {
-		const marker = { name: 'helloAgain', filters: { tags: [], genre: [], rate: [] } };
-		await queriesMarkers.addMarker(url, { addMarker: { email: defaultUser.email, ...marker } });
-
-		const { error } = await queriesMarkers.addMarker(url, {
-			addMarker: { email: defaultUser.email, ...marker },
+		it('Throws a error, emptyVariables', async () => {
+			const { error } = await queriesMarkers.getMarkers(url, { email: '' });
+			expect(error).toMatch(/emptyVariable/);
 		});
 
-		expect(error).toMatch(/duplicatedMarker/);
+		it('Returns a empty array', async () => {
+			const { response } = await queriesMarkers.getMarkers(url, { email: defaultUser.email });
+			expect(response?.markers).toEqual([]);
+		});
 	});
 });

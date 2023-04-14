@@ -19,3 +19,9 @@ export interface ResponseAddMarker {
 export interface IGetMarkers {
 	email: string;
 }
+
+export interface ResponseGetMarkers {
+	getMarkers: {
+		markers: string[];
+	};
+}
