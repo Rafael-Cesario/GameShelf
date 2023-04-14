@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { describe, it, expect, afterAll, afterEach, beforeAll } from 'vitest';
 import { startDatabase } from '../../database';
 import { startServer } from '../../server';
-import { Errors } from '../../utils/responses';
+import { Errors } from '../../interfaces/interfaceResponses';
 import { QueriesUser } from './queries/queries';
 
 describe('Create user', () => {

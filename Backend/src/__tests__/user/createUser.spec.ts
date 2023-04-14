@@ -4,7 +4,7 @@ import { startServer } from '../../server';
 import { startDatabase } from '../../database';
 import { QueriesUser } from './queries/queries';
 import { ModelUser } from '../../models/modelUser';
-import { Errors, Success } from '../../utils/responses';
+import { Errors, Success } from '../../interfaces/interfaceResponses';
 
 describe('Create user', () => {
 	const defaultUser = { email: 'teste@teste.com', password: '123123' };
