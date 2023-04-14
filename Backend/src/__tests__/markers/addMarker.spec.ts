@@ -32,4 +32,24 @@ describe('Add markers', () => {
 
 		expect(response).toEqual({ newMarkers: [marker] });
 	});
+
+	it('throws a error, emptyVariables', async () => {
+		const marker = { name: '', filters: { tags: [], genre: [], rate: [] } };
+		const { error } = await queriesMarkers.addMarker(url, {
+			addMarker: { email: '', ...marker },
+		});
+
+		expect(error).toMatch(/emptyVariable/);
+	});
+
+	it('Throws a error, duplicatedMarker', async () => {
+		const marker = { name: 'helloAgain', filters: { tags: [], genre: [], rate: [] } };
+		await queriesMarkers.addMarker(url, { addMarker: { email: defaultUser.email, ...marker } });
+
+		const { error } = await queriesMarkers.addMarker(url, {
+			addMarker: { email: defaultUser.email, ...marker },
+		});
+
+		expect(error).toMatch(/duplicatedMarker/);
+	});
 });
