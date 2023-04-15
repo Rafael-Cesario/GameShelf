@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 import { describe, it, expect, beforeAll, afterAll, afterEach } from 'vitest';
-import { startServer } from '../../server';
-import { startDatabase } from '../../database';
-import { ModelMarkers } from '../../models/modelMarkers';
-import { QueriesMarkers } from '../__queries__/queriesMarkers';
+import { startServer } from '../server';
+import { startDatabase } from '../database';
+import { ModelMarkers } from '../models/modelMarkers';
+import { QueriesMarkers } from './__queries__/queriesMarkers';
 
-describe('Add markers', () => {
+describe('Markers', () => {
 	const queriesMarkers = new QueriesMarkers();
 	const defaultUser = { email: 'qwe@qwe.com' };
 	let url: string;
