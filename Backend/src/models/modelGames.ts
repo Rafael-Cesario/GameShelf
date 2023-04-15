@@ -9,9 +9,6 @@ class Games {
 
 	@prop({ type: mongoose.Schema.Types.Array })
 	games!: Game[];
-
-	@prop({ type: mongoose.Schema.Types.Map })
-	filters!: Filters;
 }
 
 @index({ name: 1 }, { unique: true })
@@ -23,13 +20,10 @@ class Game {
 	release!: string;
 
 	@prop({ type: String, lowercase: true })
-	category!: string[];
+	genre!: string[];
 
 	@prop({ type: String, lowercase: true })
 	tags!: string[];
-
-	@prop({ type: String, lowercase: true })
-	genre!: string;
 
 	@prop({ type: String, lowercase: true })
 	rate!: string;

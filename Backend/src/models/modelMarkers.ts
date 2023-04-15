@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import { index, prop, getModelForClass, PropType } from '@typegoose/typegoose';
-import { Filters } from './modelFilters';
 
 @index({ email: 1 }, { unique: true })
 class Markers {
@@ -17,6 +16,17 @@ class Marker {
 
 	@prop({ type: mongoose.Schema.Types.Map }, PropType.ARRAY)
 	filters!: Filters;
+}
+
+class Filters {
+	@prop({ type: String, lowercase: true }, PropType.ARRAY)
+	tags!: string[];
+
+	@prop({ type: String, lowercase: true }, PropType.ARRAY)
+	genre!: string[];
+
+	@prop({ type: String, lowercase: true }, PropType.ARRAY)
+	rate!: string[];
 }
 
 export const ModelMarkers = getModelForClass(Markers);
