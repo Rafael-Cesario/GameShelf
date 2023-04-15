@@ -1,5 +1,12 @@
 import request from 'supertest-graphql';
-import { IAddMarker, IGetMarkers, ResponseAddMarker, ResponseGetMarkers } from '../../interfaces/interfacesMarkers';
+import {
+	IAddMarker,
+	IGetMarkers,
+	IUpdateMarker,
+	ResponseAddMarker,
+	ResponseGetMarkers,
+	ResponseUpdateMarker,
+} from '../../interfaces/interfacesMarkers';
 import gql from 'graphql-tag';
 
 export class QueriesMarkers {
@@ -19,6 +26,16 @@ export class QueriesMarkers {
 			.variables({ ...variables });
 
 		const response = data?.getMarkers;
+		const error = errors?.[0].message;
+		return { response, error };
+	}
+
+	async updateMarker(url: string, variables: IUpdateMarker) {
+		const { data, errors } = await request<ResponseUpdateMarker>(url)
+			.mutate(UPDATE_MARKER)
+			.variables({ ...variables });
+
+		const response = data?.updateMarker;
 		const error = errors?.[0].message;
 		return { response, error };
 	}
@@ -43,6 +60,21 @@ const GET_MARKERS = gql`
 	query GetMarkers($email: String!) {
 		getMarkers(email: $email) {
 			markers {
+				name
+				filters {
+					tags
+					genre
+					rate
+				}
+			}
+		}
+	}
+`;
+
+const UPDATE_MARKER = gql`
+	mutation UpdateMarker($updateMarker: IUpdateMarker!) {
+		updateMarker(updateMarker: $updateMarker) {
+			newMarker {
 				name
 				filters {
 					tags

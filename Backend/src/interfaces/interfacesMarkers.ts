@@ -1,4 +1,4 @@
-interface Marker {
+export interface IMarker {
 	name: string;
 	filters: {
 		tags: string[];
@@ -39,10 +39,12 @@ export interface IUpdateMarker {
 	updateMarker: {
 		email: string;
 		name: string;
-		update: Marker;
+		update: IMarker;
 	};
 }
 
 export interface ResponseUpdateMarker {
-	newMarker: Marker;
+	updateMarker: {
+		newMarker: IMarker;
+	};
 }

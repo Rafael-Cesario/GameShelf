@@ -4,6 +4,7 @@ import { startServer } from '../server';
 import { startDatabase } from '../database';
 import { ModelMarkers } from '../models/modelMarkers';
 import { QueriesMarkers } from './__queries__/queriesMarkers';
+import { IMarker } from '../interfaces/interfacesMarkers';
 
 describe('Markers', () => {
 	const queriesMarkers = new QueriesMarkers();
@@ -74,6 +75,25 @@ describe('Markers', () => {
 		it('Returns a empty array', async () => {
 			const { response } = await queriesMarkers.getMarkers(url, { email: defaultUser.email });
 			expect(response?.markers).toEqual([]);
+		});
+	});
+
+	describe('Update marker', () => {
+		it('Update marker', async () => {
+			const marker: IMarker = { name: 'marker01', filters: { genre: [], rate: [], tags: [] } };
+			const newMarker: IMarker = { name: 'newName', filters: { tags: ['tag01'], rate: ['rate01'], genre: ['genre01'] } };
+
+			await queriesMarkers.addMarker(url, { addMarker: { email: defaultUser.email, ...marker } });
+
+			const { response } = await queriesMarkers.updateMarker(url, {
+				updateMarker: {
+					email: defaultUser.email,
+					name: marker.name,
+					update: newMarker,
+				},
+			});
+
+			expect(response).toEqual({ newMarker });
 		});
 	});
 });
