@@ -48,3 +48,16 @@ export interface ResponseUpdateMarker {
 		newMarker: IMarker;
 	};
 }
+
+export interface IDeleteMarker {
+	deleteMarker: {
+		email: string;
+		name: string;
+	};
+}
+
+export interface ResponseDeleteMarker {
+	deleteMarker: {
+		message: string;
+	};
+}

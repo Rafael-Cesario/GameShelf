@@ -24,6 +24,10 @@ export const typedefsMarkers = gql`
 		newMarker: Marker!
 	}
 
+	type ResponseDeleteMarker {
+		message: String!
+	}
+
 	input IFilters {
 		tags: [String]!
 		genre: [String]!
@@ -47,6 +51,11 @@ export const typedefsMarkers = gql`
 		update: IMarker!
 	}
 
+	input IDeleteMarker {
+		email: String!
+		name: String!
+	}
+
 	type Query {
 		getMarkers(email: String!): ResponseGetMarkers!
 	}
@@ -54,5 +63,6 @@ export const typedefsMarkers = gql`
 	type Mutation {
 		addMarker(addMarker: IAddMarker!): ResponseAddMarker!
 		updateMarker(updateMarker: IUpdateMarker!): ResponseUpdateMarker!
+		deleteMarker(deleteMarker: IDeleteMarker!): ResponseDeleteMarker!
 	}
 `;

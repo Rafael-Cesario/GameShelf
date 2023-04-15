@@ -1,5 +1,5 @@
 import { GraphQLError, graphql } from 'graphql';
-import { IAddMarker, IGetMarkers, IUpdateMarker } from '../interfaces/interfacesMarkers';
+import { IAddMarker, IDeleteMarker, IGetMarkers, IUpdateMarker } from '../interfaces/interfacesMarkers';
 import { searchForEmptyValues } from '../utils/emptyValues';
 import { Errors } from '../interfaces/interfaceResponses';
 import { ModelMarkers } from '../models/modelMarkers';
@@ -49,5 +49,23 @@ export class ServicesMarkers {
 
 		await user.save();
 		return { newMarker: marker };
+	}
+
+	async deleteMarker({ deleteMarker }: IDeleteMarker) {
+		const hasEmptyValues = searchForEmptyValues(deleteMarker);
+		if (hasEmptyValues) throw new GraphQLError(Errors.emptyVariable + hasEmptyValues);
+
+		const { email, name } = deleteMarker;
+
+		const user = await ModelMarkers.findOne({ email });
+		if (!user) throw new GraphQLError(Errors.userNotFound);
+
+		const markerIndex = user.markers.findIndex((marker) => marker.name === name);
+		if (markerIndex < 0) throw new GraphQLError(Errors.markerNotFound);
+
+		user.markers.splice(markerIndex, 1);
+		await user.save();
+
+		return { message: `Marker ${name} was deleted` };
 	}
 }
