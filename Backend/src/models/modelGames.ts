@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { Filters } from './modelFilters';
 import { prop, getModelForClass, index } from '@typegoose/typegoose';
 
 @index({ user: 1 }, { unique: true })

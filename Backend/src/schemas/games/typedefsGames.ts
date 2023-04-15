@@ -14,16 +14,16 @@ export const typedefsGames = gql`
 		games: [Game]!
 	}
 
-	type ResponseAddGames {
-		game: Game!
+	type ResponseAddGame {
+		newGames: [Game]!
 	}
 
-	type ResponseRemoveGames {
+	type ResponseRemoveGame {
 		newGames: [Game]!
 	}
 
 	type ResponseUpdateGame {
-		updatedGame: Game!
+		newGames: [Game]!
 	}
 
 	input IAddGame {
