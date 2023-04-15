@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { Errors, Success } from '../interfaces/interfaceResponses';
+import { Errors, Success } from '../interfaces/IResponses';
 import { describe, it, expect, beforeAll, afterEach, afterAll } from 'vitest';
 import { QueriesUser } from './__queries__/queriesUser';
 import { startServer } from '../server';

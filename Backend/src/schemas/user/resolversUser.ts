@@ -1,4 +1,4 @@
-import { ICreateUser, IGetUser, ILogin, IValidateToken } from '../../interfaces/interfacesUser';
+import { ICreateUser, IGetUser, ILogin, IValidateToken } from '../../interfaces/IUsers';
 import { ServicesUser } from '../../services/servicesUser';
 
 const servicesUser = new ServicesUser();

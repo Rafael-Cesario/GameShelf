@@ -1,4 +1,4 @@
-import { IAddMarker, IDeleteMarker, IGetMarkers, IUpdateMarker } from '../../interfaces/interfacesMarkers';
+import { IAddMarker, IDeleteMarker, IGetMarkers, IUpdateMarker } from '../../interfaces/IMarkers';
 import { ServicesMarkers } from '../../services/servicesMarkers';
 
 const servicesMarkers = new ServicesMarkers();

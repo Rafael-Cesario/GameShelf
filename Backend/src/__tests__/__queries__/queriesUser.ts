@@ -9,7 +9,7 @@ import {
 	ResponseGetUser,
 	ResponseLogin,
 	ResponseValidateToken,
-} from '../../interfaces/interfacesUser';
+} from '../../interfaces/IUsers';
 
 export class QueriesUser {
 	async getUser(url: string, variables: IGetUser) {

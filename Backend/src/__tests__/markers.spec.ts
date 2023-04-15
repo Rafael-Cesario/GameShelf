@@ -4,8 +4,8 @@ import { startServer } from '../server';
 import { startDatabase } from '../database';
 import { ModelMarkers } from '../models/modelMarkers';
 import { QueriesMarkers } from './__queries__/queriesMarkers';
-import { IMarker } from '../interfaces/interfacesMarkers';
-import { Success } from '../interfaces/interfaceResponses';
+import { IMarker } from '../interfaces/IMarkers';
+import { Success } from '../interfaces/IResponses';
 
 describe('Markers', () => {
 	const queriesMarkers = new QueriesMarkers();

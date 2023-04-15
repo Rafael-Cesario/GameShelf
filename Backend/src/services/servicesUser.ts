@@ -1,10 +1,10 @@
 import { GraphQLError } from 'graphql';
-import { ICreateUser, IGetUser, ILogin, IValidateToken } from '../interfaces/interfacesUser';
+import { ICreateUser, IGetUser, ILogin, IValidateToken } from '../interfaces/IUsers';
 import { ModelUser } from '../models/modelUser';
 import { checkPassword } from '../utils/crypt';
 import { searchForEmptyValues } from '../utils/emptyValues';
 import { generateToken, verifyToken } from '../utils/token';
-import { Errors, Success } from '../interfaces/interfaceResponses';
+import { Errors, Success } from '../interfaces/IResponses';
 
 export class ServicesUser {
 	async getUser({ email }: IGetUser) {

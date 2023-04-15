@@ -8,7 +8,7 @@ import {
 	ResponseDeleteMarker,
 	ResponseGetMarkers,
 	ResponseUpdateMarker,
-} from '../../interfaces/interfacesMarkers';
+} from '../../interfaces/IMarkers';
 import gql from 'graphql-tag';
 
 export class QueriesMarkers {

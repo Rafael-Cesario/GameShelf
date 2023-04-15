@@ -1,7 +1,7 @@
 import { GraphQLError, graphql } from 'graphql';
-import { IAddMarker, IDeleteMarker, IGetMarkers, IUpdateMarker } from '../interfaces/interfacesMarkers';
+import { IAddMarker, IDeleteMarker, IGetMarkers, IUpdateMarker } from '../interfaces/IMarkers';
 import { searchForEmptyValues } from '../utils/emptyValues';
-import { Errors, Success } from '../interfaces/interfaceResponses';
+import { Errors, Success } from '../interfaces/IResponses';
 import { ModelMarkers } from '../models/modelMarkers';
 
 export class ServicesMarkers {
