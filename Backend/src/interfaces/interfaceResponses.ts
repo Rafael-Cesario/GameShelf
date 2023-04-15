@@ -19,9 +19,11 @@ export const Errors: IErrors = {
 export interface ISuccess {
 	newUser: string;
 	login: string;
+	markerDeleted: string;
 }
 
 export const Success: ISuccess = {
 	newUser: 'newUser: A new user was created',
 	login: 'login: Everything is right, welcome back',
+	markerDeleted: 'markerDeleted: ',
 };

@@ -1,7 +1,7 @@
 import { GraphQLError, graphql } from 'graphql';
 import { IAddMarker, IDeleteMarker, IGetMarkers, IUpdateMarker } from '../interfaces/interfacesMarkers';
 import { searchForEmptyValues } from '../utils/emptyValues';
-import { Errors } from '../interfaces/interfaceResponses';
+import { Errors, Success } from '../interfaces/interfaceResponses';
 import { ModelMarkers } from '../models/modelMarkers';
 
 export class ServicesMarkers {
@@ -66,6 +66,6 @@ export class ServicesMarkers {
 		user.markers.splice(markerIndex, 1);
 		await user.save();
 
-		return { message: `Marker ${name} was deleted` };
+		return { message: `${Success.markerDeleted} Marker ${name} was deleted` };
 	}
 }

@@ -5,6 +5,7 @@ import { startDatabase } from '../database';
 import { ModelMarkers } from '../models/modelMarkers';
 import { QueriesMarkers } from './__queries__/queriesMarkers';
 import { IMarker } from '../interfaces/interfacesMarkers';
+import { Success } from '../interfaces/interfaceResponses';
 
 describe('Markers', () => {
 	const queriesMarkers = new QueriesMarkers();
@@ -94,6 +95,22 @@ describe('Markers', () => {
 			});
 
 			expect(response).toEqual({ newMarker });
+		});
+	});
+
+	describe('Delete marker', () => {
+		it('Delete a marker', async () => {
+			const marker: IMarker = { name: 'marker01', filters: { genre: [], rate: [], tags: [] } };
+			await queriesMarkers.addMarker(url, { addMarker: { email: defaultUser.email, ...marker } });
+
+			const { response } = await queriesMarkers.deleteMarker(url, {
+				deleteMarker: {
+					email: defaultUser.email,
+					name: marker.name,
+				},
+			});
+
+			expect(response).toEqual({ message: Success.markerDeleted + ' Marker marker01 was deleted' });
 		});
 	});
 });

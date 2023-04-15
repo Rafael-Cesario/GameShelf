@@ -1,9 +1,11 @@
 import request from 'supertest-graphql';
 import {
 	IAddMarker,
+	IDeleteMarker,
 	IGetMarkers,
 	IUpdateMarker,
 	ResponseAddMarker,
+	ResponseDeleteMarker,
 	ResponseGetMarkers,
 	ResponseUpdateMarker,
 } from '../../interfaces/interfacesMarkers';
@@ -36,6 +38,16 @@ export class QueriesMarkers {
 			.variables({ ...variables });
 
 		const response = data?.updateMarker;
+		const error = errors?.[0].message;
+		return { response, error };
+	}
+
+	async deleteMarker(url: string, variables: IDeleteMarker) {
+		const { data, errors } = await request<ResponseDeleteMarker>(url)
+			.mutate(DELETE_MARKER)
+			.variables({ ...variables });
+
+		const response = data?.deleteMarker;
 		const error = errors?.[0].message;
 		return { response, error };
 	}
@@ -82,6 +94,14 @@ const UPDATE_MARKER = gql`
 					rate
 				}
 			}
+		}
+	}
+`;
+
+const DELETE_MARKER = gql`
+	mutation DeleteMarker($deleteMarker: IDeleteMarker!) {
+		deleteMarker(deleteMarker: $deleteMarker) {
+			message
 		}
 	}
 `;
