@@ -7,7 +7,7 @@ export interface IGame {
 	genre: string[];
 }
 
-export interface IGetGame {
+export interface IGetGames {
 	email: string;
 }
 
@@ -15,7 +15,7 @@ export interface IAddGame {
 	addGame: { email: string; game: IGame };
 }
 
-export interface IRemoveGame {
+export interface IDeleteGame {
 	removeGame: { email: string; gameName: string };
 }
 
