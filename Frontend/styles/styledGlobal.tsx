@@ -11,6 +11,14 @@ export const StyledGlobal = createGlobalStyle`
     body {
         background-color: ${({ theme }) => theme.mainBackground};
         color: ${({ theme }) => theme.mainText};
+
+            ::-webkit-scrollbar {
+      background-color: ${({ theme }) => theme.mainBackground};
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: ${({ theme }) => theme.containerBackground};
+      border-radius: 3px;
+    }
     }
 
     button, input {

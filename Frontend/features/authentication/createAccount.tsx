@@ -79,7 +79,7 @@ export const CreateAccount = ({ props: { setFormName } }: IFormProps) => {
 		if (error) return sendNotification('Erro', error);
 
 		setFormName('login');
-		sendNotification('Sucesso', data!);
+		sendNotification('Sucesso', data || 'Conta criada');
 		clearInputs();
 	};
 
