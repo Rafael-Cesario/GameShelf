@@ -32,7 +32,24 @@ export class ServicesGames {
 		return { newGames: user.games };
 	}
 
-	async updateGame({ updateGame }: IUpdateGame) {}
+	async updateGame({ updateGame }: IUpdateGame) {
+		const hasEmptyValues = searchForEmptyValues(updateGame) + searchForEmptyValues(updateGame.update);
+		if (hasEmptyValues) throw new GraphQLError(Errors.emptyVariable + hasEmptyValues);
+
+		const { email, gameName, update } = updateGame;
+
+		const user = await ModelGames.findOne({ user: email });
+		if (!user) throw new GraphQLError(Errors.userNotFound);
+
+		const gameIndex = user.games.findIndex((game) => game.name === gameName);
+		if (gameIndex < 0) throw new GraphQLError(Errors.gameNotFound);
+
+		const newGameData = { ...user.games[gameIndex], ...update };
+		user.games[gameIndex] = newGameData;
+		await user.save();
+
+		return { newGames: user.games };
+	}
 
 	async removeGame({ removeGame }: IRemoveGame) {}
 }

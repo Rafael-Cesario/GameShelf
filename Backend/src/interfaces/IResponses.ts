@@ -6,6 +6,7 @@ export interface IErrors {
 	authentication: string;
 	markerNotFound: string;
 	duplicatedGame: string;
+	gameNotFound: string;
 }
 
 export const Errors: IErrors = {
@@ -16,6 +17,7 @@ export const Errors: IErrors = {
 	duplicatedMarker: 'duplicatedMarker: A marker with the same name already exist',
 	markerNotFound: 'markerNotFound: A marker with this name was not found',
 	duplicatedGame: 'duplicatedGame: Game already exist',
+	gameNotFound: 'gameNotFound: Game not found',
 };
 
 export interface ISuccess {
