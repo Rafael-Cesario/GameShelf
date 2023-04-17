@@ -28,7 +28,16 @@ export const typedefsGames = gql`
 
 	input IAddGame {
 		email: String!
-		game: Game!
+		game: IGame!
+	}
+
+	input IGame {
+		name: String!
+		release: String!
+		tags: [String]!
+		genre: [String]!
+		rate: String!
+		cover: String!
 	}
 
 	input IRemoveGame {

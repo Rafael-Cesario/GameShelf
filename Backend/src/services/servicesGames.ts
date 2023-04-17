@@ -1,4 +1,4 @@
-import { IAddGame, IDeleteGame, IGetGames, IUpdateGame } from '../interfaces/IGames';
+import { IAddGame, IRemoveGame, IGetGames, IUpdateGame } from '../interfaces/IGames';
 
 export class ServicesGames {
 	async getGames({ email }: IGetGames) {}
@@ -7,5 +7,5 @@ export class ServicesGames {
 
 	async updateGame({ updateGame }: IUpdateGame) {}
 
-	async deleteGame({ removeGame }: IDeleteGame) {}
+	async removeGame({ removeGame }: IRemoveGame) {}
 }

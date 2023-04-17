@@ -15,7 +15,7 @@ export interface IAddGame {
 	addGame: { email: string; game: IGame };
 }
 
-export interface IDeleteGame {
+export interface IRemoveGame {
 	removeGame: { email: string; gameName: string };
 }
 
