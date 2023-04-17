@@ -28,11 +28,11 @@ export interface ResponseGetGames {
 }
 
 export interface ResponseAddGame {
-	addGames: { newGames: IGame[] };
+	addGame: { newGames: IGame[] };
 }
 
 export interface ResponseRemoveGame {
-	removeGames: { newGames: IGame[] };
+	removeGame: { newGames: IGame[] };
 }
 
 export interface ResponseUpdateGame {
