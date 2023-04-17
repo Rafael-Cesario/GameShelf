@@ -1,9 +1,12 @@
 import { StyledGamesContainer } from './styles/styledGamesContainer';
 
 export const GamesContainer = () => {
+	const games = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}];
 	return (
 		<StyledGamesContainer>
-			<h1>GamesContainer</h1>
+			{games.map((game, index) => (
+				<div className="game" key={index}></div>
+			))}
 		</StyledGamesContainer>
 	);
 };
