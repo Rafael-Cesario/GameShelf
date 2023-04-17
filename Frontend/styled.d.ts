@@ -14,6 +14,7 @@ declare module 'styled-components' {
 		primary: string;
 		textRed: string;
 		textGreen: string;
+		textBlue: string;
 		padding: string;
 		boxShadow: string;
 	}

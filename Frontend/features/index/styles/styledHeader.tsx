@@ -4,5 +4,28 @@ export const StyledHeader = styled.div`
 	grid-column: 2;
 	margin: 1rem;
 	background-color: ${({ theme }) => theme.containerBackground};
-	border: 3px solid ${({ theme }) => theme.containerBorder};
+	border: 2px solid ${({ theme }) => theme.containerBorder};
+	padding: 1rem;
+
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+
+	.games-on-marker {
+		color: ${({ theme }) => theme.textBlue};
+		font-weight: bold;
+		margin: 0 0.5rem;
+	}
+
+	button {
+		background-color: transparent;
+		margin: 0 0.5rem;
+	}
+
+	.search {
+		margin: 0 1rem;
+		width: 30%;
+		padding: 0.6rem 1rem;
+	}
 `;
