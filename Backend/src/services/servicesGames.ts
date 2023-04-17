@@ -51,5 +51,21 @@ export class ServicesGames {
 		return { newGames: user.games };
 	}
 
-	async removeGame({ removeGame }: IRemoveGame) {}
+	async removeGame({ removeGame }: IRemoveGame) {
+		const hasEmptyValues = searchForEmptyValues(removeGame);
+		if (hasEmptyValues) throw new GraphQLError(Errors.emptyVariable + hasEmptyValues);
+
+		const { email, gameName } = removeGame;
+
+		const user = await ModelGames.findOne({ user: email });
+		if (!user) throw new GraphQLError(Errors.userNotFound);
+
+		const gameIndex = user.games.findIndex((game) => game.name === gameName);
+		if (gameIndex < 0) throw new GraphQLError(Errors.gameNotFound);
+
+		user.games.splice(gameIndex, 1);
+		await user.save();
+
+		return { newGames: user.games };
+	}
 }
