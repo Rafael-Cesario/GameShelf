@@ -12,7 +12,7 @@ export const Markers = () => {
 	const { queryGetMarkers } = useMarkers();
 	const [loadingMarkers, setLoadingMarkers] = useState(true);
 
-	const { markers } = useSelector((state: Store) => state.marker);
+	const { markers, active } = useSelector((state: Store) => state.marker);
 	const dispatch = useDispatch();
 
 	const getMarkers = async () => {
@@ -30,13 +30,19 @@ export const Markers = () => {
 
 	return (
 		<StyledMarkers>
-			<li className="active">Todos</li>
+			<li
+				className={active === 'todos' ? 'active' : ''}
+				onClick={() => dispatch(sliceMarker.actions.setActive({ markerName: 'todos' }))}>
+				Todos
+			</li>
 
 			{loadingMarkers && <Loading />}
 
 			{markers?.map((marker) => (
 				<li
 					role="marker"
+					className={active === marker.name ? 'active' : ''}
+					onClick={() => dispatch(sliceMarker.actions.setActive({ markerName: marker.name }))}
 					key={marker.name}>
 					{marker.name}
 				</li>

@@ -5,6 +5,8 @@ import { useMarkers } from '../../hooks/useMarkers';
 import { StorageUser, storageKeys } from '@/interfaces/interfaceStorageKeys';
 import { Filter } from './filter';
 import { useFilters } from '../../hooks/useFilters';
+import { useDispatch } from 'react-redux';
+import { sliceMarker } from '../../slices/marker';
 
 const defaultValues = {
 	name: '',
@@ -21,6 +23,7 @@ export const CreateMarker = () => {
 	const [error, setError] = useState('');
 	const { queryAddMarker } = useMarkers();
 	const { tags, genres, rates } = useFilters();
+	const dispatch = useDispatch();
 
 	const createMarker = async () => {
 		if (!values.name) return setError('Escolhar um nome para o seu marcador');
@@ -29,11 +32,11 @@ export const CreateMarker = () => {
 		const storage = localStorage.getItem(storageKeys.user);
 		const { email } = JSON.parse(storage || '') as StorageUser;
 
-		const { error } = await queryAddMarker({ addMarker: { email, ...values } });
+		const { newMarkers, error } = await queryAddMarker({ addMarker: { email, ...values } });
 		if (error) return console.log('add marker error', error);
 
-		// todo > update marker global state
-		// todo > set active marker to new marker
+		dispatch(sliceMarker.actions.setMarkers({ newMarkers: newMarkers as IMarker[] }));
+		dispatch(sliceMarker.actions.setActive({ markerName: values.name }));
 
 		setValues(defaultValues);
 		setShowBuildMarker(false);
