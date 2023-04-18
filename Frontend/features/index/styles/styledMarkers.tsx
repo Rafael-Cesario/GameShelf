@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledMarkers = styled.div`
-	margin-bottom: 5rem;
-
+export const StyledMarkers = styled.ul`
 	li {
 		list-style: none;
 		margin: 0.5rem 0;
@@ -29,17 +27,5 @@ export const StyledMarkers = styled.div`
 
 	.active::before {
 		background-color: ${({ theme }) => theme.primary};
-	}
-
-	.new-marker {
-		margin: 1rem 0;
-		background-color: transparent;
-		padding-left: 0;
-		color: ${({ theme }) => theme.fadedText};
-
-		:hover {
-			background-color: ${({ theme }) => theme.mainText};
-			color: ${({ theme }) => theme.mainBackground};
-		}
 	}
 `;

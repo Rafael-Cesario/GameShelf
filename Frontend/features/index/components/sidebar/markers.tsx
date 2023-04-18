@@ -1,17 +1,17 @@
+import { useState } from 'react';
+import { useMarkers } from '../../hooks/useMarkers';
 import { StyledMarkers } from '../../styles/styledMarkers';
+import { Loading } from './loading';
 
 export const Markers = () => {
-	return (
-		<StyledMarkers className="markers">
-			<ul>
-				<li>Todos</li>
-				<li>Wishlist</li>
-				<li className="active">zerados</li>
-				<li>favoritos</li>
-				<li>Melhores</li>
-			</ul>
+	const { getMarkers } = useMarkers();
+	const [loadingMarkers, setLoadingMarkers] = useState(true);
 
-			<button className="new-marker">Criar novo marcador</button>
+	return (
+		<StyledMarkers>
+			<li className="active">Todos</li>
+
+			{loadingMarkers && <Loading />}
 		</StyledMarkers>
 	);
 };

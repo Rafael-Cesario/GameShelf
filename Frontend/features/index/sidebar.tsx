@@ -5,7 +5,11 @@ export const Sidebar = () => {
 	return (
 		<StyledSidebar>
 			<h1 className="title">GameShelf</h1>
-			<Markers />
+
+			<div className="markers">
+				<Markers />
+				<button className="new-marker">Criar novo marcador</button>
+			</div>
 		</StyledSidebar>
 	);
 };
