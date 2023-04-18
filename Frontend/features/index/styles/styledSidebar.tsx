@@ -10,7 +10,6 @@ export const StyledSidebar = styled.div`
 
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
 
 	.title {
 		font-size: 1.2rem;
@@ -47,6 +46,18 @@ export const StyledSidebar = styled.div`
 
 		.active::before {
 			background-color: ${({ theme }) => theme.primary};
+		}
+	}
+
+	.new-marker {
+		margin: 1rem 0;
+		background-color: transparent;
+		padding-left: 0;
+		color: ${({ theme }) => theme.fadedText};
+
+		:hover {
+			background-color: ${({ theme }) => theme.mainText};
+			color: ${({ theme }) => theme.mainBackground};
 		}
 	}
 `;
