@@ -3,7 +3,7 @@ export interface IMarker {
 	filters: {
 		tags: string[];
 		genre: string[];
-		rate: string[];
+		rate: string;
 	};
 }
 

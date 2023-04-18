@@ -8,8 +8,7 @@ export const StyledCreateMarker = styled.div`
 		color: ${({ theme }) => theme.fadedText};
 
 		:hover {
-			background-color: ${({ theme }) => theme.mainText};
-			color: ${({ theme }) => theme.mainBackground};
+			color: ${({ theme }) => theme.mainText};
 		}
 	}
 
@@ -92,5 +91,12 @@ export const StyledCreateMarker = styled.div`
 				background-color: ${({ theme }) => theme.primary};
 			}
 		}
+	}
+
+	.error {
+		font-size: 0.8rem;
+		color: ${({ theme }) => theme.textRed};
+		font-weight: bold;
+		margin-bottom: 0.5rem;
 	}
 `;
