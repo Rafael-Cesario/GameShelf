@@ -4,20 +4,24 @@ import { StyledMarkers } from '../../styles/styledMarkers';
 import { Loading } from './loading';
 import { storageKeys } from '@/interfaces/interfaceStorageKeys';
 import { StorageUser } from '@/interfaces/interfaceStorageKeys';
-import { IMarker } from '@/interfaces/IMarkers';
+import { useDispatch, useSelector } from 'react-redux';
+import { Store } from '@/context/store';
+import { sliceMarker } from '../../slices/marker';
 
 export const Markers = () => {
 	const { queryGetMarkers } = useMarkers();
 	const [loadingMarkers, setLoadingMarkers] = useState(true);
-	const [markers, setMarkers] = useState<IMarker[]>([]);
+
+	const { markers } = useSelector((state: Store) => state.marker);
+	const dispatch = useDispatch();
 
 	const getMarkers = async () => {
 		const storage = localStorage.getItem(storageKeys.user);
 		const { email } = JSON.parse(storage || '') as StorageUser;
-		const markers = await queryGetMarkers({ email });
+		const newMarkers = await queryGetMarkers({ email });
 
 		setLoadingMarkers(false);
-		setMarkers(markers);
+		dispatch(sliceMarker.actions.setMarkers({ newMarkers }));
 	};
 
 	useEffect(() => {
@@ -30,8 +34,10 @@ export const Markers = () => {
 
 			{loadingMarkers && <Loading />}
 
-			{markers.map((marker) => (
-				<li role="marker" key={marker.name}>
+			{markers?.map((marker) => (
+				<li
+					role="marker"
+					key={marker.name}>
 					{marker.name}
 				</li>
 			))}
