@@ -31,7 +31,7 @@ export interface IGetMarkers {
 
 export interface ResponseGetMarkers {
 	getMarkers: {
-		markers: string[];
+		markers: IMarker[];
 	};
 }
 
