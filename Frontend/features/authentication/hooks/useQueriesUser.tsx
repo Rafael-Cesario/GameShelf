@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import { ResponseCreateUser, ICreateUser, IUser, ILogin, ResponseLogin } from '../../../interfaces/queriesUser';
+import { ResponseCreateUser, ICreateUser, IUser, ILogin, ResponseLogin } from '../../../interfaces/IUsers';
 import { TypesQueriesUser } from '@/services/queries/user';
 import { Errors, Success } from '@/interfaces/interfaceResponses';
 

@@ -1,5 +1,5 @@
 import { graphql } from 'msw';
-import { ICreateUser, ILogin } from '@/interfaces/queriesUser';
+import { ICreateUser, ILogin } from '@/interfaces/IUsers';
 import { IErrors, ISuccess } from '@/interfaces/interfaceResponses';
 
 export const handlers = [

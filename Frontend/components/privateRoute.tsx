@@ -1,6 +1,6 @@
 import Authentication from '@/pages/authentication';
 import { storageKeys, StorageUser } from '@/interfaces/interfaceStorageKeys';
-import { IValidateToken, ResponseValidateToken } from '@/interfaces/queriesUser';
+import { IValidateToken, ResponseValidateToken } from '@/interfaces/IUsers';
 import { client } from '@/services/client';
 import { TypesQueriesUser } from '@/services/queries/user';
 import { NextComponentType } from 'next';
