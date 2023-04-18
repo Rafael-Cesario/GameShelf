@@ -2,6 +2,8 @@ import { IMarker } from '@/interfaces/IMarkers';
 import produce from 'immer';
 import { useState } from 'react';
 import { StyledCreateMarker } from '../../styles/styledCreateMarker';
+import { useMarkers } from '../../hooks/useMarkers';
+import { StorageUser, storageKeys } from '@/interfaces/interfaceStorageKeys';
 
 const defaultValues = {
 	name: '',
@@ -16,10 +18,23 @@ export const CreateMarker = () => {
 	const [showBuildMarker, setShowBuildMarker] = useState(false);
 	const [values, setValues] = useState<IMarker>(defaultValues);
 	const [error, setError] = useState('');
+	const { queryAddMarker } = useMarkers();
 
-	const createMarker = () => {
+	const createMarker = async () => {
 		if (!values.name) return setError('Escolhar um nome para o seu marcador');
 		setError('');
+
+		const storage = localStorage.getItem(storageKeys.user);
+		const { email } = JSON.parse(storage || '') as StorageUser;
+
+		const { newMarkers, error } = await queryAddMarker({ addMarker: { email, ...values } });
+		if (error) return console.log('add marker error', error);
+
+		// todo > update marker global state
+		// todo > upate current marker
+
+		setValues(defaultValues);
+		setShowBuildMarker(false);
 	};
 
 	// todo > placeholder

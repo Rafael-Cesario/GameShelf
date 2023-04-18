@@ -14,14 +14,14 @@ export interface IAddMarker {
 		filters: {
 			tags: string[];
 			genre: string[];
-			rate: string[];
+			rate: string;
 		};
 	};
 }
 
 export interface ResponseAddMarker {
 	addMarker: {
-		newMarkers: string[];
+		newMarkers: IMarker[];
 	};
 }
 
