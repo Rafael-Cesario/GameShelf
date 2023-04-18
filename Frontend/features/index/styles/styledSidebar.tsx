@@ -16,16 +16,4 @@ export const StyledSidebar = styled.div`
 		border-bottom: 10px solid ${({ theme }) => theme.primary};
 		margin-bottom: 5rem;
 	}
-
-	.new-marker {
-		margin: 1rem 0;
-		background-color: transparent;
-		padding-left: 0;
-		color: ${({ theme }) => theme.fadedText};
-
-		:hover {
-			background-color: ${({ theme }) => theme.mainText};
-			color: ${({ theme }) => theme.mainBackground};
-		}
-	}
 `;

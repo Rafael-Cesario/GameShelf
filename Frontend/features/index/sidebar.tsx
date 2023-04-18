@@ -1,3 +1,4 @@
+import { CreateMarker } from './components/sidebar/createMarker';
 import { Markers } from './components/sidebar/markers';
 import { StyledSidebar } from './styles/styledSidebar';
 
@@ -8,7 +9,7 @@ export const Sidebar = () => {
 
 			<div className="markers">
 				<Markers />
-				<button className="new-marker">Criar novo marcador</button>
+				<CreateMarker />
 			</div>
 		</StyledSidebar>
 	);
