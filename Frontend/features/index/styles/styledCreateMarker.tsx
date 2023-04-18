@@ -48,9 +48,7 @@ export const StyledCreateMarker = styled.div`
 
 		.title,
 		.name,
-		.tags,
-		.genre,
-		.rate {
+		.filter {
 			margin-bottom: 2rem;
 		}
 
@@ -66,29 +64,6 @@ export const StyledCreateMarker = styled.div`
 					background-color: ${({ theme }) => theme.textRed};
 					color: ${({ theme }) => theme.mainText};
 				}
-			}
-		}
-
-		.tags,
-		.genre,
-		.rate {
-			margin-top: 1rem;
-			display: flex;
-			flex-flow: row wrap;
-
-			button {
-				flex-grow: 1;
-				margin: 0.2rem;
-				background-color: ${({ theme }) => theme.insideContainer};
-
-				:hover {
-					background-color: ${({ theme }) => theme.mainText};
-					color: ${({ theme }) => theme.mainBackground};
-				}
-			}
-
-			.active {
-				background-color: ${({ theme }) => theme.primary};
 			}
 		}
 	}
