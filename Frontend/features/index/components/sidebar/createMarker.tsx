@@ -4,8 +4,7 @@ import { StyledCreateMarker } from '../../styles/styledCreateMarker';
 import { useMarkers } from '../../hooks/useMarkers';
 import { StorageUser, storageKeys } from '@/interfaces/interfaceStorageKeys';
 import { Filter } from './filter';
-import { useSelector } from 'react-redux';
-import { Store } from '@/context/store';
+import { useFilters } from '../../hooks/useFilters';
 
 const defaultValues = {
 	name: '',
@@ -21,8 +20,7 @@ export const CreateMarker = () => {
 	const [values, setValues] = useState<IMarker>(defaultValues);
 	const [error, setError] = useState('');
 	const { queryAddMarker } = useMarkers();
-	const { markers } = useSelector((state: Store) => state.marker);
-	const rates = ['Ruim', 'Normal', 'Bom', 'Ótimo', 'Favorito'];
+	const { tags, genres, rates } = useFilters();
 
 	const createMarker = async () => {
 		if (!values.name) return setError('Escolhar um nome para o seu marcador');
@@ -39,18 +37,6 @@ export const CreateMarker = () => {
 
 		setValues(defaultValues);
 		setShowBuildMarker(false);
-	};
-
-	const getAllFilters = () => {
-		const tags: string[] = [];
-		const genres: string[] = [];
-
-		markers.forEach((marker) => {
-			tags.push(...marker.filters.tags);
-			genres.push(...marker.filters.genre);
-		});
-
-		return { tags: Array.from(new Set(tags)), genres: Array.from(new Set(genres)) };
 	};
 
 	return (
@@ -82,8 +68,8 @@ export const CreateMarker = () => {
 							placeholder="Nome"
 						/>
 
-						<Filter props={{ title: 'Tags', filterName: 'tags', filters: getAllFilters().tags, values, setValues }} />
-						<Filter props={{ title: 'Gêneros', filterName: 'genre', filters: getAllFilters().genres, values, setValues }} />
+						<Filter props={{ title: 'Tags', filterName: 'tags', filters: tags, values, setValues }} />
+						<Filter props={{ title: 'Gêneros', filterName: 'genre', filters: genres, values, setValues }} />
 						<Filter props={{ title: 'Nota', filterName: 'rate', filters: rates, values, setValues }} />
 
 						<button onClick={() => createMarker()}>Criar</button>
