@@ -31,7 +31,9 @@ export const Markers = () => {
 			{loadingMarkers && <Loading />}
 
 			{markers.map((marker) => (
-				<li key={marker.name}>{marker.name}</li>
+				<li role="marker" key={marker.name}>
+					{marker.name}
+				</li>
 			))}
 		</StyledMarkers>
 	);

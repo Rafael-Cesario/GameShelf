@@ -2,7 +2,7 @@ import { StyledLoading } from '../../styles/styledLoading';
 
 export const Loading = () => {
 	return (
-		<StyledLoading>
+		<StyledLoading role="loading">
 			<span>.</span>
 			<span>.</span>
 			<span>.</span>
