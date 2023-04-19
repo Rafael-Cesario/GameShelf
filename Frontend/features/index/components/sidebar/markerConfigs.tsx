@@ -7,13 +7,16 @@ import { StyledBuildMarker } from '../../styles/styledBuildMarker';
 import { useMarkers } from '../../hooks/useMarkers';
 import { StorageUser, storageKeys } from '@/interfaces/interfaceStorageKeys';
 import { sliceMarker } from '../../slices/marker';
+import { DeleteMarker } from './deleteMarker';
 
 export const MarkerConfigs = () => {
+	const [isOpen, setIsOpen] = useState(false);
+
 	const { active, markers } = useSelector((state: Store) => state.marker);
 	const [values, setValues] = useState<IMarker>(markers[0]);
 	const [oldName, setOldName] = useState('');
-	const [isOpen, setIsOpen] = useState(false);
 	const [error, setError] = useState('');
+
 	const { requestUpdateMarker } = useMarkers();
 	const dispatch = useDispatch();
 
@@ -61,7 +64,8 @@ export const MarkerConfigs = () => {
 							onClick={() => saveMarker()}>
 							Salvar
 						</button>
-						<button className="delete">Excluir</button>
+
+						<DeleteMarker />
 					</div>
 				</BuildMarker>
 			)}

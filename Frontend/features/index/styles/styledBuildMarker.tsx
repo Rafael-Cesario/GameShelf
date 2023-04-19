@@ -81,4 +81,9 @@ export const StyledBuildMarker = styled.div`
 			margin: 0.5rem 0;
 		}
 	}
+
+	.delete:hover {
+		background-color: ${({ theme }) => theme.textRed};
+		color: ${({ theme }) => theme.mainText};
+	}
 `;
