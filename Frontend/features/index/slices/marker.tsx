@@ -18,5 +18,10 @@ export const sliceMarker = createSlice({
 		setActive: (state, action: { payload: { markerName: string } }) => {
 			state.active = action.payload.markerName;
 		},
+
+		updateMarker: (state, action: { payload: { oldName: string; newMarker: IMarker } }) => {
+			const markerIndex = state.markers.findIndex((marker) => marker.name === action.payload.oldName);
+			state.markers.splice(markerIndex, 1, action.payload.newMarker);
+		},
 	},
 });

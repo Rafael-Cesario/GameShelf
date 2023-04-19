@@ -20,7 +20,7 @@ export const CreateMarker = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [values, setValues] = useState<IMarker>(defaultValues);
 	const [error, setError] = useState('');
-	const { queryAddMarker } = useMarkers();
+	const { requestAddMarker } = useMarkers();
 	const dispatch = useDispatch();
 
 	const createMarker = async () => {
@@ -30,7 +30,7 @@ export const CreateMarker = () => {
 		const storage = localStorage.getItem(storageKeys.user);
 		const { email } = JSON.parse(storage || '') as StorageUser;
 
-		const { newMarkers, error } = await queryAddMarker({ addMarker: { email, ...values } });
+		const { newMarkers, error } = await requestAddMarker({ addMarker: { email, ...values } });
 		if (error) return console.log('add marker error', error);
 
 		dispatch(sliceMarker.actions.setMarkers({ newMarkers: newMarkers as IMarker[] }));

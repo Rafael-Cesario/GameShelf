@@ -1,4 +1,4 @@
-import { IAddMarker, IGetMarkers, ResponseAddMarker, ResponseGetMarkers } from '@/interfaces/IMarkers';
+import { IAddMarker, IGetMarkers, IUpdateMarker, ResponseAddMarker, ResponseGetMarkers, ResponseUpdateMarker } from '@/interfaces/IMarkers';
 import { client } from '@/services/client';
 import { TypesQueriesMarkers } from '@/services/queries/markers';
 import { useMutation } from '@apollo/client';
@@ -7,6 +7,7 @@ export const useMarkers = () => {
 	const typesQueriesMarkers = new TypesQueriesMarkers();
 
 	const [mutationAddMarker] = useMutation<ResponseAddMarker>(typesQueriesMarkers.ADD_MARKER);
+	const [mutationUpdateMarker] = useMutation<ResponseUpdateMarker>(typesQueriesMarkers.UPDATE_MARKER);
 
 	const queryGetMarkers = async (variables: IGetMarkers) => {
 		const { data } = await client.query<ResponseGetMarkers>({
@@ -17,7 +18,7 @@ export const useMarkers = () => {
 		return data?.getMarkers.markers;
 	};
 
-	const queryAddMarker = async (variables: IAddMarker) => {
+	const requestAddMarker = async (variables: IAddMarker) => {
 		const { data, errors } = await mutationAddMarker({ variables });
 
 		return {
@@ -26,5 +27,14 @@ export const useMarkers = () => {
 		};
 	};
 
-	return { queryGetMarkers, queryAddMarker };
+	const requestUpdateMarker = async (variables: IUpdateMarker) => {
+		const { data, errors } = await mutationUpdateMarker({ variables });
+
+		return {
+			newMarker: data?.updateMarker.newMarker,
+			error: errors?.[0].message,
+		};
+	};
+
+	return { queryGetMarkers, requestAddMarker, requestUpdateMarker };
 };
