@@ -56,7 +56,11 @@ export const MarkerConfigs = () => {
 			{isOpen && (
 				<BuildMarker props={{ title: values.name, error, values, setValues, setIsOpen }}>
 					<div className="buttons">
-						<button onClick={() => saveMarker()}>Salvar</button>
+						<button
+							role="save-marker"
+							onClick={() => saveMarker()}>
+							Salvar
+						</button>
 						<button className="delete">Excluir</button>
 					</div>
 				</BuildMarker>

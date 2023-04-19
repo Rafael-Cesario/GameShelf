@@ -1,4 +1,4 @@
-import { IAddMarker, IMarker } from '@/interfaces/IMarkers';
+import { IAddMarker, IMarker, IUpdateMarker } from '@/interfaces/IMarkers';
 import { graphql } from 'msw';
 
 const markers: IMarker[] = [
@@ -17,5 +17,10 @@ export const queriesMarkers = [
 		const { name, filters } = addMarker;
 		markers.push({ name, filters });
 		return res(ctx.data({ addMarker: { newMarkers: markers } }));
+	}),
+
+	graphql.mutation('UpdateMarker', (req, res, ctx) => {
+		const { updateMarker } = req.variables as IUpdateMarker;
+		return res(ctx.data({ updateMarker: { newMarker: updateMarker.update } }));
 	}),
 ];

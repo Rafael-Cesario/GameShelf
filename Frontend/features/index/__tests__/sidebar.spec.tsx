@@ -66,6 +66,21 @@ describe('Sidebar', () => {
 	it('Update marker name', async () => {
 		await user.click(screen.getAllByRole('marker')[2]);
 		await user.click(screen.getByRole('open-update-marker'));
-		expect(screen.getByRole('title').querySelector('h1')).toHaveTextContent('');
+		expect(screen.getByRole('title')).toHaveTextContent('marker02');
+
+		await user.clear(screen.getByRole('marker-name'));
+		await user.type(screen.getByRole('marker-name'), 'new name');
+		await user.click(screen.getByRole('save-marker'));
+
+		const markers = screen.getAllByRole('marker');
+		expect(markers[2]).toHaveTextContent('new name');
+	});
+
+	it(`Can't update marker without a name`, async () => {
+		await user.click(screen.getAllByRole('marker')[2]);
+		await user.click(screen.getByRole('open-update-marker'));
+		await user.clear(screen.getByRole('marker-name'));
+		await user.click(screen.getByRole('save-marker'));
+		expect(screen.getByRole('error')).toHaveTextContent('Seu marcador precisa de um nome');
 	});
 });

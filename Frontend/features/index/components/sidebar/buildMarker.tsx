@@ -23,7 +23,7 @@ export const BuildMarker = ({ props: { values, setValues, setIsOpen, title, erro
 			<div className="container">
 				<div className="config-marker">
 					<div className="title">
-						<h1>{title}</h1>
+						<h1 role="title">{title}</h1>
 						<button
 							className="close"
 							onClick={() => setIsOpen(false)}>
