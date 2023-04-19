@@ -31,6 +31,7 @@ export const Markers = () => {
 	return (
 		<StyledMarkers>
 			<li
+				role="marker"
 				className={active === 'todos' ? 'active' : ''}
 				onClick={() => dispatch(sliceMarker.actions.setActive({ markerName: 'todos' }))}>
 				Todos

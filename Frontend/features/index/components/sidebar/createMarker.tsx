@@ -43,6 +43,7 @@ export const CreateMarker = () => {
 	return (
 		<StyledBuildMarker>
 			<button
+				role="open-create-marker"
 				onClick={() => setIsOpen(!isOpen)}
 				className="open-button">
 				Criar novo marcador
