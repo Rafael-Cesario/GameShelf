@@ -28,4 +28,13 @@ export const StyledHeader = styled.div`
 		width: 30%;
 		padding: 0.6rem 1rem;
 	}
+
+	@media (max-width: 1200px) {
+		flex-direction: column;
+
+		.search {
+			margin-top: 1rem;
+			width: 60%;
+		}
+	}
 `;
