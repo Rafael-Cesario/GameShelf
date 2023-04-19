@@ -1,5 +1,5 @@
-import { IMarker } from '@/interfaces/IMarkers';
 import produce from 'immer';
+import { IMarker } from '@/interfaces/IMarkers';
 import { Dispatch, SetStateAction } from 'react';
 import { StyledFilter } from '../../styles/styledFilter';
 
@@ -43,6 +43,8 @@ export const Filter = ({ props: { title, filters, filterName, values, setValues 
 			<h2>{title}</h2>
 
 			<div className="filter">
+				{!filters.length && <p className="faded">Tags e gêneros adicionados aos seus jogos apareceram aqui.</p>}
+
 				{filters.map((filter) => (
 					<button
 						className={values.filters[filterName].includes(filter) ? 'active' : ''}

@@ -26,7 +26,7 @@ export const CreateMarker = () => {
 	const dispatch = useDispatch();
 
 	const createMarker = async () => {
-		if (!values.name) return setError('Escolhar um nome para o seu marcador');
+		if (!values.name) return setError('Escolha um nome para o seu marcador');
 		setError('');
 
 		const storage = localStorage.getItem(storageKeys.user);

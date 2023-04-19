@@ -20,5 +20,9 @@ export const StyledFilter = styled.div`
 		.active {
 			background-color: ${({ theme }) => theme.primary};
 		}
+
+		.faded {
+			color: ${({ theme }) => theme.fadedText};
+		}
 	}
 `;
