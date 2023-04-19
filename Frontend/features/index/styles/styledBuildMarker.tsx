@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-export const StyledCreateMarker = styled.div`
-	.new-marker {
+export const StyledBuildMarker = styled.div`
+	.open-button {
 		margin: 0.5rem 0;
 		background-color: transparent;
 		padding-left: 0;
@@ -27,7 +27,7 @@ export const StyledCreateMarker = styled.div`
 		align-items: center;
 	}
 
-	.build-marker {
+	.config-marker {
 		border-radius: ${({ theme }) => theme.borderRadius};
 		border: 2px solid ${({ theme }) => theme.primary};
 		background-color: ${({ theme }) => theme.containerBackground};

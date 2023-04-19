@@ -18,11 +18,11 @@ const defaultValues = {
 };
 
 export const CreateMarker = () => {
+	const { tags, genres, rates } = useFilters();
 	const [showBuildMarker, setShowBuildMarker] = useState(false);
 	const [values, setValues] = useState<IMarker>(defaultValues);
 	const [error, setError] = useState('');
 	const { queryAddMarker } = useMarkers();
-	const { tags, genres, rates } = useFilters();
 	const dispatch = useDispatch();
 
 	const createMarker = async () => {
