@@ -1,12 +1,11 @@
 import { IMarker } from '@/interfaces/IMarkers';
 import { useState } from 'react';
-import { StyledCreateMarker } from '../../styles/styledCreateMarker';
 import { useMarkers } from '../../hooks/useMarkers';
 import { StorageUser, storageKeys } from '@/interfaces/interfaceStorageKeys';
-import { Filter } from './filter';
-import { useFilters } from '../../hooks/useFilters';
 import { useDispatch } from 'react-redux';
 import { sliceMarker } from '../../slices/marker';
+import { StyledBuildMarker } from '../../styles/styledBuildMarker';
+import { BuildMarker } from './buildMarker';
 
 const defaultValues = {
 	name: '',
@@ -18,8 +17,7 @@ const defaultValues = {
 };
 
 export const CreateMarker = () => {
-	const { tags, genres, rates } = useFilters();
-	const [showBuildMarker, setShowBuildMarker] = useState(false);
+	const [isOpen, setIsOpen] = useState(false);
 	const [values, setValues] = useState<IMarker>(defaultValues);
 	const [error, setError] = useState('');
 	const { queryAddMarker } = useMarkers();
@@ -39,46 +37,24 @@ export const CreateMarker = () => {
 		dispatch(sliceMarker.actions.setActive({ markerName: values.name }));
 
 		setValues(defaultValues);
-		setShowBuildMarker(false);
+		setIsOpen(false);
 	};
 
 	return (
-		<StyledCreateMarker>
+		<StyledBuildMarker>
 			<button
-				onClick={() => setShowBuildMarker(!showBuildMarker)}
-				className="new-marker">
+				onClick={() => setIsOpen(!isOpen)}
+				className="open-button">
 				Criar novo marcador
 			</button>
 
-			{showBuildMarker && (
-				<div className="container">
-					<div className="build-marker">
-						<div className="title">
-							<h1>Novo marcador</h1>
-							<button
-								className="close"
-								onClick={() => setShowBuildMarker(false)}>
-								x
-							</button>
-						</div>
-
-						<span className="error">{error}</span>
-						<input
-							value={values.name}
-							onChange={(e) => setValues({ ...values, name: e.target.value })}
-							className="name"
-							type="text"
-							placeholder="Nome"
-						/>
-
-						<Filter props={{ title: 'Tags', filterName: 'tags', filters: tags, values, setValues }} />
-						<Filter props={{ title: 'Gêneros', filterName: 'genre', filters: genres, values, setValues }} />
-						<Filter props={{ title: 'Nota', filterName: 'rate', filters: rates, values, setValues }} />
-
+			{isOpen && (
+				<BuildMarker props={{ title: 'Novo Marcador', values, setValues, error, setIsOpen }}>
+					<div className="buttons">
 						<button onClick={() => createMarker()}>Criar</button>
 					</div>
-				</div>
+				</BuildMarker>
 			)}
-		</StyledCreateMarker>
+		</StyledBuildMarker>
 	);
 };

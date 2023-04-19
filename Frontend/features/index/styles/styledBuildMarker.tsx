@@ -74,4 +74,11 @@ export const StyledBuildMarker = styled.div`
 		font-weight: bold;
 		margin-bottom: 0.5rem;
 	}
+
+	.buttons {
+		button {
+			width: 100%;
+			margin: 0.5rem 0;
+		}
+	}
 `;
