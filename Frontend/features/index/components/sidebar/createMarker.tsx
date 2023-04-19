@@ -52,7 +52,11 @@ export const CreateMarker = () => {
 			{isOpen && (
 				<BuildMarker props={{ title: 'Novo Marcador', values, setValues, error, setIsOpen }}>
 					<div className="buttons">
-						<button onClick={() => createMarker()}>Criar</button>
+						<button
+							role="create-marker"
+							onClick={() => createMarker()}>
+							Criar
+						</button>
 					</div>
 				</BuildMarker>
 			)}

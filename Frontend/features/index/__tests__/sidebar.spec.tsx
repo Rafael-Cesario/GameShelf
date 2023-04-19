@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, beforeEach, beforeAll } from 'vitest';
 import { cleanup, render, screen, waitForElementToBeRemoved } from '@testing-library/react';
@@ -46,5 +47,25 @@ describe('Sidebar', () => {
 		expect(markers[2].className).toMatch('active');
 	});
 
-	it.todo('Create a new marker', async () => {});
+	it('Create a new marker', async () => {
+		await user.click(screen.getByRole('open-create-marker'));
+		await user.type(screen.getByRole('marker-name'), 'new marker');
+		await user.click(screen.getByRole('create-marker'));
+
+		const markers = screen.getAllByRole('marker');
+		expect(markers[4]).toHaveTextContent('new marker');
+		expect(markers[4].className).toMatch('active');
+	});
+
+	it(`Can't create a marker without a name`, async () => {
+		await user.click(screen.getByRole('open-create-marker'));
+		await user.click(screen.getByRole('create-marker'));
+		expect(screen.getByRole('error')).toHaveTextContent('Escolha um nome para o seu marcador');
+	});
+
+	it('Update marker name', async () => {
+		await user.click(screen.getAllByRole('marker')[2]);
+		await user.click(screen.getByRole('open-update-marker'));
+		expect(screen.getByRole('title').querySelector('h1')).toHaveTextContent('');
+	});
 });

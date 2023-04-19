@@ -31,13 +31,18 @@ export const BuildMarker = ({ props: { values, setValues, setIsOpen, title, erro
 						</button>
 					</div>
 
-					<span className="error">{error}</span>
+					<span
+						role="error"
+						className="error">
+						{error}
+					</span>
 					<input
 						value={values.name}
 						onChange={(e) => setValues({ ...values, name: e.target.value })}
 						className="name"
 						type="text"
 						placeholder="Nome"
+						role="marker-name"
 					/>
 
 					<Filter props={{ title: 'Tags', filterName: 'tags', filters: tags, values, setValues }} />

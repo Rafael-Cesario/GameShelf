@@ -47,6 +47,7 @@ export const MarkerConfigs = () => {
 	return (
 		<StyledBuildMarker>
 			<button
+				role="open-update-marker"
 				className="open-button"
 				onClick={() => openConfigs()}>
 				Editar marcador atual
