@@ -6,7 +6,7 @@ export const StyledSidebar = styled.div`
 	height: 95vh;
 	background-color: ${({ theme }) => theme.containerBackground};
 	border: 2px solid ${({ theme }) => theme.containerBorder};
-	padding: 2rem;
+	padding: 1rem 2rem;
 
 	display: flex;
 	flex-direction: column;
@@ -14,7 +14,11 @@ export const StyledSidebar = styled.div`
 
 	.title {
 		font-size: 1.2rem;
-		border-bottom: 10px solid ${({ theme }) => theme.primary};
-		margin-bottom: 2rem;
+		border-bottom: 5px solid ${({ theme }) => theme.primary};
+	}
+
+	.marker-search,
+	.title {
+		margin-bottom: 3rem;
 	}
 `;

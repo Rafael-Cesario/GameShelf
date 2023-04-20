@@ -4,28 +4,20 @@ export const StyledMarkers = styled.ul`
 	li {
 		list-style: none;
 		margin: 0.5rem 0;
-		margin-left: 0.6rem;
 		cursor: pointer;
+		font-weight: bold;
+		padding: 5px 10px;
+		color: ${({ theme }) => theme.fadedText};
 
 		::first-letter {
 			text-transform: capitalize;
 		}
-
-		::before {
-			content: '';
-			position: absolute;
-			background-color: ${({ theme }) => theme.insideContainer};
-			width: 0.6rem;
-			height: 0.6rem;
-			transform: translate(-1rem, 0.2rem);
-		}
 	}
 
-	li:hover::before {
-		background-color: ${({ theme }) => theme.mainText};
-	}
-
-	.active::before {
+	.active,
+	li:hover {
+		color: ${({ theme }) => theme.mainText};
 		background-color: ${({ theme }) => theme.primary};
+		border-radius: 2px;
 	}
 `;

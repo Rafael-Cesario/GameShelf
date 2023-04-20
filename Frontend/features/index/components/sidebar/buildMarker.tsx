@@ -37,6 +37,7 @@ export const BuildMarker = ({ props: { values, setValues, setIsOpen, title, erro
 						{error}
 					</span>
 					<input
+						autoFocus={true}
 						value={values.name}
 						onChange={(e) => setValues({ ...values, name: e.target.value })}
 						className="name"

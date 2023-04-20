@@ -29,7 +29,7 @@ export const StyledBuildMarker = styled.div`
 
 	.config-marker {
 		border-radius: ${({ theme }) => theme.borderRadius};
-		border: 2px solid ${({ theme }) => theme.primary};
+		border: 5px solid ${({ theme }) => theme.containerBorder};
 		background-color: ${({ theme }) => theme.containerBackground};
 		padding: 5rem;
 
