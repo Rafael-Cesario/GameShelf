@@ -27,4 +27,8 @@ export const handlers = [
 		const successCode: keyof ISuccess = 'newUser';
 		return res(ctx.data({ createUser: { message: `${successCode}: ` } }));
 	}),
+
+	graphql.query('ValidateToken', (req, res, ctx) => {
+		return res(ctx.data({ validateToken: { message: 'true' } }));
+	}),
 ];

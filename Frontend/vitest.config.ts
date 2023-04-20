@@ -16,5 +16,6 @@ export default defineConfig({
 		reporters: 'verbose',
 		watch: false,
 		globals: true,
+		css: true,
 	},
 });
