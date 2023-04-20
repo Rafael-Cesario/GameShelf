@@ -93,4 +93,10 @@ describe('Sidebar', () => {
 		const markers = screen.getAllByRole('marker');
 		expect(markers.length).toBe(3);
 	});
+
+	it('Filter markers', async () => {
+		await user.type(screen.getByRole('marker-search'), '02');
+		const markers = screen.getAllByRole('marker');
+		expect(markers.length).toBe(2);
+	});
 });
