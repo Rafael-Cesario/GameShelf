@@ -3,16 +3,16 @@ import styled from 'styled-components';
 export const StyledNotification = styled.div<{ type: string }>`
 	position: absolute;
 	top: 0;
-	right: 0;
+	left: 0;
 	padding: 1rem;
 	margin: 1rem;
-	background-color: ${({ theme }) => theme.containerBackground};
+	background-color: ${({ theme }) => theme.insideContainer};
 	border: 2px solid ${({ theme }) => theme.containerBorder};
 	border-radius: ${({ theme }) => theme.borderRadius};
 	box-shadow: ${({ theme }) => theme.boxShadow};
-	min-width: 300px;
-	max-width: 500px;
-	animation: show 0.2s both;
+	min-width: 400px;
+	max-width: 800px;
+	/* animation: show 0.2s;
 
 	@keyframes show {
 		from {
@@ -22,7 +22,7 @@ export const StyledNotification = styled.div<{ type: string }>`
 		to {
 			transform: translateY(0);
 		}
-	}
+	} */
 
 	.close {
 		position: absolute;
@@ -39,5 +39,6 @@ export const StyledNotification = styled.div<{ type: string }>`
 	.title {
 		font-size: 1.1rem;
 		color: ${({ theme, type }) => (type === 'Erro' ? theme.textRed : theme.textGreen)};
+		margin-bottom: 0.5rem;
 	}
 `;

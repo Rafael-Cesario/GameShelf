@@ -8,6 +8,7 @@ import { useMarkers } from '../../hooks/useMarkers';
 import { StorageUser, storageKeys } from '@/interfaces/interfaceStorageKeys';
 import { sliceMarker } from '../../slices/marker';
 import { DeleteMarker } from './deleteMarker';
+import { useNotification } from '@/utils/useNotification';
 
 export const MarkerConfigs = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +21,11 @@ export const MarkerConfigs = () => {
 	const { requestUpdateMarker } = useMarkers();
 	const dispatch = useDispatch();
 
+	const { sendNotification } = useNotification();
+
 	const openConfigs = () => {
+		if (active === 'todos') return sendNotification('Erro', 'Você não pode editar este marcador.');
+
 		const currentMarker = markers.find((marker) => marker.name === active) || markers[0];
 		setOldName(currentMarker.name);
 		setValues(currentMarker);

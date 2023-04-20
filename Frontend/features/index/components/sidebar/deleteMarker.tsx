@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Store } from '@/context/store';
 import { StorageUser, storageKeys } from '@/interfaces/interfaceStorageKeys';
 import { sliceMarker } from '../../slices/marker';
+import { useNotification } from '@/utils/useNotification';
 
 interface DeleteMarkerProps {
 	setIsOpen: (isOpen: boolean) => void;
@@ -11,8 +12,11 @@ interface DeleteMarkerProps {
 
 export const DeleteMarker = ({ setIsOpen }: DeleteMarkerProps) => {
 	const [showDelete, setShowDelete] = useState(false);
-	const { requestDeleteMarker } = useMarkers();
 	const { active } = useSelector((state: Store) => state.marker);
+
+	const { requestDeleteMarker } = useMarkers();
+	const { sendNotification } = useNotification();
+
 	const dispatch = useDispatch();
 
 	const deleteMarker = async () => {
@@ -23,8 +27,10 @@ export const DeleteMarker = ({ setIsOpen }: DeleteMarkerProps) => {
 			deleteMarker: { email, name: active },
 		});
 
-		if (!message || error) console.log(error);
+		if (error) return sendNotification('Erro', error);
+		if (!message) return sendNotification('Erro', 'Um erro ocorreu por favor recarregue a página e tente novamente');
 
+		sendNotification('Sucesso', message);
 		dispatch(sliceMarker.actions.deleteMarker({ name: active }));
 		setIsOpen(false);
 	};

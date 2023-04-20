@@ -8,10 +8,6 @@ export const useNotification = () => {
 
 	const sendNotification = (type: 'Erro' | 'Sucesso', txt: string) => {
 		dispatch(sliceNotification.actions.sendNotification({ isOpen: true, type, txt }));
-
-		setTimeout(() => {
-			dispatch(sliceNotification.actions.close());
-		}, 1000 * 10); // 10 seconds
 	};
 
 	const closeNotification = () => {
