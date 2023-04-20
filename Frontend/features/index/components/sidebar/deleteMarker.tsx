@@ -23,15 +23,15 @@ export const DeleteMarker = ({ setIsOpen }: DeleteMarkerProps) => {
 		const storage = localStorage.getItem(storageKeys.user);
 		const { email } = JSON.parse(storage || '') as StorageUser;
 
-		const { message, error } = await requestDeleteMarker({
+		const { error } = await requestDeleteMarker({
 			deleteMarker: { email, name: active },
 		});
 
 		if (error) return sendNotification('Erro', error);
-		if (!message) return sendNotification('Erro', 'Um erro ocorreu por favor recarregue a página e tente novamente');
 
-		sendNotification('Sucesso', message);
+		sendNotification('Sucesso', `O Marcador "${active}" foi excluído.`);
 		dispatch(sliceMarker.actions.deleteMarker({ name: active }));
+		dispatch(sliceMarker.actions.setActive({ markerName: 'todos' }));
 		setIsOpen(false);
 	};
 
