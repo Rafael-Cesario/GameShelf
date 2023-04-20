@@ -1,16 +1,19 @@
 import { StorageUser, storageKeys } from '@/interfaces/interfaceStorageKeys';
 import { useGames } from './hooks/useGames';
 import { StyledGamesContainer } from './styles/styledGamesContainer';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNotification } from '@/utils/useNotification';
-import { IGame } from '@/interfaces/IGames';
 import { Loading } from './components/sidebar/loading';
+import { useDispatch, useSelector } from 'react-redux';
+import { Store } from '@/context/store';
+import { sliceGames } from './slices/games';
 
 export const GamesContainer = () => {
 	const [loadingGames, setLoadingGames] = useState(true);
-	const [games, setGames] = useState<IGame[]>([]);
+	const { games } = useSelector((state: Store) => state.games);
 	const { queryGetGames } = useGames();
 	const { sendNotification } = useNotification();
+	const dispatch = useDispatch();
 
 	const getGames = async () => {
 		const storage = localStorage.getItem(storageKeys.user);
@@ -20,19 +23,21 @@ export const GamesContainer = () => {
 		if (error) return sendNotification('Erro', 'Não foi possível buscar seus jogos');
 
 		setLoadingGames(false);
-		setGames(data);
+		dispatch(sliceGames.actions.setGames({ games: data }));
 	};
 
-	getGames();
+	useEffect(() => {
+		getGames();
+	}, []);
 
 	return (
 		<StyledGamesContainer>
 			{loadingGames && <Loading />}
 
-			{games.map((game, index) => (
+			{games.map((game) => (
 				<div
 					className="game"
-					key={index}></div>
+					key={game.name}></div>
 			))}
 		</StyledGamesContainer>
 	);
