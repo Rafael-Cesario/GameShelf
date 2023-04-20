@@ -1,4 +1,13 @@
-import { IAddMarker, IGetMarkers, IUpdateMarker, ResponseAddMarker, ResponseGetMarkers, ResponseUpdateMarker } from '@/interfaces/IMarkers';
+import {
+	IAddMarker,
+	IDeleteMarker,
+	IGetMarkers,
+	IUpdateMarker,
+	ResponseAddMarker,
+	ResponseDeleteMarker,
+	ResponseGetMarkers,
+	ResponseUpdateMarker,
+} from '@/interfaces/IMarkers';
 import { client } from '@/services/client';
 import { TypesQueriesMarkers } from '@/services/queries/markers';
 import { useMutation } from '@apollo/client';
@@ -8,6 +17,7 @@ export const useMarkers = () => {
 
 	const [mutationAddMarker] = useMutation<ResponseAddMarker>(typesQueriesMarkers.ADD_MARKER);
 	const [mutationUpdateMarker] = useMutation<ResponseUpdateMarker>(typesQueriesMarkers.UPDATE_MARKER);
+	const [mutationDeleteMarker] = useMutation<ResponseDeleteMarker>(typesQueriesMarkers.DELETE_MARKER);
 
 	const queryGetMarkers = async (variables: IGetMarkers) => {
 		const { data } = await client.query<ResponseGetMarkers>({
@@ -36,5 +46,14 @@ export const useMarkers = () => {
 		};
 	};
 
-	return { queryGetMarkers, requestAddMarker, requestUpdateMarker };
+	const requestDeleteMarker = async (variables: IDeleteMarker) => {
+		const { data, errors } = await mutationDeleteMarker({ variables });
+
+		return {
+			message: data?.deleteMarker.message,
+			error: errors?.[0].message,
+		};
+	};
+
+	return { queryGetMarkers, requestAddMarker, requestUpdateMarker, requestDeleteMarker };
 };

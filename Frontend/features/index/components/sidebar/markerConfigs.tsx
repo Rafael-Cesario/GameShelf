@@ -65,7 +65,7 @@ export const MarkerConfigs = () => {
 							Salvar
 						</button>
 
-						<DeleteMarker />
+						<DeleteMarker setIsOpen={setIsOpen} />
 					</div>
 				</BuildMarker>
 			)}

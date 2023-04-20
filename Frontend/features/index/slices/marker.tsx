@@ -23,5 +23,10 @@ export const sliceMarker = createSlice({
 			const markerIndex = state.markers.findIndex((marker) => marker.name === action.payload.oldName);
 			state.markers.splice(markerIndex, 1, action.payload.newMarker);
 		},
+
+		deleteMarker: (state, action: { payload: { name: string } }) => {
+			const markerIndex = state.markers.findIndex((marker) => marker.name === action.payload.name);
+			state.markers.splice(markerIndex, 1);
+		},
 	},
 });
