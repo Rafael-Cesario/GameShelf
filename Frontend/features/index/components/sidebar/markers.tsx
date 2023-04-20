@@ -12,7 +12,7 @@ export const Markers = () => {
 	const { queryGetMarkers } = useMarkers();
 	const [loadingMarkers, setLoadingMarkers] = useState(true);
 
-	const { markers, active } = useSelector((state: Store) => state.marker);
+	const { markers, active, filter } = useSelector((state: Store) => state.marker);
 	const dispatch = useDispatch();
 
 	const getMarkers = async () => {
@@ -22,6 +22,12 @@ export const Markers = () => {
 
 		setLoadingMarkers(false);
 		dispatch(sliceMarker.actions.setMarkers({ newMarkers }));
+	};
+
+	const filterMarkers = () => {
+		const filterRegEx = new RegExp(filter, 'ig');
+		const filteredMarkers = markers.filter((marker) => marker.name.match(filterRegEx));
+		return filteredMarkers;
 	};
 
 	useEffect(() => {
@@ -39,7 +45,7 @@ export const Markers = () => {
 
 			{loadingMarkers && <Loading />}
 
-			{markers?.map((marker) => (
+			{filterMarkers().map((marker) => (
 				<li
 					role="marker"
 					className={active === marker.name ? 'active' : ''}

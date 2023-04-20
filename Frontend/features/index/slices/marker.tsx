@@ -1,8 +1,9 @@
 import { IMarker } from '@/interfaces/IMarkers';
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState: { markers: IMarker[]; active: string } = {
+const initialState: { markers: IMarker[]; filter: string; active: string } = {
 	markers: [],
+	filter: '',
 	active: 'todos',
 };
 
@@ -27,6 +28,10 @@ export const sliceMarker = createSlice({
 		deleteMarker: (state, action: { payload: { name: string } }) => {
 			const markerIndex = state.markers.findIndex((marker) => marker.name === action.payload.name);
 			state.markers.splice(markerIndex, 1);
+		},
+
+		setFilter: (state, action: { payload: { filter: string } }) => {
+			state.filter = action.payload.filter;
 		},
 	},
 });
