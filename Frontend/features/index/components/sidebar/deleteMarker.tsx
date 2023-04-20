@@ -39,6 +39,7 @@ export const DeleteMarker = ({ setIsOpen }: DeleteMarkerProps) => {
 		<>
 			{showDelete || (
 				<button
+					role="show-delete"
 					onClick={() => setShowDelete(true)}
 					className="delete">
 					Excluir
@@ -47,6 +48,7 @@ export const DeleteMarker = ({ setIsOpen }: DeleteMarkerProps) => {
 
 			{showDelete && (
 				<button
+					role="delete"
 					className="delete"
 					autoFocus={true}
 					onBlur={() => setShowDelete(false)}

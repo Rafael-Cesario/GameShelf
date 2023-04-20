@@ -23,4 +23,8 @@ export const queriesMarkers = [
 		const { updateMarker } = req.variables as IUpdateMarker;
 		return res(ctx.data({ updateMarker: { newMarker: updateMarker.update } }));
 	}),
+
+	graphql.mutation('DeleteMarker', (req, res, ctx) => {
+		return res(ctx.data({ deleteMarker: { message: 'Marker deleted' } }));
+	}),
 ];

@@ -83,4 +83,14 @@ describe('Sidebar', () => {
 		await user.click(screen.getByRole('save-marker'));
 		expect(screen.getByRole('error')).toHaveTextContent('Seu marcador precisa de um nome');
 	});
+
+	it('Delete a marker', async () => {
+		await user.click(screen.getAllByRole('marker')[2]);
+		await user.click(screen.getByRole('open-update-marker'));
+		await user.click(screen.getByRole('show-delete'));
+		await user.click(screen.getByRole('delete'));
+
+		const markers = screen.getAllByRole('marker');
+		expect(markers.length).toBe(3);
+	});
 });
