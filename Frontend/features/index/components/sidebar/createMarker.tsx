@@ -42,19 +42,14 @@ export const CreateMarker = () => {
 
 	return (
 		<StyledBuildMarker>
-			<button
-				role="open-create-marker"
-				onClick={() => setIsOpen(!isOpen)}
-				className="open-button">
+			<button role="open-create-marker" onClick={() => setIsOpen(!isOpen)} className="open-button">
 				Criar novo marcador
 			</button>
 
 			{isOpen && (
 				<BuildMarker props={{ title: 'Novo Marcador', values, setValues, error, setIsOpen }}>
 					<div className="buttons">
-						<button
-							role="create-marker"
-							onClick={() => createMarker()}>
+						<button role="create-marker" onClick={() => createMarker()}>
 							Criar
 						</button>
 					</div>

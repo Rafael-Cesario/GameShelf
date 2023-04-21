@@ -20,6 +20,10 @@ export const AddGame = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [gameValues, setGameValues] = useState(defaultGameValues);
 
+	const addGame = () => {
+		console.log(gameValues);
+	};
+
 	return (
 		<StyledAddGame>
 			<button onClick={() => setIsOpen(true)}>Adicionar novo jogo</button>
@@ -31,19 +35,21 @@ export const AddGame = () => {
 
 						<div className="inputs">
 							<div className="data">
-								<Field props={{ placeholder: 'Nome', gameValues, setGameValues }} />
-								<Field props={{ placeholder: 'Data de lançamento', gameValues, setGameValues }} />
-								<Field props={{ placeholder: 'Link para uma imagem', gameValues, setGameValues }} />
+								<Field props={{ fieldName: 'name', placeholder: 'Nome', gameValues, setGameValues }} />
+								<Field props={{ fieldName: 'release', placeholder: 'Data de lançamento', gameValues, setGameValues }} />
+								<Field props={{ fieldName: 'cover', placeholder: 'Link para uma imagem', gameValues, setGameValues }} />
 
 								<FilterContainer props={{ title: 'Tags', filterName: 'tags', gameValues, setGameValues }} />
-								<FilterContainer props={{ title: 'Gêneros', filterName: 'genres', gameValues, setGameValues }} />
+								<FilterContainer props={{ title: 'Gêneros', filterName: 'genre', gameValues, setGameValues }} />
 								<RateContainer props={{ gameValues, setGameValues }} />
 							</div>
 
 							<ImageContainer props={{ imageLink: gameValues.cover }} />
 						</div>
 
-						<button className="add-game-button">Criar</button>
+						<button onClick={() => addGame()} className="add-game-button">
+							Criar
+						</button>
 					</div>
 				</div>
 			)}

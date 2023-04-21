@@ -4,8 +4,8 @@ import { Store } from '@/context/store';
 
 export const useFilters = () => {
 	const { games } = useSelector((state: Store) => state.games);
-	const { tags, genres } = getAllFilters(games);
+	const { tags, genre } = getAllFilters(games);
 	const rates = ['Ruim', 'Normal', 'Bom', 'Ótimo', 'Favorito'];
 
-	return { tags, genres, rates };
+	return { tags, genre, rates };
 };

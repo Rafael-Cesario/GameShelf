@@ -16,7 +16,7 @@ interface BuildMarkerProps {
 }
 
 export const BuildMarker = ({ props: { values, setValues, setIsOpen, title, error }, children }: BuildMarkerProps) => {
-	const { tags, genres, rates } = useFilters();
+	const { tags, genre, rates } = useFilters();
 
 	return (
 		<StyledBuildMarker>
@@ -24,16 +24,12 @@ export const BuildMarker = ({ props: { values, setValues, setIsOpen, title, erro
 				<div className="config-marker">
 					<div className="title">
 						<h1 role="title">{title}</h1>
-						<button
-							className="close"
-							onClick={() => setIsOpen(false)}>
+						<button className="close" onClick={() => setIsOpen(false)}>
 							x
 						</button>
 					</div>
 
-					<span
-						role="error"
-						className="error">
+					<span role="error" className="error">
 						{error}
 					</span>
 					<input
@@ -47,7 +43,7 @@ export const BuildMarker = ({ props: { values, setValues, setIsOpen, title, erro
 					/>
 
 					<Filter props={{ title: 'Tags', filterName: 'tags', filters: tags, values, setValues }} />
-					<Filter props={{ title: 'Gêneros', filterName: 'genre', filters: genres, values, setValues }} />
+					<Filter props={{ title: 'Gêneros', filterName: 'genre', filters: genre, values, setValues }} />
 					<Filter props={{ title: 'Nota', filterName: 'rate', filters: rates, values, setValues }} />
 
 					{children}

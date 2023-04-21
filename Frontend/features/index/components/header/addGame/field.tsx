@@ -6,14 +6,21 @@ interface FieldProps {
 	props: {
 		placeholder: string;
 		gameValues: IGame;
+		fieldName: 'name' | 'cover' | 'release';
 		setGameValues: Dispatch<SetStateAction<IGame>>;
 	};
 }
 
-export const Field = ({ props: { placeholder, gameValues, setGameValues } }: FieldProps) => {
+export const Field = ({ props: { placeholder, gameValues, setGameValues, fieldName } }: FieldProps) => {
 	return (
 		<StyledField>
-			<input className="data-input" type="text" placeholder={placeholder} />
+			<input
+				className="data-input"
+				type="text"
+				placeholder={placeholder}
+				value={gameValues[fieldName]}
+				onChange={(e) => setGameValues({ ...gameValues, [fieldName]: e.target.value })}
+			/>
 		</StyledField>
 	);
 };
