@@ -7,6 +7,7 @@ import { Loading } from './components/sidebar/loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { Store } from '@/context/store';
 import { sliceGames } from './slices/games';
+import Image from 'next/image';
 
 export const GamesContainer = () => {
 	const [loadingGames, setLoadingGames] = useState(true);
@@ -35,9 +36,9 @@ export const GamesContainer = () => {
 			{loadingGames && <Loading />}
 
 			{games.map((game) => (
-				<div
-					className="game"
-					key={game.name}></div>
+				<div className="game" key={game.name}>
+					<Image className="img" fill={true} src={game.cover} alt="game-cover" />
+				</div>
 			))}
 		</StyledGamesContainer>
 	);

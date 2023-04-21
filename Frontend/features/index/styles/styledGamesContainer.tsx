@@ -14,7 +14,22 @@ export const StyledGamesContainer = styled.div`
 
 	.game {
 		background-color: ${({ theme }) => theme.insideContainer};
-		width: 10rem;
-		height: 14rem;
+		width: 12rem;
+		height: 17rem;
+		cursor: pointer;
+		transition: 0.2s;
+		position: relative;
+
+		:hover {
+			transform: scale(1.05);
+		}
+
+		.img {
+			width: inherit;
+			height: inherit;
+			object-fit: cover;
+			border: 5px solid ${({ theme }) => theme.insideContainer};
+			position: absolute;
+		}
 	}
 `;

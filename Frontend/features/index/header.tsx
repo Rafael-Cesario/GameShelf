@@ -1,3 +1,4 @@
+import { AddGame } from './components/header/addGame';
 import { StyledHeader } from './styles/styledHeader';
 
 export const Header = () => {
@@ -7,10 +8,14 @@ export const Header = () => {
 				<span className="games-on-marker">Zerados: 20 Jogos</span>
 				<button>Aleatório</button>
 				<button>Filtros</button>
-				<button>Adicionar novo jogo</button>
+				<AddGame />
 			</div>
 
-			<input className='search' type="text" placeholder="Busque por um jogo, tag, gênero ou nota" />
+			<input
+				className="search"
+				type="text"
+				placeholder="Busque por um jogo, tag, gênero ou nota"
+			/>
 		</StyledHeader>
 	);
 };
