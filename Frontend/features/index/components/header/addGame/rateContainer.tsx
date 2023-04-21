@@ -13,13 +13,23 @@ interface RateContainerProps {
 export const RateContainer = ({ props: { gameValues, setGameValues } }: RateContainerProps) => {
 	const { rates } = useFilters();
 
+	const getClass = (rate: string) => {
+		const className = gameValues.rate === rate ? 'rate active' : 'rate';
+		return className;
+	};
+
+	const addRate = (rate: string) => {
+		if (gameValues.rate === rate) rate = '';
+		setGameValues({ ...gameValues, rate });
+	};
+
 	return (
 		<StyledRateContainer>
 			<h1 className="title">Nota</h1>
 
 			<div className="rates">
 				{rates.map((rate) => (
-					<button className="rate" key={rate}>
+					<button onClick={() => addRate(rate)} className={getClass(rate)} key={rate}>
 						{rate}
 					</button>
 				))}

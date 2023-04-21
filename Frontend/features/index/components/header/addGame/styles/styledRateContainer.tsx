@@ -20,5 +20,9 @@ export const StyledRateContainer = styled.div`
 				color: ${({ theme }) => theme.mainBackground};
 			}
 		}
+
+		.active {
+			background-color: ${({ theme }) => theme.primary};
+		}
 	}
 `;
