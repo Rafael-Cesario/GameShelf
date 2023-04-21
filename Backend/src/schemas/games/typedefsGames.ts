@@ -51,15 +51,6 @@ export const typedefsGames = gql`
 		update: IGame!
 	}
 
-	input IGame {
-		name: String!
-		release: String!
-		tags: [String]!
-		genre: [String]!
-		rate: String!
-		cover: String!
-	}
-
 	type Query {
 		getGames(email: String!): ResponseGetGames!
 	}

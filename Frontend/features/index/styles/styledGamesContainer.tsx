@@ -6,11 +6,8 @@ export const StyledGamesContainer = styled.div`
 	padding: 2rem;
 	height: max-content;
 
-	display: grid;
-	grid-template-columns: repeat(auto-fit, 10rem);
-	justify-content: center;
-	column-gap: 2rem;
-	row-gap: 2rem;
+	display: flex;
+	flex-flow: row wrap;
 
 	.game {
 		background-color: ${({ theme }) => theme.insideContainer};
@@ -19,6 +16,18 @@ export const StyledGamesContainer = styled.div`
 		cursor: pointer;
 		transition: 0.2s;
 		position: relative;
+		margin: 0.5rem;
+
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+
+		.game-name {
+			font-size: 1rem;
+			text-transform: capitalize;
+		}
 
 		:hover {
 			transform: scale(1.05);

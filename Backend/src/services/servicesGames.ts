@@ -15,7 +15,7 @@ export class ServicesGames {
 	}
 
 	async addGame({ addGame }: IAddGame) {
-		const hasEmptyValues = searchForEmptyValues(addGame) + searchForEmptyValues(addGame.game);
+		const hasEmptyValues = searchForEmptyValues(addGame);
 		if (hasEmptyValues) throw new GraphQLError(Errors.emptyVariable + hasEmptyValues);
 
 		const { email, game } = addGame;

@@ -12,6 +12,7 @@ export const StyledNotification = styled.div<{ type: string }>`
 	box-shadow: ${({ theme }) => theme.boxShadow};
 	min-width: 400px;
 	max-width: 800px;
+	z-index: 2;
 	/* animation: show 0.2s;
 
 	@keyframes show {

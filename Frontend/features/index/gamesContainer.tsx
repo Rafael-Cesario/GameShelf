@@ -37,7 +37,8 @@ export const GamesContainer = () => {
 
 			{games.map((game) => (
 				<div className="game" key={game.name}>
-					<Image className="img" fill={true} src={game.cover} alt="game-cover" />
+					{!game.cover && <h1 className="game-name">{game.name}</h1>}
+					{game.cover && <Image className="img" fill={true} src={game.cover} alt="game-cover" />}
 				</div>
 			))}
 		</StyledGamesContainer>

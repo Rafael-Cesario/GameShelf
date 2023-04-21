@@ -12,7 +12,7 @@ export const ImageContainer = ({ props: { imageLink, gameName } }: ImageContaine
 	if (!imageLink.match(/http/)) imageLink = '';
 	return (
 		<StyledImageContainer>
-			{imageLink || <h1>{gameName}</h1>}
+			{!imageLink && <h1>{gameName}</h1>}
 			{imageLink && <Image fill={true} alt="game cover" src={imageLink} />}
 		</StyledImageContainer>
 	);

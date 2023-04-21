@@ -49,4 +49,11 @@ export const StyledAddGame = styled.div`
 		border-radius: 2px;
 		background-color: ${({ theme }) => theme.primary};
 	}
+
+	.error {
+		color: ${({ theme }) => theme.textRed};
+		font-size: 0.9rem;
+		font-weight: bold;
+		margin: 1rem;
+	}
 `;
