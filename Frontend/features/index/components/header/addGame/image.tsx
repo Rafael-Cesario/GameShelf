@@ -8,9 +8,6 @@ interface ImageContainerProps {
 }
 
 export const ImageContainer = ({ props: { imageLink } }: ImageContainerProps) => {
-	return (
-		<StyledImageContainer>
-			<Image fill={true} alt="game cover" src={'https://sm.ign.com/t/ign_pt/cover/d/dredge/dredge_d37y.1200.jpg'} />
-		</StyledImageContainer>
-	);
+	if (!imageLink.match(/http/)) imageLink = '';
+	return <StyledImageContainer>{imageLink && <Image fill={true} alt="game cover" src={imageLink} />}</StyledImageContainer>;
 };
