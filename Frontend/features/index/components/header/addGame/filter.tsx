@@ -29,7 +29,10 @@ export const Filter = ({ props: { filterName, gameValues, setGameValues } }: Fil
 	const addFilter = (filter: string) => {
 		const newValues = produce(gameValues, (draft) => {
 			const filterIndex = indexOfFilter(draft[filterName], filter);
-			filterIndex >= 0 ? draft[filterName].splice(filterIndex, 1) : draft[filterName].push(filter.toLowerCase());
+			const hasFilter = filterIndex >= 0;
+
+			if (!hasFilter) draft[filterName].push(filter.toLowerCase());
+			else draft[filterName].splice(filterIndex, 1);
 		});
 
 		setGameValues(newValues);
