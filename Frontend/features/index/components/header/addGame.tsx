@@ -44,7 +44,7 @@ export const AddGame = () => {
 								<RateContainer props={{ gameValues, setGameValues }} />
 							</div>
 
-							<ImageContainer props={{ imageLink: gameValues.cover }} />
+							<ImageContainer props={{ imageLink: gameValues.cover, gameName: gameValues.name }} />
 						</div>
 
 						<button onClick={() => addGame()} className="add-game-button">

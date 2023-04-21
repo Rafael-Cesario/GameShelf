@@ -8,6 +8,11 @@ export const StyledImageContainer = styled.div`
 	background-color: ${({ theme }) => theme.insideContainer};
 	position: relative;
 
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+
 	img {
 		border: 5px solid ${({ theme }) => theme.insideContainer};
 		object-fit: cover;

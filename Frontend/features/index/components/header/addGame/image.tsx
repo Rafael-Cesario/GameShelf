@@ -3,11 +3,17 @@ import { StyledImageContainer } from './styles/styledImage';
 
 interface ImageContainerProps {
 	props: {
+		gameName: string;
 		imageLink: string;
 	};
 }
 
-export const ImageContainer = ({ props: { imageLink } }: ImageContainerProps) => {
+export const ImageContainer = ({ props: { imageLink, gameName } }: ImageContainerProps) => {
 	if (!imageLink.match(/http/)) imageLink = '';
-	return <StyledImageContainer>{imageLink && <Image fill={true} alt="game cover" src={imageLink} />}</StyledImageContainer>;
+	return (
+		<StyledImageContainer>
+			{imageLink || <h1>{gameName}</h1>}
+			{imageLink && <Image fill={true} alt="game cover" src={imageLink} />}
+		</StyledImageContainer>
+	);
 };
