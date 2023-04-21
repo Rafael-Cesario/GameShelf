@@ -1,10 +1,14 @@
+import { IGame } from '@/interfaces/IGames';
 import { Filter } from './filter';
 import { StyledFilterContainer } from './styles/styledFilterContainer';
+import { Dispatch, SetStateAction } from 'react';
 
 interface FilterContainerProps {
 	props: {
 		title: string;
 		filterName: string;
+		gameValues: IGame;
+		setGameValues: Dispatch<SetStateAction<IGame>>;
 	};
 }
 

@@ -11,11 +11,7 @@ export const Header = () => {
 				<AddGame />
 			</div>
 
-			<input
-				className="search"
-				type="text"
-				placeholder="Busque por um jogo, tag, gênero ou nota"
-			/>
+			<input className="search" type="text" placeholder="Busque por um jogo, tag, gênero ou nota" />
 		</StyledHeader>
 	);
 };

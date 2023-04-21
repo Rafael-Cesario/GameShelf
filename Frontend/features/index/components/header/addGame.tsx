@@ -5,9 +5,20 @@ import { ImageContainer } from './addGame/image';
 import { FilterContainer } from './addGame/filterContainer';
 import { RateContainer } from './addGame/rateContainer';
 import { Field } from './addGame/field';
+import { IGame } from '@/interfaces/IGames';
+
+const defaultGameValues: IGame = {
+	name: '',
+	release: '',
+	cover: '',
+	rate: '',
+	genre: [],
+	tags: [],
+};
 
 export const AddGame = () => {
 	const [isOpen, setIsOpen] = useState(false);
+	const [gameValues, setGameValues] = useState(defaultGameValues);
 
 	return (
 		<StyledAddGame>
@@ -20,16 +31,16 @@ export const AddGame = () => {
 
 						<div className="inputs">
 							<div className="data">
-								<Field placeholder="Nome" />
-								<Field placeholder="Data de lançamento" />
-								<Field placeholder="Link para uma imagem" />
+								<Field props={{ placeholder: 'Nome', gameValues, setGameValues }} />
+								<Field props={{ placeholder: 'Data de lançamento', gameValues, setGameValues }} />
+								<Field props={{ placeholder: 'Link para uma imagem', gameValues, setGameValues }} />
 
-								<FilterContainer props={{ title: 'Tags', filterName: 'tags' }} />
-								<FilterContainer props={{ title: 'Gêneros', filterName: 'genres' }} />
-								<RateContainer />
+								<FilterContainer props={{ title: 'Tags', filterName: 'tags', gameValues, setGameValues }} />
+								<FilterContainer props={{ title: 'Gêneros', filterName: 'genres', gameValues, setGameValues }} />
+								<RateContainer props={{ gameValues, setGameValues }} />
 							</div>
 
-							<ImageContainer />
+							<ImageContainer props={{ imageLink: gameValues.cover }} />
 						</div>
 
 						<button className="add-game-button">Criar</button>

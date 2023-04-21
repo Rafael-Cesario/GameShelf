@@ -1,7 +1,16 @@
 import { useFilters } from '@/features/index/hooks/useFilters';
 import { StyledRateContainer } from './styles/styledRateContainer';
+import { IGame } from '@/interfaces/IGames';
+import { Dispatch, SetStateAction } from 'react';
 
-export const RateContainer = () => {
+interface RateContainerProps {
+	props: {
+		gameValues: IGame;
+		setGameValues: Dispatch<SetStateAction<IGame>>;
+	};
+}
+
+export const RateContainer = ({ props: { gameValues, setGameValues } }: RateContainerProps) => {
 	const { rates } = useFilters();
 
 	return (
