@@ -52,7 +52,9 @@ export const AddGame = () => {
 
 	return (
 		<StyledAddGame>
-			<button onClick={() => setIsOpen(true)}>Adicionar novo jogo</button>
+			<button onClick={() => setIsOpen(true)} role="open-add-game">
+				Adicionar novo jogo
+			</button>
 
 			{isOpen && (
 				<div className="add-game-container">
@@ -61,7 +63,10 @@ export const AddGame = () => {
 
 						<div className="inputs">
 							<div className="data">
-								<span className="error">{error}</span>
+								<span className="error" role="error-message">
+									{error}
+								</span>
+
 								<Field props={{ fieldName: 'name', placeholder: 'Nome', gameValues, setGameValues }} />
 								<Field props={{ fieldName: 'release', placeholder: 'Data de lançamento', gameValues, setGameValues }} />
 								<Field props={{ fieldName: 'cover', placeholder: 'Link para uma imagem', gameValues, setGameValues }} />
@@ -74,7 +79,7 @@ export const AddGame = () => {
 							<ImageContainer props={{ imageLink: gameValues.cover, gameName: gameValues.name }} />
 						</div>
 
-						<button onClick={() => addGame()} className="add-game-button">
+						<button role="add-game-button" onClick={() => addGame()} className="add-game-button">
 							Criar
 						</button>
 					</div>

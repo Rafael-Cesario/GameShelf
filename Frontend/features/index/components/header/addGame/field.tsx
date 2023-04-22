@@ -15,6 +15,7 @@ export const Field = ({ props: { placeholder, gameValues, setGameValues, fieldNa
 	return (
 		<StyledField>
 			<input
+				role={'input-' + fieldName}
 				className="data-input"
 				type="text"
 				placeholder={placeholder}

@@ -36,7 +36,7 @@ export const GamesContainer = () => {
 			{loadingGames && <Loading />}
 
 			{games.map((game) => (
-				<div className="game" key={game.name}>
+				<div role="game" className="game" key={game.name} data-name={game.name}>
 					{!game.cover && <h1 className="game-name">{game.name}</h1>}
 					{game.cover && <Image className="img" fill={true} src={game.cover} alt="game-cover" />}
 				</div>
