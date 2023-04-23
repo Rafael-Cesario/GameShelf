@@ -50,10 +50,16 @@ export const StyledAddGame = styled.div`
 		background-color: ${({ theme }) => theme.primary};
 	}
 
+	.data {
+		display: flex;
+		flex-direction: column;
+	}
+
 	.error {
+		width: 100%;
 		color: ${({ theme }) => theme.textRed};
 		font-size: 0.9rem;
 		font-weight: bold;
-		margin: 1rem;
+		padding: 1rem;
 	}
 `;

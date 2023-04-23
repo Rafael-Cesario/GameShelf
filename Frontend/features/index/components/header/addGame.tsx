@@ -9,8 +9,9 @@ import { IGame } from '@/interfaces/IGames';
 import { useGames } from '../../hooks/useGames';
 import { StorageUser, storageKeys } from '@/interfaces/interfaceStorageKeys';
 import { useNotification } from '@/utils/useNotification';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { sliceGames } from '../../slices/games';
+import { Store } from '@/context/store';
 
 const defaultGameValues: IGame = {
 	name: '',
@@ -25,12 +26,18 @@ export const AddGame = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [gameValues, setGameValues] = useState(defaultGameValues);
 	const [error, setError] = useState('');
+	const { games } = useSelector((state: Store) => state.games);
 	const { requestAddGame } = useGames();
 	const { sendNotification } = useNotification();
 	const dispatch = useDispatch();
 
 	const addGame = async () => {
 		if (!gameValues.name) return setError('Seu jogo precisa de um nome.');
+
+		const newGameName = new RegExp(gameValues.name, 'i');
+		const alreadyHasGame = games.find((game) => game.name.match(newGameName));
+		if (alreadyHasGame) return setError('Um jogo com o mesmo nome já foi adicionado.');
+
 		setError('');
 
 		const storage = localStorage.getItem(storageKeys.user);
