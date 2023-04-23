@@ -1,25 +1,18 @@
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, screen } from '@testing-library/react';
 import { beforeAll, beforeEach, describe } from 'vitest';
-import { Provider } from 'react-redux';
-import { ApolloProvider } from '@apollo/client';
-import { store } from '@/context/store';
-import { client } from '@/services/client';
 import { Header } from '../header';
 import { storageKeys } from '@/interfaces/interfaceStorageKeys';
 import { GamesContainer } from '../gamesContainer';
+import { renderWithProviders } from '@/__tests__/utils/renderWithProviders';
 
-const renderComponent = () => {
-	render(
-		<ApolloProvider client={client}>
-			<Provider store={store}>
-				<Header />
-				<GamesContainer />
-			</Provider>
-		</ApolloProvider>
-	);
-};
+const Component = (
+	<>
+		<Header />
+		<GamesContainer />
+	</>
+);
 
 describe('Header', () => {
 	beforeAll(() => {
@@ -29,7 +22,7 @@ describe('Header', () => {
 
 	beforeEach(() => {
 		cleanup();
-		renderComponent();
+		renderWithProviders(Component);
 	});
 
 	const user = userEvent.setup();
@@ -50,5 +43,13 @@ describe('Header', () => {
 		expect(screen.getByRole('error-message')).toHaveTextContent('Seu jogo precisa de um nome.');
 	});
 
-	it.todo(`Can't add a game that already exist`);
+	it(`Can't add a game that already exist`, async () => {
+		await user.click(screen.getByRole('open-add-game'));
+		await user.type(screen.getByRole('input-name'), 'DuplicatedGame');
+		await user.click(screen.getByRole('add-game-button'));
+
+		await user.type(screen.getByRole('input-name'), 'duplicatedGame');
+		await user.click(screen.getByRole('add-game-button'));
+		expect(screen.getByRole('error-message')).toHaveTextContent('Um jogo com o mesmo nome já foi adicionado.');
+	});
 });
