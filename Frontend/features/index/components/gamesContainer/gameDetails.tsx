@@ -1,8 +1,9 @@
 import { Store } from '@/context/store';
-import { Dispatch, SetStateAction, useCallback, useEffect } from 'react';
+import { Dispatch, SetStateAction, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { StyledGameDetails } from './styles/styledGameDetails';
 import { ImageContainer } from '../imageContainer';
+import { useShortcuts } from '../../hooks/useShortcuts';
 
 type ShowDetails = {
 	isOpen: boolean;
@@ -24,13 +25,7 @@ export const GameDetails = ({ props: { showDetails, setShowDetails } }: GameDeta
 		e.key === 'Escape' && setShowDetails({ isOpen: false, gameIndex: 0 });
 	}, []);
 
-	useEffect(() => {
-		document.addEventListener('keyup', closeDetails);
-
-		return () => {
-			document.removeEventListener('keyup', closeDetails);
-		};
-	}, []);
+	useShortcuts(closeDetails);
 
 	return (
 		<StyledGameDetails>
