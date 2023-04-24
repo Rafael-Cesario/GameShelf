@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { StyledImageContainer } from './styles/styledImage';
+import { StyledImageContainer } from '../styles/styledImageContainer';
 
 interface ImageContainerProps {
 	props: {

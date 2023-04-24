@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { StyledAddGame } from '../../styles/styledAddGame';
 import { Title } from './addGame/title';
-import { ImageContainer } from './addGame/imageContainer';
+import { ImageContainer } from '../imageContainer';
 import { FilterContainer } from './addGame/filterContainer';
 import { RateContainer } from './addGame/rateContainer';
 import { Field } from './addGame/field';

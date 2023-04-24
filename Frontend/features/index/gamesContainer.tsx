@@ -8,10 +8,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Store } from '@/context/store';
 import { sliceGames } from './slices/games';
 import Image from 'next/image';
+import { GameDetails } from './components/gamesContainer/gameDetails';
 
 export const GamesContainer = () => {
-	const [loadingGames, setLoadingGames] = useState(true);
 	const { games } = useSelector((state: Store) => state.games);
+	const [loadingGames, setLoadingGames] = useState(true);
+	const [showDetails, setShowDetails] = useState({ isOpen: false, gameIndex: 0 });
+
 	const { queryGetGames } = useGames();
 	const { sendNotification } = useNotification();
 	const dispatch = useDispatch();
@@ -31,16 +34,18 @@ export const GamesContainer = () => {
 		getGames();
 	}, []);
 
+	if (loadingGames) return <Loading />;
+
 	return (
 		<StyledGamesContainer>
-			{loadingGames && <Loading />}
-
-			{games.map((game) => (
-				<div role="game" className="game" key={game.name} data-name={game.name}>
+			{games.map((game, index) => (
+				<div role="game" className="game" key={game.name} data-name={game.name} onClick={() => setShowDetails({ isOpen: true, gameIndex: index })}>
 					{!game.cover && <h1 className="game-name">{game.name}</h1>}
 					{game.cover && <Image className="img" fill={true} src={game.cover} alt="game-cover" />}
 				</div>
 			))}
+
+			{showDetails.isOpen && <GameDetails props={{ showDetails, setShowDetails }} />}
 		</StyledGamesContainer>
 	);
 };
