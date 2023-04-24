@@ -52,5 +52,12 @@ describe('Add new game filters', () => {
 		expect(filters.length).toBe(2);
 	});
 
-	it.todo('Search for a filter');
+	it('Search for a filter', async () => {
+		await addFilter('new filter');
+		await user.type(screen.getByRole('search-filter'), 'new');
+
+		const filters = getAllFilters();
+		expect(filters.length).toBe(1);
+		expect(filters[0]).toHaveTextContent('new filter');
+	});
 });

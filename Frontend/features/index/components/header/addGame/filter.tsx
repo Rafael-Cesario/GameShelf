@@ -53,7 +53,14 @@ export const Filter = ({ props: { filterName, gameValues, setGameValues } }: Fil
 
 	return (
 		<StyledFilter>
-			<input type="text" className="filter-input" placeholder={'Buscar...'} value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+			<input
+				role="search-filter"
+				type="text"
+				className="filter-input"
+				placeholder={'Buscar...'}
+				value={searchValue}
+				onChange={(e) => setSearchValue(e.target.value)}
+			/>
 
 			{getAllFilters().map((filter) => (
 				<button role="filter" className={generateClass(filter)} key={filter} onClick={() => addFilter(filter)}>
