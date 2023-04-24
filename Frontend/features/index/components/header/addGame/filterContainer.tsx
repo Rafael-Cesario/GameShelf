@@ -35,12 +35,15 @@ export const FilterContainer = ({ props: { title, filterName, gameValues, setGam
 				<h1 className="title">{title}</h1>
 				<input
 					type="text"
+					role="add-filter"
 					placeholder="Adicionar novo"
 					value={value}
 					onChange={(e) => setValue(e.target.value)}
 					onKeyUp={(e) => e.key === 'Enter' && addNewFilter()}
 				/>
-				<button onClick={() => addNewFilter()}>+</button>
+				<button role="button-add-filter" onClick={() => addNewFilter()}>
+					+
+				</button>
 			</div>
 
 			<Filter props={{ filterName, gameValues, setGameValues }} />

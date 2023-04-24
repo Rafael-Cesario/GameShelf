@@ -38,7 +38,7 @@ export const Filter = ({ props: { filterName, gameValues, setGameValues } }: Fil
 		setGameValues(newValues);
 	};
 
-	const getClass = (filter: string) => {
+	const generateClass = (filter: string) => {
 		let className = 'filter';
 
 		const filterIndex = indexOfFilter(gameValues[filterName], filter);
@@ -52,7 +52,7 @@ export const Filter = ({ props: { filterName, gameValues, setGameValues } }: Fil
 			<input type="text" className="filter-input" placeholder={'Buscar...'} />
 
 			{getAllFilters().map((filter) => (
-				<button className={getClass(filter)} key={filter} onClick={() => addFilter(filter)}>
+				<button role='filter' className={generateClass(filter)} key={filter} onClick={() => addFilter(filter)}>
 					{filter}
 				</button>
 			))}
