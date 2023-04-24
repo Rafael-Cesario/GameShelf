@@ -2,7 +2,7 @@ import { indexOfFilter } from '@/features/index/utils/indexOfFilter';
 import { IGame } from '@/interfaces/IGames';
 import { useFilters } from '../../../hooks/useFilters';
 import { StyledFilter } from './styles/styledFilter';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import produce from 'immer';
 
 interface FilterProps {
@@ -15,12 +15,16 @@ interface FilterProps {
 
 export const Filter = ({ props: { filterName, gameValues, setGameValues } }: FilterProps) => {
 	const filters = useFilters();
+	const [searchValue, setSearchValue] = useState('');
 
 	const getAllFilters = () => {
 		const mergedFilters = [...filters[filterName], ...gameValues[filterName]];
+
 		const uniqueFilters = mergedFilters.filter((filter, index) => {
-			filter = filter.toLowerCase();
-			if (index === indexOfFilter(mergedFilters, filter)) return filter;
+			const hasSameIndex = index === indexOfFilter(mergedFilters, filter.toLowerCase());
+			const matchSearchValue = filter.match(new RegExp(searchValue, 'i'));
+
+			if (hasSameIndex && matchSearchValue) return filter;
 		});
 
 		return uniqueFilters;
@@ -49,10 +53,10 @@ export const Filter = ({ props: { filterName, gameValues, setGameValues } }: Fil
 
 	return (
 		<StyledFilter>
-			<input type="text" className="filter-input" placeholder={'Buscar...'} />
+			<input type="text" className="filter-input" placeholder={'Buscar...'} value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
 
 			{getAllFilters().map((filter) => (
-				<button role='filter' className={generateClass(filter)} key={filter} onClick={() => addFilter(filter)}>
+				<button role="filter" className={generateClass(filter)} key={filter} onClick={() => addFilter(filter)}>
 					{filter}
 				</button>
 			))}
