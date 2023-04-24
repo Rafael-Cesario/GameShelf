@@ -1,5 +1,5 @@
 import { Store } from '@/context/store';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { StyledGameDetails } from './styles/styledGameDetails';
 import { ImageContainer } from '../imageContainer';
@@ -19,6 +19,18 @@ interface GameDetailsProps {
 export const GameDetails = ({ props: { showDetails, setShowDetails } }: GameDetailsProps) => {
 	const { games } = useSelector((state: Store) => state.games);
 	const { name, release, rate, cover, genre, tags } = games[showDetails.gameIndex];
+
+	const closeDetails = useCallback((e: KeyboardEvent) => {
+		e.key === 'Escape' && setShowDetails({ isOpen: false, gameIndex: 0 });
+	}, []);
+
+	useEffect(() => {
+		document.addEventListener('keyup', closeDetails);
+
+		return () => {
+			document.removeEventListener('keyup', closeDetails);
+		};
+	}, []);
 
 	return (
 		<StyledGameDetails>
