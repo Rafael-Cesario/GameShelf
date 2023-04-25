@@ -9,11 +9,14 @@ import { Store } from '@/context/store';
 import { sliceGames } from './slices/games';
 import Image from 'next/image';
 import { GameDetails } from './components/gamesContainer/gameDetails';
+import { Container } from './components/gamesContainer/container';
+import { EditGame } from './components/gamesContainer/editGame';
 
 export const GamesContainer = () => {
 	const { games } = useSelector((state: Store) => state.games);
 	const [loadingGames, setLoadingGames] = useState(true);
 	const [showDetails, setShowDetails] = useState({ isOpen: false, gameIndex: 0 });
+	const [editGame, setEditGame] = useState({ isOpen: false, gameIndex: 0 });
 
 	const { queryGetGames } = useGames();
 	const { sendNotification } = useNotification();
@@ -46,6 +49,8 @@ export const GamesContainer = () => {
 			))}
 
 			{showDetails.isOpen && <GameDetails props={{ showDetails, setShowDetails }} />}
+
+			<EditGame props={{ editGame, setEditGame }} />
 		</StyledGamesContainer>
 	);
 };
