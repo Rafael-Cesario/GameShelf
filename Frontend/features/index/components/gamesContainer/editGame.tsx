@@ -9,10 +9,11 @@ import { RateContainer } from '../header/addGame/rateContainer';
 import { ImageContainer } from '../imageContainer';
 import { FilterContainer } from '../header/addGame/filterContainer';
 import { useGames } from '../../hooks/useGames';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { StorageUser, storageKeys } from '@/interfaces/interfaceStorageKeys';
 import { useNotification } from '@/utils/useNotification';
 import { sliceGames } from '../../slices/games';
+import { Store } from '@/context/store';
 
 interface Props {
 	props: {
@@ -22,6 +23,7 @@ interface Props {
 }
 
 export const EditGame = ({ props: { gameDetails, setGameDetails } }: Props) => {
+	const { games } = useSelector((state: Store) => state.games);
 	const game = useGame(gameDetails.gameIndex);
 	const [gameValues, setGameValues] = useState<IGame>(game);
 	const { name, release, cover } = gameValues;
@@ -40,6 +42,11 @@ export const EditGame = ({ props: { gameDetails, setGameDetails } }: Props) => {
 	);
 
 	const saveGame = async () => {
+		if (!name) return sendNotification('Erro', 'Seu jogo precisa de um nome.');
+
+		const alreadyHasGame = games.find((game) => game.name.match(new RegExp(name, 'i')));
+		if (alreadyHasGame) return sendNotification('Erro', 'Um jogo com o mesmo nome já existe.');
+
 		const storage = localStorage.getItem(storageKeys.user);
 		const { email } = JSON.parse(storage || '') as StorageUser;
 

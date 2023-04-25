@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledNotification = styled.div<{ type: string }>`
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	padding: 1rem;
