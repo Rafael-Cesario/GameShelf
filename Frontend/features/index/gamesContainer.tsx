@@ -12,11 +12,15 @@ import { GameDetails } from './components/gamesContainer/gameDetails';
 import { Container } from './components/gamesContainer/container';
 import { EditGame } from './components/gamesContainer/editGame';
 
+type GameDetailsType = {
+	isOpen: '' | 'details' | 'edit';
+	gameIndex: number;
+};
+
 export const GamesContainer = () => {
 	const { games } = useSelector((state: Store) => state.games);
 	const [loadingGames, setLoadingGames] = useState(true);
-	const [showDetails, setShowDetails] = useState({ isOpen: false, gameIndex: 0 });
-	const [editGame, setEditGame] = useState({ isOpen: false, gameIndex: 0 });
+	const [gameDetails, setGameDetails] = useState<GameDetailsType>({ isOpen: '', gameIndex: 0 });
 
 	const { queryGetGames } = useGames();
 	const { sendNotification } = useNotification();
@@ -42,15 +46,19 @@ export const GamesContainer = () => {
 	return (
 		<StyledGamesContainer>
 			{games.map((game, index) => (
-				<div role="game" className="game" key={game.name} data-name={game.name} onClick={() => setShowDetails({ isOpen: true, gameIndex: index })}>
+				<div
+					role="game"
+					className="game"
+					key={game.name}
+					data-name={game.name}
+					onClick={() => setGameDetails({ isOpen: 'details', gameIndex: index })}>
 					{!game.cover && <h1 className="game-name">{game.name}</h1>}
 					{game.cover && <Image className="img" fill={true} src={game.cover} alt="game-cover" />}
 				</div>
 			))}
 
-			{showDetails.isOpen && <GameDetails props={{ showDetails, setShowDetails }} />}
-
-			<EditGame props={{ editGame, setEditGame }} />
+			{gameDetails.isOpen === 'details' && <GameDetails props={{ gameDetails, setGameDetails }} />}
+			{/* <EditGame props={{ editGame, setEditGame }} /> */}
 		</StyledGamesContainer>
 	);
 };

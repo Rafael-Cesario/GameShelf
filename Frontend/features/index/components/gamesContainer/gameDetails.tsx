@@ -4,23 +4,23 @@ import { ImageContainer } from '../imageContainer';
 import { useShortcuts } from '../../hooks/useShortcuts';
 import { useGame } from './hooks/useGame';
 
-type ShowDetails = {
-	isOpen: boolean;
+type gameDetails = {
+	isOpen: '' | 'details' | 'edit';
 	gameIndex: number;
 };
 
 interface GameDetailsProps {
 	props: {
-		showDetails: ShowDetails;
-		setShowDetails: Dispatch<SetStateAction<ShowDetails>>;
+		gameDetails: gameDetails;
+		setGameDetails: Dispatch<SetStateAction<gameDetails>>;
 	};
 }
 
-export const GameDetails = ({ props: { showDetails, setShowDetails } }: GameDetailsProps) => {
+export const GameDetails = ({ props: { gameDetails: showDetails, setGameDetails: setShowDetails } }: GameDetailsProps) => {
 	const { name, release, rate, cover, genre, tags } = useGame(showDetails.gameIndex);
 
 	const closeDetails = useCallback((e: KeyboardEvent) => {
-		e.key === 'Escape' && setShowDetails({ isOpen: false, gameIndex: 0 });
+		e.key === 'Escape' && setShowDetails({ isOpen: '', gameIndex: 0 });
 	}, []);
 
 	useShortcuts(closeDetails);
@@ -28,7 +28,7 @@ export const GameDetails = ({ props: { showDetails, setShowDetails } }: GameDeta
 	return (
 		<StyledGameDetails>
 			<div className="details">
-				<button className="close" onClick={() => setShowDetails({ isOpen: false, gameIndex: 0 })}>
+				<button className="close" onClick={() => setShowDetails({ isOpen: '', gameIndex: 0 })}>
 					x
 				</button>
 
