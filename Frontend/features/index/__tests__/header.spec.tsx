@@ -5,7 +5,7 @@ import { beforeAll, beforeEach, describe } from 'vitest';
 import { Header } from '../header';
 import { storageKeys } from '@/interfaces/interfaceStorageKeys';
 import { GamesContainer } from '../gamesContainer';
-import { renderWithProviders } from '@/__tests__/utils/renderWithProviders';
+import { renderWithProviders } from '@/features/__tests__/utils/renderWithProviders';
 
 const Component = (
 	<>

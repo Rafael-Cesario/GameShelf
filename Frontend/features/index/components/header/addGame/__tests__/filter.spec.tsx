@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-import { renderWithProviders } from '@/__tests__/utils/renderWithProviders';
+import { renderWithProviders } from '@/features/__tests__/utils/renderWithProviders';
 import { beforeEach, describe, it } from 'vitest';
 import { FilterContainer } from '../filterContainer';
 import { IGame } from '@/interfaces/IGames';
