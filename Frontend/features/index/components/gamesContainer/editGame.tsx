@@ -1,25 +1,32 @@
-import { Dispatch, SetStateAction } from 'react';
+import type { IGameDetails } from '../../gamesContainer';
+import { Dispatch, SetStateAction, useCallback } from 'react';
 import { Container } from './container';
 import { useGame } from './hooks/useGame';
-
-type EditGameType = {
-	isOpen: boolean;
-	gameIndex: number;
-};
+import { useShortcuts } from '../../hooks/useShortcuts';
 
 interface Props {
 	props: {
-		editGame: EditGameType;
-		setEditGame: Dispatch<SetStateAction<EditGameType>>;
+		gameDetails: IGameDetails;
+		setGameDetails: Dispatch<SetStateAction<IGameDetails>>;
 	};
 }
 
-export const EditGame = ({ props: { editGame, setEditGame } }: Props) => {
-	const { name, release, rate, cover, genre, tags } = useGame(editGame.gameIndex);
+export const EditGame = ({ props: { gameDetails, setGameDetails } }: Props) => {
+	const { name, release, rate, cover, genre, tags } = useGame(gameDetails.gameIndex);
+
+	const closeEdit = () => setGameDetails({ gameIndex: 0, isOpen: '' });
+
+	useShortcuts(
+		useCallback((e: KeyboardEvent) => {
+			e.key === 'Escape' && closeEdit();
+		}, [])
+	);
 
 	return (
 		<Container>
-			<h1>Teste</h1>
+			<button onClick={() => closeEdit()} className="close">
+				x
+			</button>
 		</Container>
 	);
 };

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { StorageUser, storageKeys } from '@/interfaces/interfaceStorageKeys';
 import { useGames } from './hooks/useGames';
 import { StyledGamesContainer } from './styles/styledGamesContainer';
@@ -7,20 +8,18 @@ import { Loading } from './components/sidebar/loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { Store } from '@/context/store';
 import { sliceGames } from './slices/games';
-import Image from 'next/image';
 import { GameDetails } from './components/gamesContainer/gameDetails';
-import { Container } from './components/gamesContainer/container';
 import { EditGame } from './components/gamesContainer/editGame';
 
-type GameDetailsType = {
+export interface IGameDetails {
 	isOpen: '' | 'details' | 'edit';
 	gameIndex: number;
-};
+}
 
 export const GamesContainer = () => {
 	const { games } = useSelector((state: Store) => state.games);
 	const [loadingGames, setLoadingGames] = useState(true);
-	const [gameDetails, setGameDetails] = useState<GameDetailsType>({ isOpen: '', gameIndex: 0 });
+	const [gameDetails, setGameDetails] = useState<IGameDetails>({ isOpen: 'edit', gameIndex: 0 });
 
 	const { queryGetGames } = useGames();
 	const { sendNotification } = useNotification();
@@ -58,7 +57,7 @@ export const GamesContainer = () => {
 			))}
 
 			{gameDetails.isOpen === 'details' && <GameDetails props={{ gameDetails, setGameDetails }} />}
-			{/* <EditGame props={{ editGame, setEditGame }} /> */}
+			{gameDetails.isOpen === 'edit' && <EditGame props={{ gameDetails, setGameDetails }} />}
 		</StyledGamesContainer>
 	);
 };

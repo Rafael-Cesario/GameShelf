@@ -1,26 +1,26 @@
+import type { IGameDetails } from '../../gamesContainer';
 import { Dispatch, SetStateAction, useCallback } from 'react';
 import { StyledGameDetails } from './styles/styledGameDetails';
 import { ImageContainer } from '../imageContainer';
 import { useShortcuts } from '../../hooks/useShortcuts';
 import { useGame } from './hooks/useGame';
 
-type gameDetails = {
-	isOpen: '' | 'details' | 'edit';
-	gameIndex: number;
-};
-
 interface GameDetailsProps {
 	props: {
-		gameDetails: gameDetails;
-		setGameDetails: Dispatch<SetStateAction<gameDetails>>;
+		gameDetails: IGameDetails;
+		setGameDetails: Dispatch<SetStateAction<IGameDetails>>;
 	};
 }
 
-export const GameDetails = ({ props: { gameDetails: showDetails, setGameDetails: setShowDetails } }: GameDetailsProps) => {
-	const { name, release, rate, cover, genre, tags } = useGame(showDetails.gameIndex);
+export const GameDetails = ({ props: { gameDetails, setGameDetails } }: GameDetailsProps) => {
+	const { name, release, rate, cover, genre, tags } = useGame(gameDetails.gameIndex);
+
+	const openEditGame = () => {
+		setGameDetails({ isOpen: 'edit', gameIndex: gameDetails.gameIndex });
+	};
 
 	const closeDetails = useCallback((e: KeyboardEvent) => {
-		e.key === 'Escape' && setShowDetails({ isOpen: '', gameIndex: 0 });
+		e.key === 'Escape' && setGameDetails({ isOpen: '', gameIndex: 0 });
 	}, []);
 
 	useShortcuts(closeDetails);
@@ -28,7 +28,7 @@ export const GameDetails = ({ props: { gameDetails: showDetails, setGameDetails:
 	return (
 		<StyledGameDetails>
 			<div className="details">
-				<button className="close" onClick={() => setShowDetails({ isOpen: '', gameIndex: 0 })}>
+				<button className="close" onClick={() => setGameDetails({ isOpen: '', gameIndex: 0 })}>
 					x
 				</button>
 
@@ -46,7 +46,7 @@ export const GameDetails = ({ props: { gameDetails: showDetails, setGameDetails:
 					</div>
 
 					<div className="buttons">
-						<button>Editar</button>
+						<button onClick={() => openEditGame()}>Editar</button>
 						<button>Excluir</button>
 					</div>
 				</div>
