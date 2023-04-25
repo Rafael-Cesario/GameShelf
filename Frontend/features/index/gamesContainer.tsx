@@ -19,7 +19,7 @@ export interface IGameDetails {
 export const GamesContainer = () => {
 	const { games } = useSelector((state: Store) => state.games);
 	const [loadingGames, setLoadingGames] = useState(true);
-	const [gameDetails, setGameDetails] = useState<IGameDetails>({ isOpen: 'edit', gameIndex: 0 });
+	const [gameDetails, setGameDetails] = useState<IGameDetails>({ isOpen: '', gameIndex: 0 });
 
 	const { queryGetGames } = useGames();
 	const { sendNotification } = useNotification();

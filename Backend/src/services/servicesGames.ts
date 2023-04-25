@@ -33,7 +33,7 @@ export class ServicesGames {
 	}
 
 	async updateGame({ updateGame }: IUpdateGame) {
-		const hasEmptyValues = searchForEmptyValues(updateGame) + searchForEmptyValues(updateGame.update);
+		const hasEmptyValues = searchForEmptyValues(updateGame);
 		if (hasEmptyValues) throw new GraphQLError(Errors.emptyVariable + hasEmptyValues);
 
 		const { email, gameName, update } = updateGame;

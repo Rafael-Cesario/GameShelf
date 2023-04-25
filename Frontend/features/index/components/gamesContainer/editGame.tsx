@@ -1,5 +1,5 @@
 import type { IGameDetails } from '../../gamesContainer';
-import { Dispatch, SetStateAction, useCallback, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react';
 import { Container } from './container';
 import { useGame } from './hooks/useGame';
 import { useShortcuts } from '../../hooks/useShortcuts';
@@ -8,6 +8,11 @@ import { IGame } from '@/interfaces/IGames';
 import { RateContainer } from '../header/addGame/rateContainer';
 import { ImageContainer } from '../imageContainer';
 import { FilterContainer } from '../header/addGame/filterContainer';
+import { useGames } from '../../hooks/useGames';
+import { useDispatch } from 'react-redux';
+import { StorageUser, storageKeys } from '@/interfaces/interfaceStorageKeys';
+import { useNotification } from '@/utils/useNotification';
+import { sliceGames } from '../../slices/games';
 
 interface Props {
 	props: {
@@ -20,6 +25,11 @@ export const EditGame = ({ props: { gameDetails, setGameDetails } }: Props) => {
 	const game = useGame(gameDetails.gameIndex);
 	const [gameValues, setGameValues] = useState<IGame>(game);
 	const { name, release, cover } = gameValues;
+	const oldName = useMemo(() => name, []);
+
+	const { requestUpdateGame } = useGames();
+	const { sendNotification } = useNotification();
+	const dispatch = useDispatch();
 
 	const closeEdit = () => setGameDetails({ gameIndex: 0, isOpen: '' });
 
@@ -29,8 +39,23 @@ export const EditGame = ({ props: { gameDetails, setGameDetails } }: Props) => {
 		}, [])
 	);
 
-	const saveGame = () => {
-		console.log(gameValues);
+	const saveGame = async () => {
+		const storage = localStorage.getItem(storageKeys.user);
+		const { email } = JSON.parse(storage || '') as StorageUser;
+
+		const { data, error } = await requestUpdateGame({
+			updateGame: {
+				email,
+				gameName: oldName,
+				update: gameValues,
+			},
+		});
+
+		if (error || !data) return sendNotification('Erro', 'Um erro ocorreu, recarregue a página e tente novamente');
+
+		dispatch(sliceGames.actions.setGames({ games: data }));
+		setGameDetails({ isOpen: 'details', gameIndex: gameDetails.gameIndex });
+		sendNotification('Sucesso', 'Seu jogo foi atualizado');
 	};
 
 	return (
