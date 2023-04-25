@@ -4,7 +4,7 @@ export const StyledContainer = styled.div`
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 99vw;
+	width: 100%;
 	height: 100vh;
 	background-color: #10101080;
 	backdrop-filter: blur(2px);

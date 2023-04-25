@@ -24,7 +24,7 @@ export const RateContainer = ({ props: { gameValues, setGameValues } }: RateCont
 	};
 
 	return (
-		<StyledRateContainer>
+		<StyledRateContainer className="rate-container">
 			<h1 className="title">Nota</h1>
 
 			<div className="rates">

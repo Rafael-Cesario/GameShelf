@@ -30,7 +30,7 @@ export const FilterContainer = ({ props: { title, filterName, gameValues, setGam
 	};
 
 	return (
-		<StyledFilterContainer>
+		<StyledFilterContainer className="filter-container">
 			<div className="top">
 				<h1 className="title">{title}</h1>
 				<input
