@@ -34,7 +34,7 @@ export const StyledHeader = styled.div`
 
 		.search {
 			margin-top: 1rem;
-			width: 60%;
+			width: 90%;
 		}
 	}
 `;

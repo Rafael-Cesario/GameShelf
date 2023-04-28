@@ -17,7 +17,7 @@ export interface IGameDetails {
 }
 
 export const GamesContainer = () => {
-	const { games } = useSelector((state: Store) => state.games);
+	const { games, filter } = useSelector((state: Store) => state.games);
 	const [loadingGames, setLoadingGames] = useState(true);
 	const [gameDetails, setGameDetails] = useState<IGameDetails>({ isOpen: '', gameIndex: 0 });
 
@@ -36,6 +36,23 @@ export const GamesContainer = () => {
 		dispatch(sliceGames.actions.setGames({ games: data }));
 	};
 
+	const filterGames = () => {
+		const filterRegExp = new RegExp(filter, 'i');
+
+		const filteredGames = games.filter((game) => {
+			const matchName = game.name.match(filterRegExp);
+			if (matchName) return game;
+
+			const matchTag = game.tags.find((tag) => tag.match(filterRegExp));
+			if (matchTag) return game;
+
+			const matchGenre = game.genre.find((genre) => genre.match(filterRegExp));
+			if (matchGenre) return game;
+		});
+
+		return filteredGames;
+	};
+
 	useEffect(() => {
 		getGames();
 	}, []);
@@ -44,7 +61,7 @@ export const GamesContainer = () => {
 
 	return (
 		<StyledGamesContainer>
-			{games.map((game, index) => (
+			{filterGames().map((game, index) => (
 				<div
 					role="game"
 					className="game"
