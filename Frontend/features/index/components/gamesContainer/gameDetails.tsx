@@ -81,10 +81,14 @@ export const GameDetails = ({ props: { gameDetails, setGameDetails } }: GameDeta
 							Editar
 						</button>
 
-						{showDeleteButton || <button onClick={() => setShowDeleteButton(true)}>Excluir</button>}
+						{showDeleteButton || (
+							<button role="delete-game" onClick={() => setShowDeleteButton(true)}>
+								Excluir
+							</button>
+						)}
 
 						{showDeleteButton && (
-							<button onClick={() => deleteGame()} autoFocus={true} onBlur={() => setShowDeleteButton(false)}>
+							<button role="delete-game-confirm" onClick={() => deleteGame()} autoFocus={true} onBlur={() => setShowDeleteButton(false)}>
 								Clique novamente para remover seu jogo, ou clique fora para cancelar
 							</button>
 						)}

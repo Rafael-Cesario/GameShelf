@@ -59,7 +59,7 @@ describe('Games container', () => {
 		await addGame('Change my name');
 
 		const games = getAllGames();
-		await user.click(games[0]);
+		await user.click(games[games.length - 1]);
 
 		await user.click(screen.getByRole('edit-game'));
 		await user.clear(screen.getByRole('game-name'));
@@ -68,5 +68,19 @@ describe('Games container', () => {
 
 		const currentGameName = await waitFor(() => screen.findByRole('game-name'));
 		expect(currentGameName).toHaveTextContent('New name');
+	});
+
+	it('Delete a game', async () => {
+		await addGame('Delete me');
+
+		let games = getAllGames();
+		const gamesLength = games.length;
+
+		await user.click(games[games.length - 1]);
+		await user.click(screen.getByRole('delete-game'));
+		await user.click(screen.getByRole('delete-game-confirm'));
+
+		games = getAllGames();
+		expect(games.length).toBe(gamesLength - 1);
 	});
 });

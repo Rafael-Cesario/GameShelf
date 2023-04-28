@@ -53,6 +53,7 @@ export const AddGame = () => {
 		if (error || !data) return sendNotification('Erro', 'Um erro ocorreu adicionando seu jogo');
 		sendNotification('Sucesso', 'Seu jogo foi adicionado');
 
+		setIsOpen(false);
 		setGameValues(defaultGameValues);
 		dispatch(sliceGames.actions.setGames({ games: data }));
 	};
