@@ -38,6 +38,7 @@ export const StyledGameDetails = styled.div`
 		border: 5px solid ${({ theme }) => theme.containerBorder};
 		border-radius: 2px;
 		padding: 5rem 2rem;
+		width: 80vw;
 		max-width: 70rem;
 
 		.data {

@@ -9,7 +9,7 @@ interface ImageContainerProps {
 }
 
 export const ImageContainer = ({ props: { imageLink, gameName } }: ImageContainerProps) => {
-	if (!imageLink.match(/http/)) imageLink = '';
+	if (!imageLink?.match(/http/)) imageLink = '';
 	return (
 		<StyledImageContainer>
 			{!imageLink && <h1>{gameName}</h1>}
