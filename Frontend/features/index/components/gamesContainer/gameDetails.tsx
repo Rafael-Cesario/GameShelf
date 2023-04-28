@@ -28,13 +28,15 @@ export const GameDetails = ({ props: { gameDetails, setGameDetails } }: GameDeta
 	return (
 		<StyledGameDetails>
 			<div className="details">
-				<button className="close" onClick={() => setGameDetails({ isOpen: '', gameIndex: 0 })}>
+				<button role="close-details" className="close" onClick={() => setGameDetails({ isOpen: '', gameIndex: 0 })}>
 					x
 				</button>
 
 				<div className="data">
 					<div>
-						<h1 className="title">{name}</h1>
+						<h1 role="game-name" className="title">
+							{name}
+						</h1>
 						<p className="info">{release}</p>
 						<p className="info">Nota: {rate}</p>
 

@@ -11,8 +11,8 @@ export const StyledGamesContainer = styled.div`
 
 	.game {
 		background-color: ${({ theme }) => theme.insideContainer};
-		width: 12rem;
-		height: 17rem;
+		width: 10rem;
+		height: 14rem;
 		cursor: pointer;
 		transition: 0.2s;
 		position: relative;
