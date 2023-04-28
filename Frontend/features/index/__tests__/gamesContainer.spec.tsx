@@ -45,13 +45,28 @@ describe('Games container', () => {
 		const games = getAllGames();
 
 		await user.click(games[0]);
-		let currentGameDetails = await waitFor(() => screen.findByRole('game-name'));
-		expect(currentGameDetails).toHaveTextContent('Game01');
+		let currentGameName = await waitFor(() => screen.findByRole('game-name'));
+		expect(currentGameName).toHaveTextContent('Game01');
 
 		await user.click(screen.getByRole('close-details'));
 
 		await user.click(games[1]);
-		currentGameDetails = await waitFor(() => screen.findByRole('game-name'));
-		expect(currentGameDetails).toHaveTextContent('Game02');
+		currentGameName = await waitFor(() => screen.findByRole('game-name'));
+		expect(currentGameName).toHaveTextContent('Game02');
+	});
+
+	it(`Change the game's name`, async () => {
+		await addGame('Change my name');
+
+		const games = getAllGames();
+		await user.click(games[0]);
+
+		await user.click(screen.getByRole('edit-game'));
+		await user.clear(screen.getByRole('game-name'));
+		await user.type(screen.getByRole('game-name'), 'New name');
+		await user.click(screen.getByRole('save-button'));
+
+		const currentGameName = await waitFor(() => screen.findByRole('game-name'));
+		expect(currentGameName).toHaveTextContent('New name');
 	});
 });

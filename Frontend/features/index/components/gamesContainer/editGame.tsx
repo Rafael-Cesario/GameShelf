@@ -73,14 +73,20 @@ export const EditGame = ({ props: { gameDetails, setGameDetails } }: Props) => {
 				</button>
 
 				<div className="data">
-					<input className="title" type="text" value={name} onChange={(e) => setGameValues({ ...gameValues, name: e.target.value })} />
+					<input
+						role="game-name"
+						className="title"
+						type="text"
+						value={name}
+						onChange={(e) => setGameValues({ ...gameValues, name: e.target.value })}
+					/>
 					<input type="text" className="info" value={release} onChange={(e) => setGameValues({ ...gameValues, release: e.target.value })} />
 
 					<RateContainer props={{ gameValues, setGameValues }} />
 					<FilterContainer props={{ title: 'Tags', filterName: 'tags', gameValues, setGameValues }} />
 					<FilterContainer props={{ title: 'Gêneros', filterName: 'genre', gameValues, setGameValues }} />
 
-					<button onClick={() => saveGame()} className="save-button">
+					<button onClick={() => saveGame()} className="save-button" role="save-button">
 						Salvar
 					</button>
 				</div>

@@ -48,7 +48,9 @@ export const GameDetails = ({ props: { gameDetails, setGameDetails } }: GameDeta
 					</div>
 
 					<div className="buttons">
-						<button onClick={() => openEditGame()}>Editar</button>
+						<button onClick={() => openEditGame()} role="edit-game">
+							Editar
+						</button>
 						<button>Excluir</button>
 					</div>
 				</div>

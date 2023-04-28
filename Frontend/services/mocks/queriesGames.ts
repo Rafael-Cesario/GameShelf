@@ -1,4 +1,4 @@
-import { IAddGame, IGame } from '@/interfaces/IGames';
+import { IAddGame, IGame, IUpdateGame } from '@/interfaces/IGames';
 import { graphql } from 'msw';
 
 const games: IGame[] = [];
@@ -14,5 +14,15 @@ export const mockQueriesGames = [
 
 		games.push(game);
 		return res(ctx.data({ addGame: { newGames: games } }));
+	}),
+
+	graphql.mutation('UpdateGame', (req, res, ctx) => {
+		const { updateGame } = req.variables as IUpdateGame;
+		const { gameName, update } = updateGame;
+
+		const gameIndex = games.findIndex((game) => game.name === gameName);
+		games.splice(gameIndex, 1, update);
+
+		return res(ctx.data({ updateGame: { newGames: games } }));
 	}),
 ];
