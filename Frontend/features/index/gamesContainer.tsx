@@ -13,13 +13,13 @@ import { useFilteredGames } from './hooks/useFilteredGames';
 
 export interface IGameDetails {
 	isOpen: '' | 'details' | 'edit';
-	gameIndex: number;
+	gameName: string;
 }
 
 export const GamesContainer = () => {
 	const { games } = useFilteredGames();
 	const [loadingGames, setLoadingGames] = useState(true);
-	const [gameDetails, setGameDetails] = useState<IGameDetails>({ isOpen: '', gameIndex: 0 });
+	const [gameDetails, setGameDetails] = useState<IGameDetails>({ isOpen: '', gameName: '' });
 
 	const { queryGetGames } = useGames();
 	const { sendNotification } = useNotification();
@@ -44,13 +44,13 @@ export const GamesContainer = () => {
 
 	return (
 		<StyledGamesContainer>
-			{games.map((game, index) => (
+			{games.map((game) => (
 				<div
 					role="game"
 					className="game"
 					key={game.name}
 					data-name={game.name}
-					onClick={() => setGameDetails({ isOpen: 'details', gameIndex: index })}>
+					onClick={() => setGameDetails({ isOpen: 'details', gameName: game.name })}>
 					{!game.cover && <h1 className="game-name">{game.name}</h1>}
 					{game.cover && <Image className="img" fill={true} src={game.cover} alt="game-cover" />}
 				</div>

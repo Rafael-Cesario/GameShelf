@@ -7,7 +7,20 @@ export const useFilteredGames = () => {
 	const filterGames = () => {
 		const searchGameRegExp = new RegExp(searchGame, 'i');
 
-		const searchGames = games.filter((game) => {
+		const filterGames = games.filter((game) => {
+			const matchTag = game.tags.find((tag) => filters.tags.find((filterTag) => filterTag === tag));
+			if (!matchTag && filters.tags.length) return;
+
+			const matchGenre = game.genre.find((genre) => filters.genre.find((filterGenre) => filterGenre === genre));
+			if (!matchGenre && filters.genre.length) return;
+
+			const matchRate = game.rate === filters.rate;
+			if (!matchRate && filters.rate) return;
+
+			return game;
+		});
+
+		const searchGames = filterGames.filter((game) => {
 			const matchName = game.name.match(searchGameRegExp);
 			if (matchName) return game;
 
@@ -21,20 +34,8 @@ export const useFilteredGames = () => {
 			if (matchRate) return game;
 		});
 
-		const filterGames = searchGames.filter((game) => {
-			const matchTag = game.tags.find((tag) => filters.tags.find((filterTag) => filterTag === tag));
-			if (!matchTag && filters.tags.length) return;
-
-			const matchGenre = game.genre.find((genre) => filters.genre.find((filterGenre) => filterGenre === genre));
-			if (!matchGenre && filters.genre.length) return;
-
-			const matchRate = game.rate === filters.rate;
-			if (!matchRate && filters.rate) return;
-
-			return game;
-		});
-
-		return filterGames;
+		console.log({ searchGames });
+		return searchGames;
 	};
 
 	return { games: filterGames() };

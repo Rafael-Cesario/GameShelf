@@ -18,7 +18,7 @@ interface GameDetailsProps {
 }
 
 export const GameDetails = ({ props: { gameDetails, setGameDetails } }: GameDetailsProps) => {
-	const { name, release, rate, cover, genre, tags } = useGame(gameDetails.gameIndex);
+	const { name, release, rate, cover, genre, tags } = useGame(gameDetails.gameName);
 	const [showDeleteButton, setShowDeleteButton] = useState(false);
 
 	const dispatch = useDispatch();
@@ -26,7 +26,7 @@ export const GameDetails = ({ props: { gameDetails, setGameDetails } }: GameDeta
 	const { requestRemoveGame } = useGames();
 
 	const openEditGame = () => {
-		setGameDetails({ isOpen: 'edit', gameIndex: gameDetails.gameIndex });
+		setGameDetails({ isOpen: 'edit', gameName: gameDetails.gameName });
 	};
 
 	const deleteGame = async () => {
@@ -42,14 +42,14 @@ export const GameDetails = ({ props: { gameDetails, setGameDetails } }: GameDeta
 
 		if (error || !data) return sendNotification('Erro', 'Um error ocorreu ao remover seu jogo, por favor recarregue a página e tente novamente');
 
-		setGameDetails({ isOpen: '', gameIndex: 0 });
+		setGameDetails({ isOpen: '', gameName: '' });
 		sendNotification('Sucesso', `Seu jogo ${name} foi removido.`);
 
 		dispatch(sliceGames.actions.setGames({ games: data }));
 	};
 
 	const closeDetails = useCallback((e: KeyboardEvent) => {
-		e.key === 'Escape' && setGameDetails({ isOpen: '', gameIndex: 0 });
+		e.key === 'Escape' && setGameDetails({ isOpen: '', gameName: '' });
 	}, []);
 
 	useShortcuts(closeDetails);
@@ -57,7 +57,7 @@ export const GameDetails = ({ props: { gameDetails, setGameDetails } }: GameDeta
 	return (
 		<StyledGameDetails>
 			<div className="details">
-				<button role="close-details" className="close" onClick={() => setGameDetails({ isOpen: '', gameIndex: 0 })}>
+				<button role="close-details" className="close" onClick={() => setGameDetails({ isOpen: '', gameName: '' })}>
 					x
 				</button>
 
