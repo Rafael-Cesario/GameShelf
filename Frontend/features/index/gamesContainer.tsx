@@ -5,11 +5,11 @@ import { StyledGamesContainer } from './styles/styledGamesContainer';
 import { useState, useEffect } from 'react';
 import { useNotification } from '@/utils/useNotification';
 import { Loading } from './components/sidebar/loading';
-import { useDispatch, useSelector } from 'react-redux';
-import { Store } from '@/context/store';
+import { useDispatch } from 'react-redux';
 import { sliceGames } from './slices/games';
 import { GameDetails } from './components/gamesContainer/gameDetails';
 import { EditGame } from './components/gamesContainer/editGame';
+import { useFilteredGames } from './hooks/useFilteredGames';
 
 export interface IGameDetails {
 	isOpen: '' | 'details' | 'edit';
@@ -17,7 +17,7 @@ export interface IGameDetails {
 }
 
 export const GamesContainer = () => {
-	const { games, searchGame, filters } = useSelector((state: Store) => state.games);
+	const { games } = useFilteredGames();
 	const [loadingGames, setLoadingGames] = useState(true);
 	const [gameDetails, setGameDetails] = useState<IGameDetails>({ isOpen: '', gameIndex: 0 });
 
@@ -36,39 +36,6 @@ export const GamesContainer = () => {
 		dispatch(sliceGames.actions.setGames({ games: data }));
 	};
 
-	const filterGames = () => {
-		const searchGameRegExp = new RegExp(searchGame, 'i');
-
-		const searchGames = games.filter((game) => {
-			const matchName = game.name.match(searchGameRegExp);
-			if (matchName) return game;
-
-			const matchTag = game.tags.find((tag) => tag.match(searchGameRegExp));
-			if (matchTag) return game;
-
-			const matchGenre = game.genre.find((genre) => genre.match(searchGameRegExp));
-			if (matchGenre) return game;
-
-			const matchRate = game.rate.match(searchGameRegExp);
-			if (matchRate) return game;
-		});
-
-		const filterGames = searchGames.filter((game) => {
-			const matchTag = game.tags.find((tag) => filters.tags.find((filterTag) => filterTag === tag));
-			if (!matchTag && filters.tags.length) return;
-
-			const matchGenre = game.genre.find((genre) => filters.genre.find((filterGenre) => filterGenre === genre));
-			if (!matchGenre && filters.genre.length) return;
-
-			const matchRate = game.rate === filters.rate;
-			if (!matchRate && filters.rate) return;
-
-			return game;
-		});
-
-		return filterGames;
-	};
-
 	useEffect(() => {
 		getGames();
 	}, []);
@@ -77,7 +44,7 @@ export const GamesContainer = () => {
 
 	return (
 		<StyledGamesContainer>
-			{filterGames().map((game, index) => (
+			{games.map((game, index) => (
 				<div
 					role="game"
 					className="game"
