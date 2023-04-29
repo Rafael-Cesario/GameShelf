@@ -3,6 +3,7 @@ import { Container } from '../container';
 import { StyledGamesFilter } from './styles/styledGamesFilter';
 import { Filter } from './gamesFilter/filter';
 import { IFilters } from '../../interfaces/iFilters';
+import { Rate } from './gamesFilter/rate';
 
 export const GamesFilter = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -28,6 +29,8 @@ export const GamesFilter = () => {
 						</div>
 
 						<Filter props={{ title: 'Tags', key: 'tags', filters, setFilters }} />
+						<Filter props={{ title: 'Gênero', key: 'genre', filters, setFilters }} />
+						<Rate props={{ filters, setFilters }} />
 					</StyledGamesFilter>
 				</Container>
 			)}

@@ -14,6 +14,7 @@ export const StyledFilter = styled.div`
 	.filter-container {
 		display: flex;
 		flex-flow: row wrap;
+		margin-bottom: 4rem;
 
 		.filter {
 			flex-grow: 1;
