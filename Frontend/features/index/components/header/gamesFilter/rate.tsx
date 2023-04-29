@@ -1,17 +1,17 @@
+import produce from 'immer';
 import { IFilters } from '@/features/index/interfaces/iFilters';
 import { StyledFilter } from './styles/styledFilter';
 import { useFilters } from '@/features/index/hooks/useFilters';
-import produce from 'immer';
+import { useDispatch, useSelector } from 'react-redux';
+import { sliceGames } from '@/features/index/slices/games';
+import { Store } from '@/context/store';
 
-interface FilterProps {
-	props: {
-		filters: IFilters;
-		setFilters: React.Dispatch<React.SetStateAction<IFilters>>;
-	};
-}
-
-export const Rate = ({ props: { filters, setFilters } }: FilterProps) => {
+export const Rate = () => {
 	const { rates } = useFilters();
+
+	const { filters } = useSelector((state: Store) => state.games);
+	const dispatch = useDispatch();
+	const dispatchFilters = (newFilters: IFilters) => dispatch(sliceGames.actions.setFilters({ newFilters }));
 
 	const generateClass = (rate: string) => {
 		let className = 'filter';
@@ -28,7 +28,7 @@ export const Rate = ({ props: { filters, setFilters } }: FilterProps) => {
 			else draft.rate = rate;
 		});
 
-		setFilters(newFilters);
+		dispatchFilters(newFilters);
 	};
 
 	return (

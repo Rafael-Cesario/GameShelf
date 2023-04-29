@@ -1,22 +1,27 @@
 import { useFilters } from '@/features/index/hooks/useFilters';
 import { StyledFilter } from './styles/styledFilter';
-import { IFilters } from '@/features/index/interfaces/iFilters';
 import produce from 'immer';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Store } from '@/context/store';
+import { IFilters } from '@/features/index/interfaces/iFilters';
+import { sliceGames } from '@/features/index/slices/games';
 
 interface FilterProps {
 	props: {
 		title: 'Tags' | 'Gênero';
 		key: 'tags' | 'genre';
-		filters: IFilters;
-		setFilters: React.Dispatch<React.SetStateAction<IFilters>>;
 	};
 }
 
-export const Filter = ({ props: { title, key, filters, setFilters } }: FilterProps) => {
+export const Filter = ({ props: { title, key } }: FilterProps) => {
 	const gameFilters = useFilters();
 	const [searchFilterValue, setSearchFilterValue] = useState('');
 	const searchFilterValueRegExp = new RegExp(searchFilterValue, 'i');
+
+	const { filters } = useSelector((state: Store) => state.games);
+	const dispatch = useDispatch();
+	const dispatchFilters = (newFilters: IFilters) => dispatch(sliceGames.actions.setFilters({ newFilters }));
 
 	const findFilterIndex = (filter: string) => filters[key].findIndex((gameFilter) => gameFilter.match(new RegExp(filter, 'i')));
 
@@ -29,7 +34,7 @@ export const Filter = ({ props: { title, key, filters, setFilters } }: FilterPro
 			else draft[key].push(filter);
 		});
 
-		setFilters(newFilters);
+		dispatchFilters(newFilters);
 	};
 
 	const generateClass = (filter: string) => {
