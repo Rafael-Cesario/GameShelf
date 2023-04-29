@@ -1,11 +1,18 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Container } from '../container';
 import { StyledGamesFilter } from './styles/styledGamesFilter';
 import { Filter } from './gamesFilter/filter';
 import { Rate } from './gamesFilter/rate';
+import { useShortcuts } from '../../hooks/useShortcuts';
 
 export const GamesFilter = () => {
 	const [isOpen, setIsOpen] = useState(false);
+
+	const closeShortcut = useCallback((e: KeyboardEvent) => {
+		e.key === 'Escape' && setIsOpen(false);
+	}, []);
+
+	useShortcuts(closeShortcut);
 
 	return (
 		<>
