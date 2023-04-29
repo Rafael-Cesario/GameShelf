@@ -45,7 +45,7 @@ export const EditGame = ({ props: { gameDetails, setGameDetails } }: Props) => {
 		if (!name) return sendNotification('Erro', 'Seu jogo precisa de um nome.');
 
 		const alreadyHasGame = games.find((game) => game.name.match(new RegExp(name, 'i')));
-		if (alreadyHasGame) return sendNotification('Erro', 'Um jogo com o mesmo nome já existe.');
+		if (alreadyHasGame && game.name !== gameValues.name) return sendNotification('Erro', 'Um jogo com o mesmo nome já existe.');
 
 		const storage = localStorage.getItem(storageKeys.user);
 		const { email } = JSON.parse(storage || '') as StorageUser;
@@ -80,7 +80,13 @@ export const EditGame = ({ props: { gameDetails, setGameDetails } }: Props) => {
 						value={name}
 						onChange={(e) => setGameValues({ ...gameValues, name: e.target.value })}
 					/>
-					<input type="text" className="info" value={release} onChange={(e) => setGameValues({ ...gameValues, release: e.target.value })} />
+					<input
+						type="text"
+						className="info"
+						value={release}
+						placeholder="Data de lançamento"
+						onChange={(e) => setGameValues({ ...gameValues, release: e.target.value })}
+					/>
 
 					<RateContainer props={{ gameValues, setGameValues }} />
 					<FilterContainer props={{ title: 'Tags', filterName: 'tags', gameValues, setGameValues }} />
@@ -93,7 +99,13 @@ export const EditGame = ({ props: { gameDetails, setGameDetails } }: Props) => {
 
 				<div className="image">
 					<ImageContainer props={{ gameName: name, imageLink: cover }} />
-					<input type="text" className="info" value={cover} onChange={(e) => setGameValues({ ...gameValues, cover: e.target.value })} />
+					<input
+						placeholder="Link para uma imagem"
+						type="text"
+						className="info"
+						value={cover}
+						onChange={(e) => setGameValues({ ...gameValues, cover: e.target.value })}
+					/>
 				</div>
 			</StyledEditGame>
 		</Container>
