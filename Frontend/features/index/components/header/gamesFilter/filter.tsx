@@ -1,15 +1,40 @@
 import { useFilters } from '@/features/index/hooks/useFilters';
 import { StyledFilter } from './styles/styledFilter';
+import { IFilters } from '@/features/index/interfaces/iFilters';
+import produce from 'immer';
 
 interface FilterProps {
 	props: {
-		title: 'Tags' | 'Gênero' | 'Nota';
-		key: 'tags' | 'genre' | 'rates';
+		title: 'Tags' | 'Gênero';
+		key: 'tags' | 'genre';
+		filters: IFilters;
+		setFilters: React.Dispatch<React.SetStateAction<IFilters>>;
 	};
 }
 
-export const Filter = ({ props: { title, key } }: FilterProps) => {
-	const filters = useFilters();
+export const Filter = ({ props: { title, key, filters, setFilters } }: FilterProps) => {
+	const gameFilters = useFilters();
+
+	const findFilterIndex = (filter: string) => filters[key].findIndex((gameFilter) => gameFilter.match(new RegExp(filter, 'i')));
+
+	const addFilter = (filter: string) => {
+		const filterIndex = findFilterIndex(filter);
+		const hasFilter = filterIndex >= 0;
+
+		const newFilters = produce(filters, (draft) => {
+			if (hasFilter) draft[key].splice(filterIndex, 1);
+			else draft[key].push(filter);
+		});
+
+		setFilters(newFilters);
+	};
+
+	const generateClass = (filter: string) => {
+		let className = 'filter';
+		const hasFilter = findFilterIndex(filter) >= 0;
+		if (hasFilter) className += ' active';
+		return className;
+	};
 
 	return (
 		<StyledFilter>
@@ -17,8 +42,8 @@ export const Filter = ({ props: { title, key } }: FilterProps) => {
 			<input className="search-filter" type="text" placeholder={`Busque por ${title}`} />
 
 			<div className="filter-container">
-				{filters[key].map((filter) => (
-					<button className="filter" key={filter}>
+				{gameFilters[key].map((filter) => (
+					<button onClick={() => addFilter(filter)} className={generateClass(filter)} key={filter}>
 						{filter}
 					</button>
 				))}

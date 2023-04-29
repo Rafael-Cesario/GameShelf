@@ -2,14 +2,15 @@ import { useState } from 'react';
 import { Container } from '../container';
 import { StyledGamesFilter } from './styles/styledGamesFilter';
 import { Filter } from './gamesFilter/filter';
+import { IFilters } from '../../interfaces/iFilters';
 
 export const GamesFilter = () => {
 	const [isOpen, setIsOpen] = useState(false);
 
-	const [filters, setFilters] = useState({
+	const [filters, setFilters] = useState<IFilters>({
 		tags: [],
 		genre: [],
-		rate: [],
+		rate: '',
 	});
 
 	return (
@@ -26,7 +27,7 @@ export const GamesFilter = () => {
 							</button>
 						</div>
 
-						<Filter props={{ title: 'Tags', key: 'tags' }} />
+						<Filter props={{ title: 'Tags', key: 'tags', filters, setFilters }} />
 					</StyledGamesFilter>
 				</Container>
 			)}
