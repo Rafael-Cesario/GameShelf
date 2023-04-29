@@ -1,4 +1,5 @@
 import { AddGame } from './components/header/addGame';
+import { GamesFilter } from './components/header/gamesFilter';
 import { SearchGame } from './components/header/searchGame';
 import { StyledHeader } from './styles/styledHeader';
 
@@ -8,7 +9,7 @@ export const Header = () => {
 			<div>
 				<span className="games-on-marker">Zerados: 20 Jogos</span>
 				<button>Aleatório</button>
-				<button>Filtros</button>
+				<GamesFilter />
 				<AddGame />
 			</div>
 

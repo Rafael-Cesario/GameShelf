@@ -1,6 +1,6 @@
 import type { IGameDetails } from '../../gamesContainer';
 import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react';
-import { Container } from './container';
+import { Container } from '../container';
 import { useGame } from './hooks/useGame';
 import { useShortcuts } from '../../hooks/useShortcuts';
 import { StyledEditGame } from './styles/styledEditGame';

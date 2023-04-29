@@ -1,4 +1,4 @@
-import { StyledContainer } from "./styles/styledContainer";
+import { StyledContainer } from "../styles/styledContainer";
 
 export const Container = ({ children }: { children: React.ReactNode }) => {
 	return (
