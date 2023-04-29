@@ -11,7 +11,7 @@ export const SearchGame = () => {
 			role="search-game"
 			className="search"
 			type="text"
-			placeholder="Busque por um jogo, tag, gênero ou nota"
+			placeholder="Busque pelo nome de um jogo"
 			value={searchGame}
 			onChange={(e) => dispatch(sliceGames.actions.setSearchGame({ searchGameValue: e.target.value }))}
 		/>

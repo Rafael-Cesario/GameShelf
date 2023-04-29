@@ -5,8 +5,6 @@ export const useFilteredGames = () => {
 	const { games, searchGame, filters } = useSelector((state: Store) => state.games);
 
 	const filterGames = () => {
-		const searchGameRegExp = new RegExp(searchGame, 'i');
-
 		const filterGames = games.filter((game) => {
 			const matchTag = game.tags.find((tag) => filters.tags.find((filterTag) => filterTag === tag));
 			if (!matchTag && filters.tags.length) return;
@@ -21,20 +19,11 @@ export const useFilteredGames = () => {
 		});
 
 		const searchGames = filterGames.filter((game) => {
+			const searchGameRegExp = new RegExp(searchGame, 'i');
 			const matchName = game.name.match(searchGameRegExp);
 			if (matchName) return game;
-
-			const matchTag = game.tags.find((tag) => tag.match(searchGameRegExp));
-			if (matchTag) return game;
-
-			const matchGenre = game.genre.find((genre) => genre.match(searchGameRegExp));
-			if (matchGenre) return game;
-
-			const matchRate = game.rate.match(searchGameRegExp);
-			if (matchRate) return game;
 		});
 
-		console.log({ searchGames });
 		return searchGames;
 	};
 
