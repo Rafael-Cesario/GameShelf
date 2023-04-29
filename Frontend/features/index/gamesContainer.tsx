@@ -17,7 +17,7 @@ export interface IGameDetails {
 }
 
 export const GamesContainer = () => {
-	const { games, searchGame } = useSelector((state: Store) => state.games);
+	const { games, searchGame, filters } = useSelector((state: Store) => state.games);
 	const [loadingGames, setLoadingGames] = useState(true);
 	const [gameDetails, setGameDetails] = useState<IGameDetails>({ isOpen: '', gameIndex: 0 });
 
@@ -39,7 +39,7 @@ export const GamesContainer = () => {
 	const filterGames = () => {
 		const searchGameRegExp = new RegExp(searchGame, 'i');
 
-		const filteredGames = games.filter((game) => {
+		const searchGames = games.filter((game) => {
 			const matchName = game.name.match(searchGameRegExp);
 			if (matchName) return game;
 
@@ -53,7 +53,20 @@ export const GamesContainer = () => {
 			if (matchRate) return game;
 		});
 
-		return filteredGames;
+		const filterGames = searchGames.filter((game) => {
+			const matchTag = game.tags.find((tag) => filters.tags.find((filterTag) => filterTag === tag));
+			if (!matchTag && filters.tags.length) return;
+
+			const matchGenre = game.genre.find((genre) => filters.genre.find((filterGenre) => filterGenre === genre));
+			if (!matchGenre && filters.genre.length) return;
+
+			const matchRate = game.rate === filters.rate;
+			if (!matchRate && filters.rate) return;
+
+			return game;
+		});
+
+		return filterGames;
 	};
 
 	useEffect(() => {
