@@ -26,30 +26,47 @@ describe('Header', () => {
 	});
 
 	const user = userEvent.setup();
+	const { getAllByRole, getByRole } = screen;
+
+	const addGame = async (gameName?: string) => {
+		await user.click(getByRole('open-add-game'));
+		gameName && (await user.type(getByRole('input-name'), gameName));
+		await user.click(getByRole('add-game-button'));
+	};
 
 	it('Add a game', async () => {
-		await user.click(screen.getByRole('open-add-game'));
-		await user.type(screen.getByRole('input-name'), 'DummyName');
-		await user.click(screen.getByRole('add-game-button'));
+		await addGame('DummyName');
 
-		const games = screen.getAllByRole('game');
+		const games = getAllByRole('game');
 		expect(games.length).toBe(1);
 		expect(games[0].getAttribute('data-name')).toBe('DummyName');
 	});
 
 	it(`Can't add a game without a name`, async () => {
-		await user.click(screen.getByRole('open-add-game'));
-		await user.click(screen.getByRole('add-game-button'));
-		expect(screen.getByRole('error-message')).toHaveTextContent('Seu jogo precisa de um nome.');
+		await addGame();
+		expect(getByRole('error-message')).toHaveTextContent('Seu jogo precisa de um nome.');
 	});
 
 	it(`Can't add a game that already exist`, async () => {
-		await user.click(screen.getByRole('open-add-game'));
-		await user.type(screen.getByRole('input-name'), 'DuplicatedGame');
-		await user.click(screen.getByRole('add-game-button'));
+		await addGame('DuplicatedGame');
+		await addGame('DuplicatedGame');
+		expect(getByRole('error-message')).toHaveTextContent('Um jogo com o mesmo nome já foi adicionado.');
+	});
 
-		await user.type(screen.getByRole('input-name'), 'duplicatedGame');
-		await user.click(screen.getByRole('add-game-button'));
-		expect(screen.getByRole('error-message')).toHaveTextContent('Um jogo com o mesmo nome já foi adicionado.');
+	it(`Search for a game`, async () => {
+		await addGame('Game01');
+		await addGame('Game02');
+		await addGame('Game03');
+
+		await user.type(getByRole('search-game'), '01');
+
+		let games = getAllByRole('game');
+		expect(games.length).toBe(1);
+
+		await user.clear(getByRole('search-game'));
+		await user.type(getByRole('search-game'), '0');
+
+		games = getAllByRole('game');
+		expect(games.length).toBe(3);
 	});
 });
