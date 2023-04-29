@@ -32,7 +32,7 @@ export const AddGame = () => {
 	const dispatch = useDispatch();
 
 	const addGame = async () => {
-		if (!gameValues.name) return setError('Seu jogo precisa de um nome.');
+		if (!gameValues.name.trim()) return setError('Seu jogo precisa de um nome.');
 
 		const newGameName = new RegExp(gameValues.name, 'i');
 		const alreadyHasGame = games.find((game) => game.name.match(newGameName));

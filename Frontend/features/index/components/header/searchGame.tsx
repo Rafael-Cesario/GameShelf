@@ -8,6 +8,7 @@ export const SearchGame = () => {
 
 	return (
 		<input
+			role="search-game"
 			className="search"
 			type="text"
 			placeholder="Busque por um jogo, tag, gênero ou nota"
