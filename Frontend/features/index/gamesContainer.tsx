@@ -48,6 +48,9 @@ export const GamesContainer = () => {
 
 			const matchGenre = game.genre.find((genre) => genre.match(filterRegExp));
 			if (matchGenre) return game;
+
+			const matchRate = game.rate.match(filterRegExp);
+			if (matchRate) return game;
 		});
 
 		return filteredGames;
