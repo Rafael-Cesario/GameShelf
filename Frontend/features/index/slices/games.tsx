@@ -3,12 +3,12 @@ import { createSlice } from '@reduxjs/toolkit';
 
 interface SGames {
 	games: IGame[];
-	filter: string;
+	searchGame: string;
 }
 
 const initialState: SGames = {
 	games: [],
-	filter: '',
+	searchGame: '',
 };
 
 export const sliceGames = createSlice({
@@ -21,9 +21,9 @@ export const sliceGames = createSlice({
 			state.games = games;
 		},
 
-		setFilter: (state, action: { payload: { filter: string } }) => {
-			const { filter } = action.payload;
-			state.filter = filter;
+		setSearchGame: (state, action: { payload: { searchGameValue: string } }) => {
+			const { searchGameValue } = action.payload;
+			state.searchGame = searchGameValue;
 		},
 	},
 });
