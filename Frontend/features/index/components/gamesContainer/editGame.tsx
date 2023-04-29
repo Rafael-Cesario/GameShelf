@@ -24,7 +24,7 @@ interface Props {
 
 export const EditGame = ({ props: { gameDetails, setGameDetails } }: Props) => {
 	const { games } = useSelector((state: Store) => state.games);
-	const game = useGame(gameDetails.gameIndex);
+	const game = useGame(gameDetails.gameName);
 	const [gameValues, setGameValues] = useState<IGame>(game);
 	const { name, release, cover } = gameValues;
 	const oldName = useMemo(() => name, []);
@@ -33,7 +33,7 @@ export const EditGame = ({ props: { gameDetails, setGameDetails } }: Props) => {
 	const { sendNotification } = useNotification();
 	const dispatch = useDispatch();
 
-	const closeEdit = () => setGameDetails({ gameIndex: 0, isOpen: '' });
+	const closeEdit = () => setGameDetails({ gameName: game.name, isOpen: 'details' });
 
 	useShortcuts(
 		useCallback((e: KeyboardEvent) => {
@@ -44,7 +44,7 @@ export const EditGame = ({ props: { gameDetails, setGameDetails } }: Props) => {
 	const saveGame = async () => {
 		if (!name) return sendNotification('Erro', 'Seu jogo precisa de um nome.');
 
-		const alreadyHasGame = games.find((game) => game.name.match(new RegExp(name, 'i')));
+		const alreadyHasGame = games.find((game) => game.name.toLowerCase() === gameValues.name.toLowerCase());
 		if (alreadyHasGame && game.name !== gameValues.name) return sendNotification('Erro', 'Um jogo com o mesmo nome já existe.');
 
 		const storage = localStorage.getItem(storageKeys.user);
@@ -61,7 +61,7 @@ export const EditGame = ({ props: { gameDetails, setGameDetails } }: Props) => {
 		if (error || !data) return sendNotification('Erro', 'Um erro ocorreu, recarregue a página e tente novamente');
 
 		dispatch(sliceGames.actions.setGames({ games: data }));
-		setGameDetails({ isOpen: 'details', gameIndex: gameDetails.gameIndex });
+		setGameDetails({ isOpen: 'details', gameName: gameValues.name });
 		sendNotification('Sucesso', 'Seu jogo foi atualizado');
 	};
 
