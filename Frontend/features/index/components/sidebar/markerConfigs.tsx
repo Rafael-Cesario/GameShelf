@@ -9,6 +9,7 @@ import { StorageUser, storageKeys } from '@/interfaces/interfaceStorageKeys';
 import { sliceMarker } from '../../slices/marker';
 import { DeleteMarker } from './deleteMarker';
 import { useNotification } from '@/utils/useNotification';
+import { sliceGames } from '../../slices/games';
 
 export const MarkerConfigs = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -49,24 +50,20 @@ export const MarkerConfigs = () => {
 		if (error || !newMarker) return setError('Um erro ocorreu');
 
 		dispatch(sliceMarker.actions.updateMarker({ oldName, newMarker }));
+		dispatch(sliceGames.actions.setFilters({ newFilters: filters }));
 		setIsOpen(false);
 	};
 
 	return (
 		<StyledBuildMarker>
-			<button
-				role="open-update-marker"
-				className="open-button"
-				onClick={() => openConfigs()}>
+			<button role="open-update-marker" className="open-button" onClick={() => openConfigs()}>
 				Editar marcador atual
 			</button>
 
 			{isOpen && (
 				<BuildMarker props={{ title: values.name, error, values, setValues, setIsOpen }}>
 					<div className="buttons">
-						<button
-							role="save-marker"
-							onClick={() => saveMarker()}>
+						<button role="save-marker" onClick={() => saveMarker()}>
 							Salvar
 						</button>
 
