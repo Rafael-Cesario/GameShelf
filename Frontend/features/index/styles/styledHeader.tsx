@@ -16,6 +16,7 @@ export const StyledHeader = styled.div`
 		color: ${({ theme }) => theme.textBlue};
 		font-weight: bold;
 		margin: 0 0.5rem;
+		text-transform: capitalize;
 	}
 
 	button {

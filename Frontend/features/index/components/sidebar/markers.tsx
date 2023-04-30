@@ -7,6 +7,8 @@ import { StorageUser } from '@/interfaces/interfaceStorageKeys';
 import { useDispatch, useSelector } from 'react-redux';
 import { Store } from '@/context/store';
 import { sliceMarker } from '../../slices/marker';
+import { IMarker } from '@/interfaces/IMarkers';
+import { sliceGames } from '../../slices/games';
 
 export const Markers = () => {
 	const { queryGetMarkers } = useMarkers();
@@ -30,6 +32,12 @@ export const Markers = () => {
 		return filteredMarkers;
 	};
 
+	const activateMarker = (marker: IMarker) => {
+		const newFilters = { genre: marker.filters.genre, tags: marker.filters.tags, rate: marker.filters.rate[0] };
+		dispatch(sliceMarker.actions.setActive({ markerName: marker.name }));
+		dispatch(sliceGames.actions.setFilters({ newFilters }));
+	};
+
 	useEffect(() => {
 		getMarkers();
 	}, []);
@@ -39,18 +47,14 @@ export const Markers = () => {
 			<li
 				role="marker"
 				className={active === 'todos' ? 'active' : ''}
-				onClick={() => dispatch(sliceMarker.actions.setActive({ markerName: 'todos' }))}>
+				onClick={() => activateMarker({ name: 'todos', filters: { tags: [], genre: [], rate: '' } })}>
 				Todos
 			</li>
 
 			{loadingMarkers && <Loading />}
 
 			{filterMarkers().map((marker) => (
-				<li
-					role="marker"
-					className={active === marker.name ? 'active' : ''}
-					onClick={() => dispatch(sliceMarker.actions.setActive({ markerName: marker.name }))}
-					key={marker.name}>
+				<li role="marker" className={active === marker.name ? 'active' : ''} onClick={() => activateMarker(marker)} key={marker.name}>
 					{marker.name}
 				</li>
 			))}
