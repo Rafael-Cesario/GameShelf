@@ -60,7 +60,7 @@ export const Filter = ({ props: { title, key } }: FilterProps) => {
 				{gameFilters[key].map((filter) => {
 					if (filter.match(searchFilterValueRegExp))
 						return (
-							<button onClick={() => addFilter(filter)} className={generateClass(filter)} key={filter}>
+							<button role="activate-filter" onClick={() => addFilter(filter)} className={generateClass(filter)} key={filter}>
 								{filter}
 							</button>
 						);

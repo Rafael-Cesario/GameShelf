@@ -26,11 +26,18 @@ describe('Header', () => {
 	});
 
 	const user = userEvent.setup();
-	const { getAllByRole, getByRole } = screen;
+	const { getAllByRole, getByRole, queryAllByRole } = screen;
 
-	const addGame = async (gameName?: string) => {
+	const addGame = async (gameName?: string, tag?: string) => {
 		await user.click(getByRole('open-add-game'));
 		gameName && (await user.type(getByRole('input-name'), gameName));
+
+		if (tag) {
+			const tagsInput = screen.getAllByRole('add-filter')[0];
+			await user.type(tagsInput, tag);
+			await user.click(screen.getAllByRole('button-add-filter')[0]);
+		}
+
 		await user.click(getByRole('add-game-button'));
 	};
 
@@ -68,5 +75,23 @@ describe('Header', () => {
 
 		games = getAllByRole('game');
 		expect(games.length).toBe(3);
+	});
+
+	it('activate filter', async () => {
+		await addGame('new game', 'Finished');
+		await addGame('another game', 'Favorite');
+
+		await user.click(screen.getByRole('show-filters'));
+
+		const filter = screen.getByText('Finished');
+		await user.click(filter);
+		expect(filter.className).match(/active/);
+
+		let games = getAllByRole('game');
+		expect(games.length).toBe(1);
+
+		await user.type(screen.getByRole('search-game'), 'another game');
+		games = queryAllByRole('game');
+		expect(games.length).toBe(0);
 	});
 });

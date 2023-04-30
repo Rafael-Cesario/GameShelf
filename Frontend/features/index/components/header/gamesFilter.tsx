@@ -16,14 +16,16 @@ export const GamesFilter = () => {
 
 	return (
 		<>
-			<button onClick={() => setIsOpen(true)}>Filtros</button>
+			<button role="show-filters" onClick={() => setIsOpen(true)}>
+				Filtros
+			</button>
 
 			{isOpen && (
 				<Container>
 					<StyledGamesFilter>
 						<div className="title">
 							<h1>Filtros</h1>
-							<button className="close" onClick={() => setIsOpen(false)}>
+							<button role="close-filters" className="close" onClick={() => setIsOpen(false)}>
 								x
 							</button>
 						</div>
