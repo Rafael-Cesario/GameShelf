@@ -1,36 +1,27 @@
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-import { describe, it, expect, beforeEach, beforeAll } from 'vitest';
-import { cleanup, render, screen, waitForElementToBeRemoved } from '@testing-library/react';
-import { Sidebar } from '../sidebar';
-import { ApolloProvider } from '@apollo/client';
-import { client } from '@/services/client';
+import Index from '@/pages/index';
+import { describe, it, expect, beforeEach, beforeAll, vi } from 'vitest';
+import { cleanup, screen, waitForElementToBeRemoved } from '@testing-library/react';
 import { storageKeys } from '@/interfaces/interfaceStorageKeys';
-import { Provider } from 'react-redux';
-import { store } from '@/context/store';
+import { renderWithProviders } from '@/features/__tests__/utils/renderWithProviders';
 
-const renderComponent = () => {
-	render(
-		<ApolloProvider client={client}>
-			<Provider store={store}>
-				<Sidebar />
-			</Provider>
-		</ApolloProvider>
-	);
-};
+vi.mock('next/router', () => ({
+	useRouter: vi.fn(),
+}));
 
 describe('Sidebar', () => {
 	const user = userEvent.setup();
 
 	beforeAll(() => {
-		const storage = { email: 'qwe@qwe' };
+		const storage = { email: 'qwe@qwe', token: 'fakeToken' };
 		localStorage.setItem(storageKeys.user, JSON.stringify(storage));
 	});
 
 	beforeEach(async () => {
 		cleanup();
-		renderComponent();
-		await waitForElementToBeRemoved(() => screen.getByRole('loading'));
+		renderWithProviders(<Index />);
+		await waitForElementToBeRemoved(() => screen.getByRole('loading-page'));
 	});
 
 	it('get markers', async () => {
