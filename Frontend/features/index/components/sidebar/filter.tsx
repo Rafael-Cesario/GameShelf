@@ -47,6 +47,7 @@ export const Filter = ({ props: { title, filters, filterName, values, setValues 
 
 				{filters.map((filter) => (
 					<button
+						role="filter"
 						className={values.filters[filterName].includes(filter) ? 'active' : ''}
 						onClick={() => (filterName === 'rate' ? changeRate(filter) : changeFilters(filterName, filter))}
 						key={filter}>

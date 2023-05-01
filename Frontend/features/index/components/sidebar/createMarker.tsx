@@ -34,7 +34,6 @@ export const CreateMarker = () => {
 		if (error) return console.log('add marker error', error);
 
 		dispatch(sliceMarker.actions.setMarkers({ newMarkers: newMarkers as IMarker[] }));
-		dispatch(sliceMarker.actions.setActive({ markerName: values.name }));
 
 		setValues(defaultValues);
 		setIsOpen(false);

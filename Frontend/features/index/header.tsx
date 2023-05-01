@@ -13,8 +13,8 @@ export const Header = () => {
 	return (
 		<StyledHeader>
 			<div>
-				<span className="games-on-marker">
-					{active}: {games.length} {games.length > 1 ? 'Jogos' : 'Jogo'}
+				<span role="current-marker" className="games-on-marker">
+					{active}: {games.length} {games.length === 1 ? 'Jogo' : 'Jogos'}
 				</span>
 
 				<button>Aleatório</button>
