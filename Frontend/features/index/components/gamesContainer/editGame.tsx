@@ -1,5 +1,4 @@
-import type { IGameDetails } from '../../gamesContainer';
-import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Container } from '../container';
 import { useGame } from './hooks/useGame';
 import { useShortcuts } from '../../hooks/useShortcuts';
@@ -15,15 +14,8 @@ import { useNotification } from '@/utils/useNotification';
 import { sliceGames } from '../../slices/games';
 import { Store } from '@/context/store';
 
-interface Props {
-	props: {
-		gameDetails: IGameDetails;
-		setGameDetails: Dispatch<SetStateAction<IGameDetails>>;
-	};
-}
-
-export const EditGame = ({ props: { gameDetails, setGameDetails } }: Props) => {
-	const { games } = useSelector((state: Store) => state.games);
+export const EditGame = () => {
+	const { games, gameDetails } = useSelector((state: Store) => state.games);
 	const game = useGame(gameDetails.gameName);
 	const [gameValues, setGameValues] = useState<IGame>(game);
 	const { name, release, cover } = gameValues;
@@ -33,7 +25,7 @@ export const EditGame = ({ props: { gameDetails, setGameDetails } }: Props) => {
 	const { sendNotification } = useNotification();
 	const dispatch = useDispatch();
 
-	const closeEdit = () => setGameDetails({ gameName: game.name, isOpen: 'details' });
+	const closeEdit = () => dispatch(sliceGames.actions.setGameDetails({ gameDetails: { gameName: game.name, isOpen: 'details' } }));
 
 	useShortcuts(
 		useCallback((e: KeyboardEvent) => {
@@ -61,7 +53,7 @@ export const EditGame = ({ props: { gameDetails, setGameDetails } }: Props) => {
 		if (error || !data) return sendNotification('Erro', 'Um erro ocorreu, recarregue a página e tente novamente');
 
 		dispatch(sliceGames.actions.setGames({ games: data }));
-		setGameDetails({ isOpen: 'details', gameName: gameValues.name });
+		dispatch(sliceGames.actions.setGameDetails({ gameDetails: { isOpen: 'details', gameName: gameValues.name } }));
 		sendNotification('Sucesso', 'Seu jogo foi atualizado');
 	};
 

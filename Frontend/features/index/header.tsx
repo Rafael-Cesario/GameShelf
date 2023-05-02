@@ -5,6 +5,7 @@ import { SearchGame } from './components/header/searchGame';
 import { StyledHeader } from './styles/styledHeader';
 import { Store } from '@/context/store';
 import { useFilteredGames } from './hooks/useFilteredGames';
+import { RandomGame } from './components/header/randomGame';
 
 export const Header = () => {
 	const { active } = useSelector((state: Store) => state.marker);
@@ -17,7 +18,7 @@ export const Header = () => {
 					{active}: {games.length} {games.length === 1 ? 'Jogo' : 'Jogos'}
 				</span>
 
-				<button>Aleatório</button>
+				<RandomGame />
 				<GamesFilter />
 				<AddGame />
 			</div>
