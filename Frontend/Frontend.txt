@@ -1,0 +1,21 @@
+- SideBar:  
+    - Get Markers
+    - Show current Marker
+    - Create new marker
+    - filters show a message if there is no filters.
+    - Update marker
+    - Delete marker
+    - Search for markers
+            
+- Header:   
+    - Add new game
+    - Search bar for name, tag, genre, rate.
+    - Filters
+    - Show total games on this marker
+    - Random game
+            
+- gamesContainer:   
+    - Show games
+    - Game details
+    - Edit game
+    - Remove game
