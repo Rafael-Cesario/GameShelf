@@ -18,3 +18,13 @@ export class CreateUserInput {
 	@Field(() => String)
 	password: string;
 }
+
+@InputType()
+export class LoginInput {
+	@IsEmail()
+	@Field(() => String)
+	email: string;
+
+	@Field(() => String)
+	password: string;
+}

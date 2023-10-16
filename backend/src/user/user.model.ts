@@ -11,3 +11,9 @@ export class User {
 	@Field(() => String)
 	name: string;
 }
+
+@ObjectType()
+export class Credentials extends User {
+	@Field(() => String)
+	token: string;
+}
