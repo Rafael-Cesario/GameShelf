@@ -41,5 +41,20 @@ describe("User e2e", () => {
 			const user = await prisma.user.findFirst({ where: { email: userValues.email.toLowerCase() } });
 			expect(user.password).not.toBe(userValues.password);
 		});
+
+		it("Throws an error due to duplicated email", async () => {
+			const userValues = { email: "USER01@EMAIL.COM", name: "USER01", password: "Password123" };
+			await request<{ createUser: User }, { createUserData: CreateUserInput }>(app.getHttpServer()).mutate(userQueries.CREATE_USER).variables({ createUserData: userValues });
+			const { errors } = await request<{ createUser: User }, { createUserData: CreateUserInput }>(app.getHttpServer()).mutate(userQueries.CREATE_USER).variables({ createUserData: userValues });
+
+			const errorMessage = errors[0].message;
+			expect(errorMessage).toBe("duplicated: Email already in use");
+		});
+
+		it("Throws an error due to invalid fields", async () => {
+			const userValues = { email: "not valid", name: "way too long name for a user to have", password: "123" };
+			const { errors } = await request<{ createUser: User }, { createUserData: CreateUserInput }>(app.getHttpServer()).mutate(userQueries.CREATE_USER).variables({ createUserData: userValues });
+			expect(errors[0].message).toHaveLength(3);
+		});
 	});
 });
