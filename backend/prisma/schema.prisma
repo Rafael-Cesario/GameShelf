@@ -18,26 +18,3 @@ model User {
 
   @@map("users")
 }
-
-model Game {
-  id          String   @id @default(uuid())
-  name        String
-  notes       String
-  developer   String
-  rating      String
-  gamingTime  String
-  releaseDate DateTime
-  playDate    DateTime
-  tags        Tag[]
-
-  @@map("Games")
-}
-
-model Tag {
-  Game   Game   @relation(fields: [gameId], references: [id])
-  gameId String
-  id     String @id @default(uuid())
-  name   String
-
-  @@map("Tags")
-}
