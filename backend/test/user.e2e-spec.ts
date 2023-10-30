@@ -2,8 +2,8 @@ import request from "supertest-graphql";
 import { INestApplication, ValidationPipe } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import { AppModule } from "src/app.module";
-import { CreateUserInput } from "src/user/user.dto";
-import { User } from "src/user/user.model";
+import { CreateUserInput } from "src/models/user/user.dto";
+import { User } from "src/models/user/user.model";
 import { PrismaService } from "src/database/prisma.service";
 import { userQueries } from "./queries/user";
 
