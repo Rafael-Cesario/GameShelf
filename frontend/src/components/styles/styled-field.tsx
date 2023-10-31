@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const StyledField = styled.div`
 	display: flex;
 	flex-direction: column;
-	margin: 1rem;
+	margin: 1rem 0;
 
 	.field-name {
 		color: ${Theme.text + "90"};

@@ -11,8 +11,6 @@ export const CreateAccount = ({ props: { setFormName } }: Props) => {
 		<>
 			<h1 className="title">Criar conta</h1>
 
-
-
 			<button className="change-form" onClick={() => setFormName("login")}>
 				Já tem uma conta? Clique aqui para fazer login.
 			</button>

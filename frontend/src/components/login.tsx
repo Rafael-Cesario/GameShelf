@@ -25,9 +25,15 @@ export const Login = ({ props: { setFormName } }: LoginProps) => {
 		<>
 			<h1 className="title">Login</h1>
 
-			<form className="field-container">
+			<form
+				onSubmit={(e) => {
+					e.preventDefault();
+					// login();
+				}}
+				className="field-container">
 				<Field props={{ field: "email", type: "text", labelText: "Email", placeholder: "Email", onChange, error: formErrors.email }} />
 				<Field props={{ field: "password", type: "password", labelText: "Senha", placeholder: "Senha", onChange, error: formErrors.password }} />
+				<button className="submit">Entrar</button>
 			</form>
 
 			<button className="change-form" onClick={() => setFormName("create")}>
