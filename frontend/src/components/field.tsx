@@ -10,11 +10,15 @@ interface Props {
 		labelText: string;
 		placeholder: string;
 		type: "text" | "password";
+		onChange(field: string, value: string): void;
+		error: string;
 	};
 }
 
-export const Field = ({ props: { field, labelText, placeholder, type } }: Props) => {
+export const Field = ({ props: { field, labelText, placeholder, type, onChange, error } }: Props) => {
 	const [fieldType, setFieldType] = useState(type);
+
+	const Input = <input onChange={(e) => onChange(field, e.target.value)} className="field" type={fieldType} id={field} placeholder={placeholder} />;
 
 	return (
 		<StyledField>
@@ -22,17 +26,17 @@ export const Field = ({ props: { field, labelText, placeholder, type } }: Props)
 				{labelText}
 			</label>
 
-			{type === "text" && <input className="field" type={type} id={field} placeholder={placeholder} />}
+			{type === "text" && Input}
 
 			{type === "password" && (
 				<div className="password-field">
-					<input className="field" type={fieldType} id={field} placeholder={placeholder} />
+					{Input}
 					{fieldType === "password" && <AiFillEyeInvisible className="icon" onClick={() => setFieldType("text")} />}
 					{fieldType === "text" && <AiFillEye className="icon" onClick={() => setFieldType("password")} />}
 				</div>
 			)}
 
-			<span className="error"></span>
+			<span className="error">{error}</span>
 		</StyledField>
 	);
 };
