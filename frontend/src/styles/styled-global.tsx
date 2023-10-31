@@ -28,6 +28,7 @@ export const StyledGlobal = styled.createGlobalStyle`
 		cursor: pointer;
 		font-weight: bold;
 		transition: 0.1s;
+		font-size: 1rem;
 
 		&:hover {
 			transform: scale(1.05);

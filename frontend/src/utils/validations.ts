@@ -16,6 +16,11 @@ class Validations {
 		if (!/[a-z]/.test(value)) return "Sua senha deve conter ao menos uma letra minúscula";
 		return "";
 	}
+
+	passwordCheck(value: string, password: string): string {
+		if (value !== password) return "Suas senhas devem ser iguais";
+		return "";
+	}
 }
 
 export const validations = new Validations();

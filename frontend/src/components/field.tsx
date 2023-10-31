@@ -6,12 +6,12 @@ import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
 interface Props {
 	props: {
+		error: string;
 		field: string;
 		labelText: string;
 		placeholder: string;
 		type: "text" | "password";
 		onChange(field: string, value: string): void;
-		error: string;
 	};
 }
 
