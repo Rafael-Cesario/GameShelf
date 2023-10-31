@@ -1,6 +1,6 @@
 "use client";
-import { CreateAccount } from "@/components/create-account";
-import { Login } from "@/components/login";
+import { Login } from "@/features/login";
+import { CreateAccount } from "@/features/create-account";
 import { StyledForm } from "@/features/styles/styled-form";
 import { useState } from "react";
 
