@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Field } from "./field";
+import { Field } from "./components/field";
 import { AccountFormFields, CreateAccountProps } from "./interfaces/create-account";
 import { produce } from "immer";
 import { validations } from "@/utils/validations";

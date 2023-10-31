@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Field } from "./field";
+import { Field } from "./components/field";
 import { produce } from "immer";
 import { LoginFormFields, LoginProps } from "./interfaces/login";
 

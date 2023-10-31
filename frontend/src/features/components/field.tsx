@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { StyledField } from "./styles/styled-field";
+import { StyledField } from "../styles/styled-field";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 
 interface Props {

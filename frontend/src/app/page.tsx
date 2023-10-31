@@ -1,7 +1,7 @@
 "use client";
 import { CreateAccount } from "@/components/create-account";
 import { Login } from "@/components/login";
-import { StyledForm } from "@/components/styles/styled-form";
+import { StyledForm } from "@/features/styles/styled-form";
 import { useState } from "react";
 
 const Home = () => {
