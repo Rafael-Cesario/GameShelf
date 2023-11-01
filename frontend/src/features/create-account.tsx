@@ -7,6 +7,7 @@ import { validations } from "@/utils/validations";
 import { useMutation } from "@apollo/client";
 import { userQueries } from "@/services/queries/user";
 import { CreateUserInput, CreateUserResponse } from "@/services/interfaces/user";
+import { LoadingButton } from "./components/loading-button";
 
 export const CreateAccount = ({ props: { setFormName } }: CreateAccountProps) => {
 	const defaultFields: AccountFormFields = { email: "", name: "", password: "", passwordCheck: "" };
@@ -66,7 +67,6 @@ export const CreateAccount = ({ props: { setFormName } }: CreateAccountProps) =>
 			const { data } = await createUserMutation({ variables });
 
 			// todo >
-			// loading
 			// Notification
 			// change form to login
 			// clear form values
@@ -92,7 +92,8 @@ export const CreateAccount = ({ props: { setFormName } }: CreateAccountProps) =>
 				<Field props={{ error: formErrors.password, field: "password", labelText: "Senha", onChange, placeholder: "Senha", type: "password" }} />
 				<Field props={{ error: formErrors.passwordCheck, field: "passwordCheck", labelText: "Confirmar senha", onChange, placeholder: "Senha", type: "password" }} />
 
-				<button className="submit">Criar conta</button>
+				{loading || <button className="submit">Criar conta</button>}
+				{loading && <LoadingButton className="submit loading" />}
 			</form>
 
 			<button className="change-form" onClick={() => setFormName("login")}>

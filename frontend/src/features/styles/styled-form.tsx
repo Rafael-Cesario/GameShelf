@@ -18,6 +18,10 @@ export const StyledForm = styled.div`
 		background-color: ${Theme.primary};
 	}
 
+	.loading {
+		background-color: ${Theme.success};
+	}
+
 	.change-form {
 		background-color: transparent;
 		border: none;

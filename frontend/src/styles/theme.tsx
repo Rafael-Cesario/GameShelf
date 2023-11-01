@@ -4,6 +4,7 @@ export const Theme = {
 	text: "#eeeeee",
 	primary: "#2060ff",
 	error: "#a53b3b",
+	success: "#389c56",
 	borderRadius: "4px",
 	border: "#191919",
 };
