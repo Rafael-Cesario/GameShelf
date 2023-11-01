@@ -10,6 +10,12 @@ class Validations {
 		return "";
 	}
 
+	name(value: string): string {
+		if (!value) return "Este campo não pode ficar vazio";
+		if (value.length > 30) return "Seu nome é muito grande";
+		return "";
+	}
+
 	password(value: string): string {
 		if (!value) return "Este campo não pode ficar vazio";
 		if (value.length < 10) return "Sua senha deve conter no mínimo 10 caracteres";

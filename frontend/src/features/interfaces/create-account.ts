@@ -6,6 +6,7 @@ export interface CreateAccountProps {
 
 export interface AccountFormFields {
 	email: string;
+	name: string;
 	password: string;
 	passwordCheck: string;
 }

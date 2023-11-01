@@ -4,12 +4,17 @@ import { Field } from "./components/field";
 import { AccountFormFields, CreateAccountProps } from "./interfaces/create-account";
 import { produce } from "immer";
 import { validations } from "@/utils/validations";
+import { useMutation } from "@apollo/client";
+import { userQueries } from "@/services/queries/user";
+import { CreateUserInput, CreateUserResponse } from "@/services/interfaces/user";
 
 export const CreateAccount = ({ props: { setFormName } }: CreateAccountProps) => {
-	const defaultFields: AccountFormFields = { email: "", password: "", passwordCheck: "" };
+	const defaultFields: AccountFormFields = { email: "", name: "", password: "", passwordCheck: "" };
 	const [formValues, setFormValues] = useState({ ...defaultFields });
 	const [formErrors, setFormErrors] = useState({ ...defaultFields });
 	const [isFormValid, setIsFormValid] = useState(false);
+
+	const [createUserMutation, { loading }] = useMutation<CreateUserResponse, CreateUserInput>(userQueries.CREATE_USER);
 
 	const onChange = (field: keyof AccountFormFields, value: string) => {
 		updateValue(field, value);
@@ -51,11 +56,25 @@ export const CreateAccount = ({ props: { setFormName } }: CreateAccountProps) =>
 		return hasEmptyValues;
 	};
 
-	const createAccount = () => {
+	const createAccount = async () => {
 		const hasEmptyValues = checkEmptyValues();
 		if (hasEmptyValues || !isFormValid) return;
 
-		console.log("Hello", { isFormValid });
+		try {
+			const { email, name, password } = formValues;
+			const variables = { createUserData: { email, name, password } };
+			const { data } = await createUserMutation({ variables });
+
+			// todo >
+			// loading
+			// Notification
+			// change form to login
+			// clear form values
+
+			console.log({ data });
+		} catch (error: any) {
+			console.log(error.message);
+		}
 	};
 
 	return (
@@ -69,6 +88,7 @@ export const CreateAccount = ({ props: { setFormName } }: CreateAccountProps) =>
 				}}
 				className="field-container">
 				<Field props={{ error: formErrors.email, field: "email", labelText: "Email", onChange, placeholder: "Email", type: "text" }} />
+				<Field props={{ error: formErrors.name, field: "name", labelText: "Nome", onChange, placeholder: "Nome", type: "text" }} />
 				<Field props={{ error: formErrors.password, field: "password", labelText: "Senha", onChange, placeholder: "Senha", type: "password" }} />
 				<Field props={{ error: formErrors.passwordCheck, field: "passwordCheck", labelText: "Confirmar senha", onChange, placeholder: "Senha", type: "password" }} />
 
