@@ -8,6 +8,8 @@ import { useMutation } from "@apollo/client";
 import { userQueries } from "@/services/queries/user";
 import { CreateUserInput, CreateUserResponse } from "@/services/interfaces/user";
 import { LoadingButton } from "./components/loading-button";
+import { useDispatch } from "react-redux";
+import { setNotificationSuccess } from "@/context/notification-slice";
 
 export const CreateAccount = ({ props: { setFormName } }: CreateAccountProps) => {
 	const defaultFields: AccountFormFields = { email: "", name: "", password: "", passwordCheck: "" };
@@ -16,6 +18,7 @@ export const CreateAccount = ({ props: { setFormName } }: CreateAccountProps) =>
 	const [isFormValid, setIsFormValid] = useState(false);
 
 	const [createUserMutation, { loading }] = useMutation<CreateUserResponse, CreateUserInput>(userQueries.CREATE_USER);
+	const dispatch = useDispatch();
 
 	const onChange = (field: keyof AccountFormFields, value: string) => {
 		updateValue(field, value);
@@ -64,14 +67,11 @@ export const CreateAccount = ({ props: { setFormName } }: CreateAccountProps) =>
 		try {
 			const { email, name, password } = formValues;
 			const variables = { createUserData: { email, name, password } };
-			const { data } = await createUserMutation({ variables });
+			await createUserMutation({ variables });
 
-			// todo >
-			// Notification
-			// change form to login
-			// clear form values
-
-			console.log({ data });
+			dispatch(setNotificationSuccess({ message: `Boas vindas ${name[0].toUpperCase() + name.slice(1)}, sua conta foi criada e você já pode fazer login.` }));
+			setFormValues(defaultFields);
+			setFormName("login");
 		} catch (error: any) {
 			console.log(error.message);
 		}
