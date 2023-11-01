@@ -9,7 +9,8 @@ import { userQueries } from "@/services/queries/user";
 import { CreateUserInput, CreateUserResponse } from "@/services/interfaces/user";
 import { LoadingButton } from "./components/loading-button";
 import { useDispatch } from "react-redux";
-import { setNotificationSuccess } from "@/context/notification-slice";
+import { setNotificationError, setNotificationSuccess } from "@/context/notification-slice";
+import { responseErrors } from "@/services/interfaces/errors";
 
 export const CreateAccount = ({ props: { setFormName } }: CreateAccountProps) => {
 	const defaultFields: AccountFormFields = { email: "", name: "", password: "", passwordCheck: "" };
@@ -73,7 +74,9 @@ export const CreateAccount = ({ props: { setFormName } }: CreateAccountProps) =>
 			setFormValues(defaultFields);
 			setFormName("login");
 		} catch (error: any) {
-			console.log(error.message);
+			const [errorCode] = error.message.split(":");
+			const message = responseErrors.user[errorCode as keyof typeof responseErrors.user] || responseErrors.default;
+			dispatch(setNotificationError({ message }));
 		}
 	};
 
