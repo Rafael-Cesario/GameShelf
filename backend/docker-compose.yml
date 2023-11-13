@@ -13,5 +13,15 @@ services:
     ports:
       - 9090:5432
 
+  db_test:
+    container_name: GameShelf-TEST
+    image: postgres:alpine3.18
+    restart: always
+    environment:
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test
+    ports:
+      - 9191:5432
+
 volumes:
   db_data:
