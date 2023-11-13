@@ -4,6 +4,7 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
 import { ApolloServerPluginLandingPageLocalDefault } from "@Apollo/server/plugin/landingPage/default";
 import { join } from "path";
 import { PrismaModule } from "./prisma.module";
+import { UserModule } from "./models/user/user.module";
 
 const ModuleGraphQl = GraphQLModule.forRoot<ApolloDriverConfig>({
 	driver: ApolloDriver,
@@ -11,9 +12,10 @@ const ModuleGraphQl = GraphQLModule.forRoot<ApolloDriverConfig>({
 	sortSchema: true,
 	playground: false,
 	plugins: [ApolloServerPluginLandingPageLocalDefault()],
+	formatError: (error) => ({ message: error.message, status: error.extensions.code, errors: error.extensions?.originalError || "" }),
 });
 
 @Module({
-	imports: [ModuleGraphQl, PrismaModule],
+	imports: [ModuleGraphQl, PrismaModule, UserModule],
 })
 export class AppModule {}
