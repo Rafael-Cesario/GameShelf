@@ -31,7 +31,7 @@ export class UserService {
 		if (!user) throw new UnauthorizedException("unauthorized: Email/Password is wrong");
 
 		const isSamePassword = await bcrypt.compare(password, user.password);
-		if (!isSamePassword) throw new UnauthorizedException("Unauthorized: Email/Password is wrong");
+		if (!isSamePassword) throw new UnauthorizedException("unauthorized: Email/Password is wrong");
 
 		const token = await this.jwtService.signAsync({ email });
 		delete user.password;
