@@ -1,4 +1,4 @@
-import { ObjectType, Field } from "@nestjs/graphql";
+import { ObjectType, Field, PickType } from "@nestjs/graphql";
 
 @ObjectType()
 export class UserModel {
@@ -10,4 +10,10 @@ export class UserModel {
 
 	@Field()
 	password: string;
+}
+
+@ObjectType()
+export class LoginModel extends PickType(UserModel, ["id", "email"]) {
+	@Field()
+	token: string;
 }

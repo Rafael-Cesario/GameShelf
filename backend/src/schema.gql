@@ -7,8 +7,20 @@ input CreateUserInput {
   password: String!
 }
 
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type LoginModel {
+  email: String!
+  id: String!
+  token: String!
+}
+
 type Mutation {
   createUser(createUserData: CreateUserInput!): String!
+  login(loginData: LoginInput!): LoginModel!
 }
 
 type Query {
