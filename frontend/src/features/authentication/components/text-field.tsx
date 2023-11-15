@@ -6,17 +6,19 @@ interface Props {
 		label: string;
 		placeholder: string;
 		error: string;
+		value: string;
+		onChange: (value: string) => void;
 	};
 }
 
-export const TextField = ({ props: { error, fieldName, placeholder, label } }: Props) => {
+export const TextField = ({ props: { value, onChange, error, fieldName, placeholder, label } }: Props) => {
 	return (
 		<TextFieldStyled>
 			<label className="field-title" htmlFor={fieldName}>
 				{label}
 			</label>
 
-			<input className="input" type="text" placeholder={placeholder} id={fieldName} />
+			<input value={value} onChange={(e) => onChange(e.target.value)} className="input" type="text" placeholder={placeholder} id={fieldName} />
 			<span className="error">{error}</span>
 		</TextFieldStyled>
 	);
