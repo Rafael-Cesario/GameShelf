@@ -10,13 +10,17 @@ export const metadata: Metadata = {
 	description: "Organize your games",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children, authentication }: { children: React.ReactNode; authentication: React.ReactNode }) {
+	// Todo > 
+	const isLoggedIn = false;
+
 	return (
 		<html lang="pt-br">
 			<body className={roboto_slab.className}>
 				<StyledComponentsRegistry>
 					<GlobalStyled />
-					{children}
+					{isLoggedIn || authentication}
+					{isLoggedIn && children}
 				</StyledComponentsRegistry>
 			</body>
 		</html>

@@ -1,3 +1,7 @@
 export default function Home() {
-	return <h1>Hello Gameshelf</h1>;
+	return (
+		<div>
+			<h1>GameShelf home page</h1>
+		</div>
+	);
 }

@@ -13,4 +13,23 @@ export const GlobalStyled = styled.createGlobalStyle`
 		background-color: ${Theme.background};
 		color: ${Theme.text};
 	}
+
+	input,
+	button {
+		background-color: white;
+		color: black;
+		padding: 10px 20px;
+		border: none;
+		border-radius: ${Theme.radius};
+		font-size: 0.9rem;
+
+		&:focus {
+			outline: 1px solid ${Theme.primary};
+		}
+	}
+
+	button {
+		cursor: pointer;
+		font-weight: bold;
+	}
 `;
