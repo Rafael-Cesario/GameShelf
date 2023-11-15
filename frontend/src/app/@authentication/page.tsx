@@ -2,8 +2,11 @@
 
 import { TextField } from "@/features/authentication/components/text-field";
 import { AuthenticationStyled } from "@/features/authentication/styles/authentication-styled";
+import { CreateUserInput, CreateUserResponse } from "@/services/interfaces/user";
+import { userQueries } from "@/services/queries/user";
 import { checkEmptyValues } from "@/utils/check-empty-values";
 import { validations } from "@/utils/validations";
+import { useMutation } from "@apollo/client";
 import { produce } from "immer";
 import { useState } from "react";
 
@@ -12,6 +15,9 @@ export default function Authentication() {
 	const [currentForm, setCurrentForm] = useState<"login" | "create">("login");
 	const [formData, setFormData] = useState(defaultData);
 	const [formErrors, setFormErrors] = useState(defaultData);
+
+	// loading button
+	const [createUserMutation, { loading }] = useMutation<CreateUserResponse, CreateUserInput>(userQueries.CREATE_USER);
 
 	const updateFieldValue = (fieldName: keyof typeof formData, value: string) => {
 		const state = produce(formData, (draft) => {
@@ -31,11 +37,21 @@ export default function Authentication() {
 		setFormErrors(state);
 	};
 
-	const createUser = () => {
+	const createUser = async () => {
 		const { hasEmptyValues, emptyValues } = checkEmptyValues(formData);
 		if (hasEmptyValues) return setFormErrors({ ...formErrors, ...emptyValues });
 
-		console.log({ fields: formData });
+		try {
+			const { email, password } = formData;
+			const { data } = await createUserMutation({ variables: { createUserData: { email, password } } });
+			console.log({ data });
+			// Reset formData
+			// change current form to login
+			// notification
+		} catch (error: any) {
+			console.log(error.message);
+			// catch errors
+		}
 	};
 
 	return (
@@ -82,7 +98,7 @@ export default function Authentication() {
 						error: formErrors.passwordCheck,
 						fieldName: "password-check",
 						placeholder: "Digite sua senha",
-						label: "Senha",
+						label: "Confirme sua senha",
 						onChange: (value: string) => {
 							updateFieldValue("passwordCheck", value);
 							validateField("passwordCheck", value);
