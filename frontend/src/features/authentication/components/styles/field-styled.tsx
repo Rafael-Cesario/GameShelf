@@ -2,7 +2,7 @@
 import { Theme } from "@/styles/theme";
 import styled from "styled-components";
 
-export const TextFieldStyled = styled.div`
+export const FieldStyled = styled.div`
 	display: flex;
 	flex-direction: column;
 	margin: 8px 0;
@@ -17,9 +17,25 @@ export const TextFieldStyled = styled.div`
 		color: ${Theme.text + "90"};
 	}
 
-	.input {
-		background-color: ${Theme.container};
-		color: ${Theme.text};
+	.container {
+		display: flex;
+
+		button {
+			background-color: ${Theme.container};
+			margin-left: 0.4px;
+		}
+
+		.input {
+			background-color: ${Theme.container};
+			color: ${Theme.text};
+			width: 100%;
+			z-index: 1;
+		}
+
+		.icon {
+			background-color: transparent;
+			color: white;
+		}
 	}
 
 	.error {

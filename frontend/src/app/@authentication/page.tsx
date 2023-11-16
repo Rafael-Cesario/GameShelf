@@ -1,6 +1,6 @@
 "use client";
 
-import { TextField } from "@/features/authentication/components/text-field";
+import { Field } from "@/features/authentication/components/field";
 import { AuthenticationStyled } from "@/features/authentication/styles/authentication-styled";
 import { CreateUserInput, CreateUserResponse } from "@/services/interfaces/user";
 import { userQueries } from "@/services/queries/user";
@@ -64,13 +64,14 @@ export default function Authentication() {
 					e.preventDefault();
 					createUser();
 				}}>
-				<TextField
+				<Field
 					props={{
 						value: formData.email,
 						error: formErrors.email,
 						fieldName: "email",
 						placeholder: "Digite seu email",
 						label: "Email",
+						type: "text",
 						onChange: (value: string) => {
 							updateFieldValue("email", value);
 							validateField("email", value);
@@ -78,13 +79,14 @@ export default function Authentication() {
 					}}
 				/>
 
-				<TextField
+				<Field
 					props={{
 						value: formData.password,
 						error: formErrors.password,
 						fieldName: "password",
 						placeholder: "Digite sua senha",
 						label: "Senha",
+						type: "password",
 						onChange: (value: string) => {
 							updateFieldValue("password", value);
 							validateField("password", value);
@@ -92,13 +94,14 @@ export default function Authentication() {
 					}}
 				/>
 
-				<TextField
+				<Field
 					props={{
 						value: formData.passwordCheck,
 						error: formErrors.passwordCheck,
 						fieldName: "password-check",
 						placeholder: "Digite sua senha",
 						label: "Confirme sua senha",
+						type: "password",
 						onChange: (value: string) => {
 							updateFieldValue("passwordCheck", value);
 							validateField("passwordCheck", value);
