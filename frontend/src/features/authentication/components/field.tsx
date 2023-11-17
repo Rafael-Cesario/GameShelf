@@ -25,7 +25,7 @@ export const Field = ({ props: { value, onChange, error, fieldName, placeholder,
 			</label>
 
 			<div className="container">
-				<input value={value} onChange={(e) => onChange(e.target.value)} className="input" type={currentType} placeholder={placeholder} id={fieldName} />
+				<input data-cy={`input-${fieldName}`} value={value} onChange={(e) => onChange(e.target.value)} className="input" type={currentType} placeholder={placeholder} id={fieldName} />
 
 				{type === "password" && (
 					<button type="button" onClick={() => setShowPassword(!showPassword)}>
@@ -35,7 +35,9 @@ export const Field = ({ props: { value, onChange, error, fieldName, placeholder,
 				)}
 			</div>
 
-			<span className="error">{error}</span>
+			<span data-cy={`error-${fieldName}`} className="error">
+				{error}
+			</span>
 		</FieldStyled>
 	);
 };

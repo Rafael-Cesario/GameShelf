@@ -14,7 +14,6 @@
     "graphql": "^16.8.1",
     "graphql-tag": "^2.12.6",
     "immer": "^10.0.3",
-    "next": "14.0.2",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^4.12.0",
@@ -25,8 +24,12 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "eslint": "^8",
+    "@typescript-eslint/eslint-plugin": "^6.11.0",
+    "@typescript-eslint/parser": "^6.11.0",
+    "cypress": "^13.5.1",
+    "eslint": "^8.53.0",
     "eslint-config-next": "14.0.2",
-    "typescript": "^5"
+    "next": "^14.0.3",
+    "typescript": "^5.2.2"
   }
 }
