@@ -6,6 +6,7 @@ import { checkEmptyValues } from "@/utils/check-empty-values";
 import { useMutation } from "@apollo/client";
 import { userQueries } from "@/services/queries/user";
 import { LoginInput, LoginResponse } from "@/services/interfaces/user";
+import { SetCookies } from "@/app/api/cookies/route";
 
 interface Props {
 	props: {
@@ -34,8 +35,15 @@ export const Login = ({ props: { setCurrentForm } }: Props) => {
 
 		try {
 			const { data } = await loginMutation({ variables: { loginData: { ...formData } } });
-			console.log({ data });
-			// create a server side cookie to store user data
+			if (!data) throw new Error("Data is undefined");
+
+			const cookiesData: SetCookies = { name: "user", value: { ...data.login } };
+
+			await fetch("/api/cookies", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(cookiesData),
+			});
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
