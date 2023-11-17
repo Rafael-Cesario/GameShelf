@@ -121,7 +121,7 @@ export const CreateAccount = ({ props: { setCurrentForm } }: Props) => {
 				<div className="button-container">
 					{loading || (
 						<button className="submit" data-cy="submit">
-							Entrar
+							Criar conta
 						</button>
 					)}
 					{loading && <LoadingButton />}

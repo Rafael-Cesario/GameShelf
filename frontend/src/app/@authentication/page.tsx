@@ -4,6 +4,7 @@ import { AuthenticationStyled } from "@/features/authentication/styles/authentic
 import { useState } from "react";
 import { Notification } from "@/components/notification";
 import { CreateAccount } from "@/features/authentication/create-account";
+import { Login } from "@/features/authentication/login";
 
 export default function Authentication() {
 	const [currentForm, setCurrentForm] = useState<"login" | "create">("login");
@@ -11,7 +12,8 @@ export default function Authentication() {
 	return (
 		<AuthenticationStyled>
 			<Notification />
-			<CreateAccount props={{ setCurrentForm }} />
+			{currentForm === "create" && <CreateAccount props={{ setCurrentForm }} />}
+			{currentForm === "login" && <Login props={{ setCurrentForm }} />}
 		</AuthenticationStyled>
 	);
 }

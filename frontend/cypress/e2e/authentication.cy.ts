@@ -15,6 +15,10 @@ describe("Authentication", () => {
 	});
 
 	describe("Create account", () => {
+		beforeEach(() => {
+			cy.get(`[data-cy="change-form"]`).click();
+		});
+
 		it("Creates a new user", () => {
 			cy.intercept("POST", devURI, (req) => stubMutation(req, "CreateUser", { data: { createUser: "New user created" } }));
 			cy.get('[data-cy="input-email"]').type("user01@email.com");
