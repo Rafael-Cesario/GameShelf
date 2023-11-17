@@ -13,6 +13,7 @@ import { produce } from "immer";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Notification } from "@/components/notification";
+import { LoadingButton } from "@/components/loading-button";
 
 export default function Authentication() {
 	const defaultData = { email: "", password: "", passwordCheck: "" };
@@ -20,7 +21,6 @@ export default function Authentication() {
 	const [formData, setFormData] = useState(defaultData);
 	const [formErrors, setFormErrors] = useState(defaultData);
 
-	// loading button
 	const [createUserMutation, { loading }] = useMutation<CreateUserResponse, CreateUserInput>(userQueries.CREATE_USER);
 	const dispatch = useDispatch();
 
@@ -54,7 +54,7 @@ export default function Authentication() {
 			setCurrentForm("login");
 			dispatch(setSuccessNotification({ message: "Sua conta foi criada com sucesso, você já pode fazer login" }));
 		} catch (error: any) {
-			const [errorCode] = error.message.split(":");
+			const [errorCode] = error.message.toLowerCase().split(":");
 			const message = serviceErrors.user[errorCode as keyof typeof serviceErrors.user] || serviceErrors.default;
 			dispatch(setErrorNotification({ message }));
 		}
@@ -118,7 +118,8 @@ export default function Authentication() {
 				/>
 
 				<div className="button-container">
-					<button className="submit">Entrar</button>
+					{loading || <button className="submit">Entrar</button>}
+					{loading && <LoadingButton />}
 
 					<button className="set-form" onClick={() => setCurrentForm("login")} type="button">
 						Já tem uma conta? Clique aqui para fazer login.
