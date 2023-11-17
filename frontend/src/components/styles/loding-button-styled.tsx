@@ -5,6 +5,7 @@ export const LoadingButtonStyled = styled.button`
 	opacity: 0.5;
 	background-color: ${Theme.primary};
 	color: ${Theme.text};
+	pointer-events: none;
 
 	span {
 		margin: 0 4px;

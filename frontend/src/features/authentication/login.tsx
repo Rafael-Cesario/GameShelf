@@ -8,6 +8,10 @@ import { userQueries } from "@/services/queries/user";
 import { LoginInput, LoginResponse } from "@/services/interfaces/user";
 import { SetCookies } from "@/app/api/cookies/route";
 import { useRouter } from "next/navigation";
+import { LoadingButton } from "@/components/loading-button";
+import { serviceErrors } from "@/services/interfaces/errors";
+import { useDispatch } from "react-redux";
+import { setErrorNotification } from "@/context/notification-slice";
 
 interface Props {
 	props: {
@@ -20,7 +24,8 @@ export const Login = ({ props: { setCurrentForm } }: Props) => {
 	const [formData, setFormData] = useState(defaultValues);
 	const [formErrors, setFormErrors] = useState(defaultValues);
 
-	const [loginMutation] = useMutation<LoginResponse, LoginInput>(userQueries.LOGIN);
+	const [loginMutation, { loading }] = useMutation<LoginResponse, LoginInput>(userQueries.LOGIN);
+	const dispatch = useDispatch();
 	const router = useRouter();
 
 	const updateFieldValue = (fieldName: keyof typeof formData, value: string) => {
@@ -31,31 +36,33 @@ export const Login = ({ props: { setCurrentForm } }: Props) => {
 		setFormData(state);
 	};
 
+	const setCookies = async (cookiesData: SetCookies) => {
+		await fetch("/api/cookies", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(cookiesData),
+		});
+	};
+
 	const login = async () => {
 		const { hasEmptyValues, emptyValues } = checkEmptyValues(formData);
 		if (hasEmptyValues) return setFormErrors({ ...formErrors, ...emptyValues });
 
 		try {
 			const { data } = await loginMutation({ variables: { loginData: { ...formData } } });
-			if (!data) throw new Error("Data is undefined");
+			if (!data) throw new Error("No data received from the server");
 
 			const cookiesData: SetCookies = { name: "user", value: { ...data.login } };
-
-			await fetch("/api/cookies", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(cookiesData),
-			});
+			setCookies(cookiesData);
 
 			setFormData(defaultValues);
-			router.push("/");
-
+			router.refresh();
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
-			console.log(error.message);
+			const [errorCode] = error.message.toLowerCase().split(":");
+			const message = serviceErrors.user[errorCode as keyof typeof serviceErrors.user] || serviceErrors.default;
+			dispatch(setErrorNotification({ message }));
 		}
-
-		console.log("Login");
 	};
 
 	return (
@@ -92,7 +99,8 @@ export const Login = ({ props: { setCurrentForm } }: Props) => {
 				/>
 
 				<div className="button-container">
-					<button className="submit">Entrar</button>
+					{loading && <LoadingButton />}
+					{loading || <button className="submit">Entrar</button>}
 
 					<button data-cy="change-form" className="set-form" onClick={() => setCurrentForm("create")} type="button">
 						Ainda não tem uma conta? Clique aqui para criar.
