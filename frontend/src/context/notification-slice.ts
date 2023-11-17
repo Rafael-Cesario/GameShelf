@@ -38,7 +38,7 @@ export const notificationSlice = createSlice({
 			state.message = action.payload.message;
 		},
 
-		setCloseNotification(state, action) {
+		setCloseNotification(state, action: { payload: undefined }) {
 			state.isOpen = false;
 		},
 	},

@@ -22,9 +22,11 @@ export const NotificationStyled = styled.div<{ type: NotificationTypes }>`
 
 	.top {
 		display: flex;
+		flex-wrap: wrap;
 		justify-content: space-between;
 
 		.title {
+			margin: 0;
 			color: var(--type);
 		}
 

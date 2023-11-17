@@ -1,7 +1,9 @@
 "use client";
 
+import { setErrorNotification, setSuccessNotification } from "@/context/notification-slice";
 import { Field } from "@/features/authentication/components/field";
 import { AuthenticationStyled } from "@/features/authentication/styles/authentication-styled";
+import { serviceErrors } from "@/services/interfaces/errors";
 import { CreateUserInput, CreateUserResponse } from "@/services/interfaces/user";
 import { userQueries } from "@/services/queries/user";
 import { checkEmptyValues } from "@/utils/check-empty-values";
@@ -9,6 +11,8 @@ import { validations } from "@/utils/validations";
 import { useMutation } from "@apollo/client";
 import { produce } from "immer";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Notification } from "@/components/notification";
 
 export default function Authentication() {
 	const defaultData = { email: "", password: "", passwordCheck: "" };
@@ -18,6 +22,7 @@ export default function Authentication() {
 
 	// loading button
 	const [createUserMutation, { loading }] = useMutation<CreateUserResponse, CreateUserInput>(userQueries.CREATE_USER);
+	const dispatch = useDispatch();
 
 	const updateFieldValue = (fieldName: keyof typeof formData, value: string) => {
 		const state = produce(formData, (draft) => {
@@ -47,15 +52,18 @@ export default function Authentication() {
 
 			setFormData(defaultData);
 			setCurrentForm("login");
-			// notification
+			dispatch(setSuccessNotification({ message: "Sua conta foi criada com sucesso, você já pode fazer login" }));
 		} catch (error: any) {
-			console.log(error.message);
-			// catch errors
+			const [errorCode] = error.message.split(":");
+			const message = serviceErrors.user[errorCode as keyof typeof serviceErrors.user] || serviceErrors.default;
+			dispatch(setErrorNotification({ message }));
 		}
 	};
 
 	return (
 		<AuthenticationStyled>
+			<Notification />
+
 			<h1 className="title">Criar sua conta</h1>
 
 			<form

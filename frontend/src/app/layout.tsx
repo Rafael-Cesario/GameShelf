@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Providers } from "@/lib/providers";
 import { GlobalStyled } from "@/styles/global-styled";
 import { Roboto_Slab } from "next/font/google";
-import { Notification } from "@/components/notification";
 
 const roboto_slab = Roboto_Slab({ subsets: ["latin"] });
 
@@ -12,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children, authentication }: { children: React.ReactNode; authentication: React.ReactNode }) {
-	// Todo >
+	// Todo > Check if user is logged
 	const isLoggedIn = false;
 
 	return (
@@ -20,7 +19,6 @@ export default function RootLayout({ children, authentication }: { children: Rea
 			<body className={roboto_slab.className}>
 				<Providers>
 					<GlobalStyled />
-					<Notification />
 					{isLoggedIn || authentication}
 					{isLoggedIn && children}
 				</Providers>
