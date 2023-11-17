@@ -1,7 +1,9 @@
 import cookie from "cookie";
 
+export type CookiesName = "user";
+
 export interface SetCookies {
-	name: "user";
+	name: CookiesName;
 	value: {
 		token: string;
 		id: string;
@@ -21,6 +23,7 @@ export async function POST(request: Request) {
 				httpOnly: true,
 				sameSite: "strict",
 				secure: process.env.NODE_ENV !== "development",
+				path: "/",
 			}),
 		},
 	});

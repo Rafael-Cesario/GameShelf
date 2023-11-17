@@ -7,6 +7,7 @@ import { useMutation } from "@apollo/client";
 import { userQueries } from "@/services/queries/user";
 import { LoginInput, LoginResponse } from "@/services/interfaces/user";
 import { SetCookies } from "@/app/api/cookies/route";
+import { useRouter } from "next/navigation";
 
 interface Props {
 	props: {
@@ -20,6 +21,7 @@ export const Login = ({ props: { setCurrentForm } }: Props) => {
 	const [formErrors, setFormErrors] = useState(defaultValues);
 
 	const [loginMutation] = useMutation<LoginResponse, LoginInput>(userQueries.LOGIN);
+	const router = useRouter();
 
 	const updateFieldValue = (fieldName: keyof typeof formData, value: string) => {
 		const state = produce(formData, (draft) => {
@@ -44,6 +46,9 @@ export const Login = ({ props: { setCurrentForm } }: Props) => {
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(cookiesData),
 			});
+
+			setFormData(defaultValues);
+			router.push("/");
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
