@@ -19,6 +19,7 @@ export const FieldStyled = styled.div`
 
 	.container {
 		display: flex;
+		background-color: ${Theme.container};
 
 		button {
 			background-color: ${Theme.container};
@@ -29,7 +30,6 @@ export const FieldStyled = styled.div`
 			background-color: ${Theme.container};
 			color: ${Theme.text};
 			width: 100%;
-			z-index: 1;
 		}
 
 		.icon {

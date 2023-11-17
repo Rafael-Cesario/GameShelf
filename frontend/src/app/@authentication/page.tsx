@@ -43,10 +43,10 @@ export default function Authentication() {
 
 		try {
 			const { email, password } = formData;
-			const { data } = await createUserMutation({ variables: { createUserData: { email, password } } });
-			console.log({ data });
-			// Reset formData
-			// change current form to login
+			await createUserMutation({ variables: { createUserData: { email, password } } });
+
+			setFormData(defaultData);
+			setCurrentForm("login");
 			// notification
 		} catch (error: any) {
 			console.log(error.message);
