@@ -11,7 +11,7 @@ export const Notification = () => {
 	if (!isOpen) return null;
 
 	return (
-		<NotificationStyled type={type}>
+		<NotificationStyled type={type} data-cy="notification">
 			<div className="top">
 				<h1 className="title">{title}</h1>
 
