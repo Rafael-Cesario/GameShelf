@@ -45,9 +45,10 @@ describe("Authentication", () => {
 	});
 
 	describe("Login", () => {
-		it.only("Login and saves user's data on cookies", () => {
+		const user = { email: "user01@hotmail.com", id: "1" };
+
+		it("Login and saves user's data on cookies", () => {
 			const cookieName: CookiesName = "user";
-			const user = { email: "user01@hotmail.com", id: "1" };
 			const loginResponse: LoginResponse = { login: { email: user.email, id: user.id, token: "123qwe456rty789uio" } };
 
 			cy.intercept("POST", devURI, (req) => stubMutation(req, "Login", { data: loginResponse }));
@@ -59,6 +60,16 @@ describe("Authentication", () => {
 			cy.getCookie(cookieName).then((cookie) => void expect(cookie).to.exist);
 		});
 
-		it("Catch response errors");
+		it("Catch response errors", () => {
+			cy.intercept("POST", devURI, (req) => {
+				stubMutation(req, "Login", { errors: [{ message: "unauthorized:" }] });
+			});
+
+			cy.get(`[data-cy="input-email"]`).type(user.email);
+			cy.get(`[data-cy="input-password"]`).type("MyPassword123");
+			cy.get(`[data-cy="submit"]`).click();
+			cy.wait("@Login");
+			cy.get(`[data-cy="notification"] > .message`).should("have.text", "Email ou senha incorretos.");
+		});
 	});
 });
