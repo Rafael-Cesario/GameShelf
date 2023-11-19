@@ -53,7 +53,7 @@ export const Login = ({ props: { setCurrentForm } }: Props) => {
 			if (!data) throw new Error("No data received from the server");
 
 			const cookiesData: SetCookies = { name: "user", value: { ...data.login } };
-			setCookies(cookiesData);
+			await setCookies(cookiesData);
 
 			setFormData(defaultValues);
 			router.refresh();
@@ -67,7 +67,9 @@ export const Login = ({ props: { setCurrentForm } }: Props) => {
 
 	return (
 		<>
-			<h1 className="title">Entrar</h1>
+			<h1 className="title" data-cy="login-title">
+				Entrar
+			</h1>
 
 			<form
 				onSubmit={(e) => {
@@ -100,7 +102,11 @@ export const Login = ({ props: { setCurrentForm } }: Props) => {
 
 				<div className="button-container">
 					{loading && <LoadingButton />}
-					{loading || <button className="submit">Entrar</button>}
+					{loading || (
+						<button className="submit" data-cy="submit">
+							Entrar
+						</button>
+					)}
 
 					<button data-cy="change-form" className="set-form" onClick={() => setCurrentForm("create")} type="button">
 						Ainda não tem uma conta? Clique aqui para criar.
