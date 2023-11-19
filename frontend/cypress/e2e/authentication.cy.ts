@@ -71,5 +71,15 @@ describe("Authentication", () => {
 			cy.wait("@Login");
 			cy.get(`[data-cy="notification"] > .message`).should("have.text", "Email ou senha incorretos.");
 		});
+
+		it("Change the current form", () => {
+			cy.get(`[data-cy="change-form"]`).click();
+			cy.get(`[data-cy="login-title"]`).should("not.exist");
+		});
+
+		it("Don't let user submit with empty fields", () => {
+			cy.get(`[data-cy="submit"]`).click();
+			cy.get(`[data-cy="error-email"]`).should("have.text", "Este campo não pode ficar vazio");
+		});
 	});
 });
