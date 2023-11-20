@@ -12,6 +12,8 @@ services:
       - db_data:/var/lib/postgresql/data
     ports:
       - 9090:5432
+    expose:
+      - 9090
 
   db_test:
     container_name: GameShelf-TEST
