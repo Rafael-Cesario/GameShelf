@@ -21,4 +21,9 @@ export class CollectionResolver {
 	async updateCollection(@Args("updateCollectionData") updateCollectionData: UpdateCollectionInput) {
 		return await this.collectionService.updateCollection(updateCollectionData);
 	}
+
+	@Mutation(() => String)
+	async deleteCollection(@Args("collectionID") collectionID: string) {
+		return await this.collectionService.deleteCollection(collectionID);
+	}
 }

@@ -34,4 +34,12 @@ export class CollectionService {
 		const collection = await this.prisma.collection.update({ where: { id }, data: { name }, include: { games: true } });
 		return collection;
 	}
+
+	async deleteCollection(collectionID: string) {
+		const hasCollection = await this.prisma.collection.findUnique({ where: { id: collectionID } });
+		if (!hasCollection) throw new BadRequestException("notFound: Collection not found");
+
+		const { name } = await this.prisma.collection.delete({ where: { id: collectionID } });
+		return `${name[0].toUpperCase() + name.slice(1)} was deleted from database.`;
+	}
 }

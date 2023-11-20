@@ -39,6 +39,7 @@ type LoginModel {
 type Mutation {
   createCollection(createCollectionData: CreateCollectionInput!): CollectionModel!
   createUser(createUserData: CreateUserInput!): String!
+  deleteCollection(collectionID: String!): String!
   login(loginData: LoginInput!): LoginModel!
   updateCollection(updateCollectionData: UpdateCollectionInput!): CollectionModel!
 }
