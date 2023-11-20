@@ -11,7 +11,7 @@
 		"start": "nest start",
 		"dev": "nest start --watch",
 		"test": "dotenv -e .env.test -- jest",
-		"test:e2e": "dotenv -e .env.test -- jest --config ./test/jest-e2e.json",
+		"test:e2e": "dotenv -e .env.test -- jest --i --config ./jest-e2e.json",
 		"test:migrate": "dotenv -e .env.test -- prisma migrate deploy"
 	},
 	"dependencies": {
