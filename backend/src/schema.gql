@@ -2,9 +2,27 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type CollectionModel {
+  games: [GameModel!]!
+  id: String!
+  name: String!
+  userID: String!
+}
+
+input CreateCollectionInput {
+  name: String!
+  userID: String!
+}
+
 input CreateUserInput {
   email: String!
   password: String!
+}
+
+type GameModel {
+  collections: [CollectionModel!]!
+  id: String!
+  userID: String!
 }
 
 input LoginInput {
@@ -19,6 +37,7 @@ type LoginModel {
 }
 
 type Mutation {
+  createCollection(createCollectionData: CreateCollectionInput!): CollectionModel!
   createUser(createUserData: CreateUserInput!): String!
   login(loginData: LoginInput!): LoginModel!
 }

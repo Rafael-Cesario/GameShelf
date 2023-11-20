@@ -5,6 +5,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from "@Apollo/server/plugin
 import { join } from "path";
 import { PrismaModule } from "./prisma.module";
 import { UserModule } from "./models/user/user.module";
+import { CollectionModule } from "./models/collection/collection.module";
 
 const ModuleGraphQl = GraphQLModule.forRoot<ApolloDriverConfig>({
 	driver: ApolloDriver,
@@ -16,6 +17,6 @@ const ModuleGraphQl = GraphQLModule.forRoot<ApolloDriverConfig>({
 });
 
 @Module({
-	imports: [ModuleGraphQl, PrismaModule, UserModule],
+	imports: [ModuleGraphQl, PrismaModule, UserModule, CollectionModule],
 })
 export class AppModule {}
