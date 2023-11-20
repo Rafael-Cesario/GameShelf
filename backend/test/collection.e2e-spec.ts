@@ -5,7 +5,8 @@ import { AppModule } from "src/app.module";
 import { UserModel } from "src/models/user/user.model";
 import { PrismaService } from "src/prisma.service";
 import { collectionQueries } from "./queries/collection";
-import { CreateCollectionInput } from "src/models/collection/collection.dto";
+import { CreateCollectionInput, UpdateCollectionInput } from "src/models/collection/collection.dto";
+import { CollectionModel } from "src/models/collection/collection.model";
 
 describe("Collection e2e", () => {
 	let prisma: PrismaService;
@@ -24,6 +25,11 @@ describe("Collection e2e", () => {
 
 	const getCollections = async (userID: string) => {
 		const { data, errors } = await request(app.getHttpServer()).mutate(collectionQueries.GET_COLLECTIONS).variables({ userID });
+		return { data, errors };
+	};
+
+	const updateCollection = async (updateCollectionData: UpdateCollectionInput) => {
+		const { data, errors } = await request(app.getHttpServer()).mutate(collectionQueries.UPDATE_COLLECTION).variables({ updateCollectionData });
 		return { data, errors };
 	};
 
@@ -106,7 +112,31 @@ describe("Collection e2e", () => {
 		});
 	});
 
-	// describe("Update collection", () => {});
+	describe("Update collection", () => {
+		const collections: CollectionModel[] = [];
+
+		beforeAll(async () => {
+			for (let i = 0; i < 5; i++) {
+				const { data } = (await createCollection({ name: `Collection ${i}`, userID: user.id })) as { data: { createCollection: CollectionModel } };
+				collections.push(data.createCollection);
+			}
+		});
+
+		afterAll(async () => {
+			await prisma.collection.deleteMany();
+		});
+
+		it("Throws an error: collection not found", async () => {
+			const { errors } = await updateCollection({ name: "new name", id: "123" });
+			expect(errors[0]).toHaveProperty("message", "notFound: Collection not found");
+		});
+
+		it("Rename a collection", async () => {
+			const name = "NEW NAME";
+			const { data } = await updateCollection({ name, id: collections[0].id });
+			expect(data).toHaveProperty(["updateCollection", "name"], name.toLowerCase());
+		});
+	});
 
 	// describe("Delete collection", () => {});
 });

@@ -23,6 +23,19 @@ class CollectionQueries {
 			}
 		}
 	`;
+
+	UPDATE_COLLECTION = gql`
+		mutation UpdateCollection($updateCollectionData: UpdateCollectionInput!) {
+			updateCollection(updateCollectionData: $updateCollectionData) {
+				id
+				name
+				userID
+				games {
+					id
+				}
+			}
+		}
+	`;
 }
 
 export const collectionQueries = new CollectionQueries();
