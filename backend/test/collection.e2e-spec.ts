@@ -22,6 +22,11 @@ describe("Collection e2e", () => {
 		return { data, errors };
 	};
 
+	const getCollections = async (userID: string) => {
+		const { data, errors } = await request(app.getHttpServer()).mutate(collectionQueries.GET_COLLECTIONS).variables({ userID });
+		return { data, errors };
+	};
+
 	beforeAll(async () => {
 		const module = await Test.createTestingModule({ imports: [AppModule] }).compile();
 		prisma = await module.get(PrismaService);
@@ -76,7 +81,30 @@ describe("Collection e2e", () => {
 		});
 	});
 
-	// describe("Get Collections", () => {});
+	describe("Get Collections", () => {
+		const collectionsLength = 5;
+
+		beforeAll(async () => {
+			for (let i = 0; i < collectionsLength; i++) {
+				await createCollection({ name: `Collection ${i}`, userID: user.id });
+			}
+		});
+
+		afterAll(async () => {
+			await prisma.collection.deleteMany();
+		});
+
+		it("Get collections", async () => {
+			const { data } = (await getCollections(user.id)) as { data: { getCollections: [] } };
+			expect(data).toHaveProperty("getCollections");
+			expect(data.getCollections).toHaveLength(collectionsLength);
+		});
+
+		it("Throws an error: user not found", async () => {
+			const { errors } = await getCollections("123");
+			expect(errors[0]).toHaveProperty(["message"], "notFound: User ID not found");
+		});
+	});
 
 	// describe("Update collection", () => {});
 
