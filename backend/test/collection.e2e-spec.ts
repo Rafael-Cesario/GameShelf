@@ -19,7 +19,7 @@ describe("Collection e2e", () => {
 	};
 
 	const createCollection = async (createCollectionData: CreateCollectionInput) => {
-		const { data, errors } = await request(app.getHttpServer()).mutate(collectionQueries.CREATE_COLLECTION).variables({ createCollectionData });
+		const { data, errors } = await request<{ createCollection: CollectionModel }>(app.getHttpServer()).mutate(collectionQueries.CREATE_COLLECTION).variables({ createCollectionData });
 		return { data, errors };
 	};
 
@@ -30,6 +30,11 @@ describe("Collection e2e", () => {
 
 	const updateCollection = async (updateCollectionData: UpdateCollectionInput) => {
 		const { data, errors } = await request(app.getHttpServer()).mutate(collectionQueries.UPDATE_COLLECTION).variables({ updateCollectionData });
+		return { data, errors };
+	};
+
+	const deleteCollection = async (collectionID: string) => {
+		const { data, errors } = await request(app.getHttpServer()).mutate(collectionQueries.DELETE_COLLECTION).variables({ collectionID });
 		return { data, errors };
 	};
 
@@ -117,7 +122,7 @@ describe("Collection e2e", () => {
 
 		beforeAll(async () => {
 			for (let i = 0; i < 5; i++) {
-				const { data } = (await createCollection({ name: `Collection ${i}`, userID: user.id })) as { data: { createCollection: CollectionModel } };
+				const { data } = await createCollection({ name: `Collection ${i}`, userID: user.id });
 				collections.push(data.createCollection);
 			}
 		});
@@ -138,5 +143,21 @@ describe("Collection e2e", () => {
 		});
 	});
 
-	// describe("Delete collection", () => {});
+	describe("Delete collection", () => {
+		let collection: CollectionModel;
+
+		beforeAll(async () => {
+			const response = await createCollection({ userID: user.id, name: "collection 01" });
+			collection = response.data.createCollection;
+		});
+
+		afterAll(async () => {
+			await prisma.collection.deleteMany();
+		});
+
+		it("Delete collection from database", async () => {
+			const { data } = await deleteCollection(collection.id);
+			expect(data).toHaveProperty("deleteCollection", "Collection 01 was deleted from database.");
+		});
+	});
 });
