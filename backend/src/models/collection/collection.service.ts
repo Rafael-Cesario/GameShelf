@@ -1,5 +1,5 @@
 import { PrismaService } from "src/prisma.service";
-import { CreateCollectionInput } from "./collection.dto";
+import { CreateCollectionInput, UpdateCollectionInput } from "./collection.dto";
 import { BadRequestException, Injectable } from "@nestjs/common";
 
 @Injectable()
@@ -24,5 +24,14 @@ export class CollectionService {
 		if (!user) throw new BadRequestException("notFound: User ID not found");
 
 		return user.Collection;
+	}
+
+	async updateCollection(updateCollectionData: UpdateCollectionInput) {
+		const { id, name } = updateCollectionData;
+		const hasCollection = await this.prisma.collection.findUnique({ where: { id } });
+		if (!hasCollection) throw new BadRequestException("notFound: Collection not found");
+
+		const collection = await this.prisma.collection.update({ where: { id }, data: { name }, include: { games: true } });
+		return collection;
 	}
 }

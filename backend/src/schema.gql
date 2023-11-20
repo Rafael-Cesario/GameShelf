@@ -40,9 +40,15 @@ type Mutation {
   createCollection(createCollectionData: CreateCollectionInput!): CollectionModel!
   createUser(createUserData: CreateUserInput!): String!
   login(loginData: LoginInput!): LoginModel!
+  updateCollection(updateCollectionData: UpdateCollectionInput!): CollectionModel!
 }
 
 type Query {
   getCollections(userID: String!): [CollectionModel!]!
   hello: String!
+}
+
+input UpdateCollectionInput {
+  id: String!
+  name: String!
 }

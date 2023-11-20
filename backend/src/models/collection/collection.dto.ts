@@ -1,4 +1,4 @@
-import { InputType, Field } from "@nestjs/graphql";
+import { InputType, Field, PickType } from "@nestjs/graphql";
 import { Transform } from "class-transformer";
 import { IsString, Length } from "class-validator";
 
@@ -12,4 +12,11 @@ export class CreateCollectionInput {
 	@Transform(({ value }) => String(value).toLowerCase())
 	@Field()
 	name: string;
+}
+
+@InputType()
+export class UpdateCollectionInput extends PickType(CreateCollectionInput, ["name"]) {
+	@IsString()
+	@Field()
+	id: string;
 }
