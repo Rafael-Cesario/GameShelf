@@ -43,5 +43,6 @@ type Mutation {
 }
 
 type Query {
+  getCollections(userID: String!): [CollectionModel!]!
   hello: String!
 }

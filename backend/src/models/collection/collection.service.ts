@@ -18,4 +18,11 @@ export class CollectionService {
 		const collection = await this.prisma.collection.create({ data: { name, userID } });
 		return collection;
 	}
+
+	async getCollections(userID: string) {
+		const user = await this.prisma.user.findUnique({ where: { id: userID }, include: { Collection: { include: { games: true } } } });
+		if (!user) throw new BadRequestException("notFound: User ID not found");
+
+		return user.Collection;
+	}
 }
