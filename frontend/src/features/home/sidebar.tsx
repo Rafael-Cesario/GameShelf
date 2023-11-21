@@ -1,3 +1,4 @@
+import { CreateCollection } from "./components/create-collection";
 import { SidebarStyled } from "./styles/sidebar-styled";
 
 export const Sidebar = () => {
@@ -16,7 +17,8 @@ export const Sidebar = () => {
 						<span className="amount">978</span>
 					</div>
 				</div>
-				<button className="create-collection">Criar nova coleção</button>
+
+				<CreateCollection />
 			</div>
 
 			<button className="logout">Sair da conta</button>

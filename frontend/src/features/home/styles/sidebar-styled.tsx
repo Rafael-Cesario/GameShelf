@@ -29,6 +29,7 @@ export const SidebarStyled = styled.div`
 		background-color: ${Theme.background};
 		font-weight: bold;
 		width: 100%;
+		color: ${Theme.text};
 	}
 
 	.collection-container {
