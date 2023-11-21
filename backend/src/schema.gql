@@ -52,6 +52,7 @@ type Mutation {
   createUser(createUserData: CreateUserInput!): String!
   deleteCollection(collectionID: String!): String!
   login(loginData: LoginInput!): LoginModel!
+  removeGame(gameID: String!): String!
   updateCollection(updateCollectionData: UpdateCollectionInput!): CollectionModel!
   updateGame(updateGameData: UpdateGameInput!): GameModel!
 }

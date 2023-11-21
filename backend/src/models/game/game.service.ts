@@ -36,4 +36,9 @@ export class GameService {
 
 		return game;
 	}
+
+	async removeGame(gameID: string) {
+		await this.prisma.game.delete({ where: { id: gameID } });
+		return "Success: Game removed from games";
+	}
 }
