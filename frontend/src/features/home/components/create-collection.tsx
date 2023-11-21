@@ -4,6 +4,7 @@ import { CreateCollectionStyled } from "./styles/create-collection-styled";
 import { collectionQueries } from "@/services/queries/collection";
 import { useMutation } from "@apollo/client";
 import { CreateCollectionInput, CreateCollectionResponse } from "@/services/interfaces/collection";
+import { getCookiesUser } from "@/utils/cookies";
 
 export const CreateCollection = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -16,7 +17,10 @@ export const CreateCollection = () => {
 		if (name.length < 3 || name.length > 20) return setError("O nome da sua coleção deve conter entre 3 a 20 caracteres.");
 
 		try {
-			// const { data } = await createCollectionMutation({ variables: { createCollectionData: { name, userID } } });
+			const { id } = await getCookiesUser();
+			const { data } = await createCollectionMutation({ variables: { createCollectionData: { name, userID: id } } });
+			console.log({ data });
+
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
 			console.log(error.message);

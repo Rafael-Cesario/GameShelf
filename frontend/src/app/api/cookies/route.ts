@@ -1,15 +1,7 @@
+import { CookiesName } from "@/services/interfaces/cookies";
 import cookie from "cookie";
-
-export type CookiesName = "user";
-
-export interface SetCookies {
-	name: CookiesName;
-	value: {
-		token: string;
-		id: string;
-		email: string;
-	};
-}
+import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
 	const body = await request.json();
@@ -27,4 +19,12 @@ export async function POST(request: Request) {
 			}),
 		},
 	});
+}
+
+export async function GET() {
+	const store = cookies();
+	const name: CookiesName = "user";
+	const cookie = store.get(name);
+	if (!cookie?.value) throw new Error("User cookies is undefined");
+	return NextResponse.json({ userCookies: cookie.value });
 }

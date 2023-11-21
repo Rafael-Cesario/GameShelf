@@ -6,12 +6,12 @@ import { checkEmptyValues } from "@/utils/check-empty-values";
 import { useMutation } from "@apollo/client";
 import { userQueries } from "@/services/queries/user";
 import { LoginInput, LoginResponse } from "@/services/interfaces/user";
-import { SetCookies } from "@/app/api/cookies/route";
 import { useRouter } from "next/navigation";
 import { LoadingButton } from "@/components/loading-button";
 import { serviceErrors } from "@/services/interfaces/errors";
 import { useDispatch } from "react-redux";
 import { setErrorNotification } from "@/context/notification-slice";
+import { SetCookies } from "@/services/interfaces/cookies";
 
 interface Props {
 	props: {
