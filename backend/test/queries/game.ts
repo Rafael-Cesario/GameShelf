@@ -6,6 +6,19 @@ class GameQueries {
 			addGame(addGameData: $addGameData)
 		}
 	`;
+
+	GET_GAMES = gql`
+		query GetGames($userID: String!) {
+			getGames(userID: $userID) {
+				id
+				userID
+				collections {
+					id
+					name
+				}
+			}
+		}
+	`;
 }
 
 export const gameQueries = new GameQueries();

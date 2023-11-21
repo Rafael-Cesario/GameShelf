@@ -37,6 +37,11 @@ describe("Game e2e", () => {
 		return { data, errors };
 	};
 
+	const getGamesRequest = async (userID: string) => {
+		const { data, errors } = await request<{ getGames: [] }>(app.getHttpServer()).mutate(gameQueries.GET_GAMES).variables({ userID });
+		return { data, errors };
+	};
+
 	beforeAll(async () => {
 		const moduleRef = await Test.createTestingModule({ imports: [AppModule] }).compile();
 		prisma = moduleRef.get(PrismaService);
@@ -72,6 +77,24 @@ describe("Game e2e", () => {
 
 			const dbCollection = await prisma.collection.findUnique({ where: { id: collections[0].id }, include: { games: true } });
 			expect(dbCollection.games).toHaveLength(1);
+		});
+	});
+
+	describe("Get games", () => {
+		beforeEach(async () => {
+			await addGameRequest({ id: "1", userID: user.id, collections: [{ id: collections[0].id }] });
+			await addGameRequest({ id: "2", userID: user.id, collections: [{ id: collections[0].id }] });
+		});
+
+		afterEach(async () => {
+			await prisma.game.deleteMany();
+		});
+
+		it("Get all user's game", async () => {
+			const { data } = await getGamesRequest(user.id);
+			expect(data).toHaveProperty(["getGames", 0, "id"], "1");
+			expect(data).toHaveProperty(["getGames", 0, "collections", 0, "id"], collections[0].id);
+			expect(data.getGames.length).toBe(2);
 		});
 	});
 });
