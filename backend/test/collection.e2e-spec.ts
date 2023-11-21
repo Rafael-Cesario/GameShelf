@@ -133,7 +133,7 @@ describe("Collection e2e", () => {
 
 		it("Throws an error: collection not found", async () => {
 			const { errors } = await updateCollection({ name: "new name", id: "123" });
-			expect(errors[0]).toHaveProperty("message", "notFound: Collection not found");
+			expect(errors[0]).toHaveProperty("message", "notFound: collections not found");
 		});
 
 		it("Rename a collection", async () => {

@@ -15,4 +15,13 @@ export class GameService {
 		await this.prisma.game.create({ data: { id, userID, collections: { connect: [...collections] } } });
 		return `Success: Your game was added to your collections and/or all games`;
 	}
+
+	async getGames(userID: string) {
+		const { games } = await this.prisma.user.findUnique({
+			where: { id: userID },
+			include: { games: { include: { collections: true } } },
+		});
+
+		return games;
+	}
 }

@@ -11,8 +11,8 @@ model User {
   id         String       @id @default(uuid())
   email      String       @unique
   password   String
-  Collection Collection[]
-  Game       Game[]
+  collections Collection[]
+  games       Game[]
 
   @@map("users")
 }

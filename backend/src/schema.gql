@@ -57,6 +57,7 @@ type Mutation {
 
 type Query {
   getCollections(userID: String!): [CollectionModel!]!
+  getGames(userID: String!): [GameModel!]!
   hello: String!
 }
 

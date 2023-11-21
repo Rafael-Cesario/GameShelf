@@ -16,4 +16,9 @@ export class GameResolver {
 	async addGame(@Args("addGameData") addGameData: AddGameInput) {
 		return await this.gameService.addGame(addGameData);
 	}
+
+	@Query(() => [GameModel])
+	async getGames(@Args("userID") userID: string) {
+		return await this.gameService.getGames(userID);
+	}
 }
