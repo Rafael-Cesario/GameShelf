@@ -5,7 +5,8 @@ import { AppModule } from "src/app.module";
 import { UserModel } from "src/models/user/user.model";
 import { PrismaService } from "src/prisma.service";
 import { gameQueries } from "./queries/game";
-import { AddGameInput } from "src/models/game/game.dto";
+import { AddGameInput, UpdateGameInput } from "src/models/game/game.dto";
+import { GameModel } from "src/models/game/game.model";
 
 describe("Game e2e", () => {
 	const collections = [];
@@ -33,12 +34,17 @@ describe("Game e2e", () => {
 	};
 
 	const addGameRequest = async (addGameData: AddGameInput) => {
-		const { data, errors } = await request(app.getHttpServer()).mutate(gameQueries.ADD_GAME).variables({ addGameData });
+		const { data, errors } = await request<{ addGame: GameModel }>(app.getHttpServer()).mutate(gameQueries.ADD_GAME).variables({ addGameData });
 		return { data, errors };
 	};
 
 	const getGamesRequest = async (userID: string) => {
-		const { data, errors } = await request<{ getGames: [] }>(app.getHttpServer()).mutate(gameQueries.GET_GAMES).variables({ userID });
+		const { data, errors } = await request<{ getGames: [] }>(app.getHttpServer()).query(gameQueries.GET_GAMES).variables({ userID });
+		return { data, errors };
+	};
+
+	const updateGameRequest = async (updateGameData: UpdateGameInput) => {
+		const { data, errors } = await request<{ updateGame: { collections: [] } }>(app.getHttpServer()).mutate(gameQueries.UPDATE_GAME).variables({ updateGameData });
 		return { data, errors };
 	};
 
@@ -95,6 +101,37 @@ describe("Game e2e", () => {
 			expect(data).toHaveProperty(["getGames", 0, "id"], "1");
 			expect(data).toHaveProperty(["getGames", 0, "collections", 0, "id"], collections[0].id);
 			expect(data.getGames.length).toBe(2);
+		});
+	});
+
+	describe("Update game", () => {
+		const games: { id: string }[] = [];
+
+		beforeEach(async () => {
+			const game = await prisma.game.create({ data: { id: "1", userID: user.id } });
+			games.push(game);
+		});
+
+		afterEach(async () => {
+			await prisma.game.deleteMany();
+		});
+
+		it("Update game's collections", async () => {
+			const addCollection = await updateGameRequest({
+				gameID: games[0].id,
+				addCollections: [{ id: collections[0].id }],
+				removeCollections: [],
+			});
+
+			expect(addCollection.data.updateGame.collections.length).toBe(1);
+
+			const removeCollection = await updateGameRequest({
+				gameID: games[0].id,
+				addCollections: [],
+				removeCollections: [{ id: collections[0].id }],
+			});
+
+			expect(removeCollection.data.updateGame.collections.length).toBe(0);
 		});
 	});
 });

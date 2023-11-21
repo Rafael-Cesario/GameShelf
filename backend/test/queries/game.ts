@@ -19,6 +19,19 @@ class GameQueries {
 			}
 		}
 	`;
+
+	UPDATE_GAME = gql`
+		mutation UpdateGame($updateGameData: UpdateGameInput!) {
+			updateGame(updateGameData: $updateGameData) {
+				id
+				userID
+				collections {
+					id
+					name
+				}
+			}
+		}
+	`;
 }
 
 export const gameQueries = new GameQueries();
