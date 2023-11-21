@@ -46,6 +46,11 @@ export const CreateCollectionStyled = styled.div`
 				margin-bottom: 2rem;
 				color: ${Theme.text};
 			}
+
+			.error {
+				font-size: 0.8rem;
+				color: ${Theme.error};
+			}
 		}
 
 		.submit {

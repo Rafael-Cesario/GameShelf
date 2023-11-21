@@ -1,9 +1,36 @@
 "use client";
 import { useState } from "react";
 import { CreateCollectionStyled } from "./styles/create-collection-styled";
+import { collectionQueries } from "@/services/queries/collection";
+import { useMutation } from "@apollo/client";
+import { CreateCollectionInput, CreateCollectionResponse } from "@/services/interfaces/collection";
 
 export const CreateCollection = () => {
 	const [isOpen, setIsOpen] = useState(false);
+	const [name, setName] = useState("");
+	const [error, setError] = useState("");
+
+	const [createCollectionMutation] = useMutation<CreateCollectionResponse, CreateCollectionInput>(collectionQueries.CREATE_COLLECTION);
+
+	const createCollection = async () => {
+		if (name.length < 3 || name.length > 20) return setError("O nome da sua coleção deve conter entre 3 a 20 caracteres.");
+
+		try {
+			// const { data } = await createCollectionMutation({ variables: { createCollectionData: { name, userID } } });
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (error: any) {
+			console.log(error.message);
+		}
+
+		// [ Todo ]
+		// Create collection mutation
+		// Collection slice
+		// Add new collection to slice
+		// Notification
+		// Catch errors
+		// Close create collection
+		// set new collection as active
+	};
 
 	return (
 		<>
@@ -17,16 +44,17 @@ export const CreateCollection = () => {
 						<button className="close" onClick={() => setIsOpen(false)}>
 							x
 						</button>
-
 						<h1 className="title">Criar coleção</h1>
 						<div className="field">
 							<label htmlFor="collection-name" className="field-title">
 								Nome
 							</label>
-
-							<input id="collection-name" type="text" placeholder="Digite um nome para sua coleção" />
+							<input value={name} onChange={(e) => setName(e.target.value)} id="collection-name" type="text" placeholder="Digite um nome para sua coleção" />
+							<span className="error">{error}</span>
 						</div>
-						<button className="submit">Criar</button>
+						<button onClick={() => createCollection()} className="submit">
+							Criar
+						</button>
 					</div>
 				</CreateCollectionStyled>
 			)}
