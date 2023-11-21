@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
-import { AddGameInput } from "./game.dto";
+import { AddGameInput, UpdateGameInput } from "./game.dto";
 import { PrismaService } from "src/prisma.service";
 
 @Injectable()
@@ -23,5 +23,17 @@ export class GameService {
 		});
 
 		return games;
+	}
+
+	async updateGame(updateGameData: UpdateGameInput) {
+		const { gameID, addCollections, removeCollections } = updateGameData;
+
+		const game = await this.prisma.game.update({
+			where: { id: gameID },
+			data: { collections: { connect: [...addCollections], disconnect: [...removeCollections] } },
+			include: { collections: true },
+		});
+
+		return game;
 	}
 }

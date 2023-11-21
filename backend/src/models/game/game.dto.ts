@@ -21,3 +21,16 @@ class CollectionInput {
 	@Field()
 	id: string;
 }
+
+@InputType()
+export class UpdateGameInput {
+	@IsString()
+	@Field()
+	gameID: string;
+
+	@Field(() => [CollectionInput], { nullable: "items" })
+	addCollections?: CollectionInput[];
+
+	@Field(() => [CollectionInput], { nullable: "items" })
+	removeCollections?: CollectionInput[];
+}

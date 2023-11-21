@@ -53,6 +53,7 @@ type Mutation {
   deleteCollection(collectionID: String!): String!
   login(loginData: LoginInput!): LoginModel!
   updateCollection(updateCollectionData: UpdateCollectionInput!): CollectionModel!
+  updateGame(updateGameData: UpdateGameInput!): GameModel!
 }
 
 type Query {
@@ -64,4 +65,10 @@ type Query {
 input UpdateCollectionInput {
   id: String!
   name: String!
+}
+
+input UpdateGameInput {
+  addCollections: [CollectionInput]!
+  gameID: String!
+  removeCollections: [CollectionInput]!
 }

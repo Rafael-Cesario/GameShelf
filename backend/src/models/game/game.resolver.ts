@@ -1,7 +1,7 @@
 import { Resolver, Mutation, Query, Args } from "@nestjs/graphql";
 import { GameModel } from "./game.model";
 import { GameService } from "./game.service";
-import { AddGameInput } from "./game.dto";
+import { AddGameInput, UpdateGameInput } from "./game.dto";
 
 // [ Done ] User can add games to collections
 // [ Current ] - User can get games
@@ -20,5 +20,10 @@ export class GameResolver {
 	@Query(() => [GameModel])
 	async getGames(@Args("userID") userID: string) {
 		return await this.gameService.getGames(userID);
+	}
+
+	@Mutation(() => GameModel)
+	async updateGame(@Args("updateGameData") updateGameData: UpdateGameInput) {
+		return await this.gameService.updateGame(updateGameData);
 	}
 }
