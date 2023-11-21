@@ -32,6 +32,12 @@ class GameQueries {
 			}
 		}
 	`;
+
+	REMOVE_GAME = gql`
+		mutation RemoveGame($gameID: String!) {
+			removeGame(gameID: $gameID)
+		}
+	`;
 }
 
 export const gameQueries = new GameQueries();

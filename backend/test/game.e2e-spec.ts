@@ -48,6 +48,11 @@ describe("Game e2e", () => {
 		return { data, errors };
 	};
 
+	const removeGameRequest = async (gameID: string) => {
+		const { data, errors } = await request(app.getHttpServer()).mutate(gameQueries.REMOVE_GAME).variables({ gameID });
+		return { data, errors };
+	};
+
 	beforeAll(async () => {
 		const moduleRef = await Test.createTestingModule({ imports: [AppModule] }).compile();
 		prisma = moduleRef.get(PrismaService);
@@ -132,6 +137,25 @@ describe("Game e2e", () => {
 			});
 
 			expect(removeCollection.data.updateGame.collections.length).toBe(0);
+		});
+	});
+
+	describe("Remove game", () => {
+		afterEach(async () => {
+			await prisma.game.deleteMany();
+		});
+
+		it("Removes a game", async () => {
+			const game = await prisma.game.create({ data: { id: "1", userID: user.id, collections: { connect: { id: collections[0].id } } } });
+
+			const { data } = await removeGameRequest(game.id);
+			expect(data).toHaveProperty("removeGame", "Success: Game removed from games");
+
+			const games = await prisma.game.findMany();
+			expect(games).toHaveLength(0);
+
+			const collection = await prisma.collection.findUnique({ where: { id: collections[0].id }, include: { games: true } });
+			expect(collection.games).toHaveLength(0);
 		});
 	});
 });
