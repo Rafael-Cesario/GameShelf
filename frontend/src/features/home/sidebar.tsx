@@ -12,7 +12,7 @@ export const Sidebar = () => {
 	const { id }: UserCookies = JSON.parse(cookie?.value || "");
 
 	return (
-		<SidebarStyled>
+		<SidebarStyled className="sidebar">
 			<div>
 				<h1 className="title">GameShelf</h1>
 				<SearchCollection />

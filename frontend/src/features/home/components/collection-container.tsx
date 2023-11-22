@@ -6,7 +6,7 @@ import { useQuery } from "@apollo/client";
 import { collectionQueries } from "@/services/queries/collection";
 import { GetCollectionsInput, GetCollectionsResponse } from "@/services/interfaces/collection";
 import { useEffect } from "react";
-import { setActiveCollection, setCollections } from "../context/collection-slice";
+import { setActiveCollection, setAllGames, setCollections } from "../context/collection-slice";
 import { gameQueries } from "@/services/queries/game";
 import { GetGameResponse, GetGamesInput } from "@/services/interfaces/game";
 
@@ -24,7 +24,8 @@ export const CollectionContainer = ({ userID }: Props) => {
 
 	useEffect(() => {
 		if (getCollectionsData) dispatch(setCollections({ collections: getCollectionsData.getCollections }));
-	}, [getCollectionsData]);
+		if (getGamesData) dispatch(setAllGames({ userID, games: getGamesData.getGames }));
+	}, [getCollectionsData, getGamesData]);
 
 	return (
 		<CollectionContainerStyled data-cy="collection-container">
