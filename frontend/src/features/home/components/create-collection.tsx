@@ -5,6 +5,8 @@ import { collectionQueries } from "@/services/queries/collection";
 import { useMutation } from "@apollo/client";
 import { CreateCollectionInput, CreateCollectionResponse } from "@/services/interfaces/collection";
 import { getCookiesUser } from "@/utils/cookies";
+import { useDispatch } from "react-redux";
+import { setCreateCollection } from "../context/collection-slice";
 
 export const CreateCollection = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +14,7 @@ export const CreateCollection = () => {
 	const [error, setError] = useState("");
 
 	const [createCollectionMutation] = useMutation<CreateCollectionResponse, CreateCollectionInput>(collectionQueries.CREATE_COLLECTION);
+	const dispatch = useDispatch();
 
 	const createCollection = async () => {
 		if (name.length < 3 || name.length > 20) return setError("O nome da sua coleção deve conter entre 3 a 20 caracteres.");
@@ -19,7 +22,8 @@ export const CreateCollection = () => {
 		try {
 			const { id } = await getCookiesUser();
 			const { data } = await createCollectionMutation({ variables: { createCollectionData: { name, userID: id } } });
-			console.log({ data });
+			if (!data) throw new Error("No data received from the server");
+			dispatch(setCreateCollection({ collection: data.createCollection }));
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
@@ -27,7 +31,6 @@ export const CreateCollection = () => {
 		}
 
 		// [ Todo ]
-		// Create collection mutation
 		// Collection slice
 		// Add new collection to slice
 		// Notification
