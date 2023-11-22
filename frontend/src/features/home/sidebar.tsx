@@ -4,6 +4,7 @@ import { CreateCollection } from "./components/create-collection";
 import { SidebarStyled } from "./styles/sidebar-styled";
 import { UserCookies } from "@/services/interfaces/cookies";
 import { SearchCollection } from "./components/search-collection";
+import { LogoutButton } from "./components/logoutButton";
 
 export const Sidebar = () => {
 	const store = cookies();
@@ -19,7 +20,7 @@ export const Sidebar = () => {
 				<CreateCollection />
 			</div>
 
-			<button className="logout">Sair da conta</button>
+			<LogoutButton />
 		</SidebarStyled>
 	);
 };

@@ -28,3 +28,9 @@ export async function GET() {
 	if (!cookie?.value) throw new Error("User cookies is undefined");
 	return NextResponse.json({ userCookies: cookie.value });
 }
+
+export async function DELETE() {
+	const name: CookiesName = "user";
+	cookies().delete(name);
+	return NextResponse.json({ message: "User Cookies deleted" });
+}
