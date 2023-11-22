@@ -3,6 +3,7 @@ import { CollectionContainer } from "./components/collection-container";
 import { CreateCollection } from "./components/create-collection";
 import { SidebarStyled } from "./styles/sidebar-styled";
 import { UserCookies } from "@/services/interfaces/cookies";
+import { SearchCollection } from "./components/search-collection";
 
 export const Sidebar = () => {
 	const store = cookies();
@@ -13,8 +14,7 @@ export const Sidebar = () => {
 		<SidebarStyled>
 			<div>
 				<h1 className="title">GameShelf</h1>
-				<input type="text" placeholder="Buscar coleção" className="search-collection" />
-
+				<SearchCollection />
 				<CollectionContainer userID={id} />
 				<CreateCollection />
 			</div>

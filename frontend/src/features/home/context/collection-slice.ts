@@ -4,11 +4,13 @@ import { createSlice } from "@reduxjs/toolkit";
 interface CollectionSlice {
 	collections: CollectionModel[];
 	activeCollection: string;
+	search: string;
 }
 
 const defaultValues: CollectionSlice = {
 	collections: [],
 	activeCollection: "0",
+	search: "",
 };
 
 export const collectionSlice = createSlice({
@@ -27,7 +29,11 @@ export const collectionSlice = createSlice({
 		setActiveCollection(state, action: { payload: string }) {
 			state.activeCollection = action.payload;
 		},
+
+		setSearch(state, action: { payload: string }) {
+			state.search = action.payload;
+		},
 	},
 });
 
-export const { setCreateCollection, setCollections, setActiveCollection } = collectionSlice.actions;
+export const { setCreateCollection, setCollections, setActiveCollection , setSearch} = collectionSlice.actions;

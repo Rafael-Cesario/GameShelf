@@ -1,5 +1,4 @@
 "use client";
-
 import { useDispatch, useSelector } from "react-redux";
 import { CollectionContainerStyled } from "./styles/collection-container-styled";
 import { Store } from "@/context/store";
@@ -21,7 +20,7 @@ interface Props {
 export const CollectionContainer = ({ userID }: Props) => {
 	const { data: getCollectionsData } = useQuery<GetCollectionsResponse, GetCollectionsInput>(collectionQueries.GET_COLLECTIONS, { variables: { userID } });
 	const { data: getGamesData } = useQuery<GetGameResponse, GetGamesInput>(gameQueries.GET_GAMES, { variables: { userID } });
-	const { collections, activeCollection } = useSelector((state: Store) => state.collection);
+	const { collections, activeCollection, search } = useSelector((state: Store) => state.collection);
 	const allGames = getGamesData?.getGames || [];
 
 	const dispatch = useDispatch();
@@ -39,14 +38,16 @@ export const CollectionContainer = ({ userID }: Props) => {
 				<span className="amount">{allGames?.length}</span>
 			</div>
 
-			{collections.map((collection) => (
-				<div className="collection" key={collection.id}>
-					<button onClick={() => dispatch(setActiveCollection(collection.id))} className={activeCollection === collection.id ? "active" : ""}>
-						{collection.name}
-					</button>
-					<span className="amount">{collection.games.length}</span>
-				</div>
-			))}
+			{collections
+				.filter((collection) => collection.name.match(new RegExp(search, "i")))
+				.map((collection) => (
+					<div className="collection" key={collection.id}>
+						<button onClick={() => dispatch(setActiveCollection(collection.id))} className={activeCollection === collection.id ? "active" : ""}>
+							{collection.name}
+						</button>
+						<span className="amount">{collection.games.length}</span>
+					</div>
+				))}
 		</CollectionContainerStyled>
 	);
 };
