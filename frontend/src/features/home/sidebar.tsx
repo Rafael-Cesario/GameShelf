@@ -1,10 +1,10 @@
 import { cookies } from "next/headers";
-import { CollectionContainer } from "./components/collection-container";
-import { CreateCollection } from "./components/create-collection";
+import { CollectionContainer } from "./components/sidebar/collection-container";
+import { CreateCollection } from "./components/sidebar/create-collection";
 import { SidebarStyled } from "./styles/sidebar-styled";
 import { UserCookies } from "@/services/interfaces/cookies";
-import { SearchCollection } from "./components/search-collection";
-import { LogoutButton } from "./components/logoutButton";
+import { SearchCollection } from "./components/sidebar/search-collection";
+import { LogoutButton } from "./components/sidebar/logoutButton";
 
 export const Sidebar = () => {
 	const store = cookies();

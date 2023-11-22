@@ -1,12 +1,12 @@
 "use client";
 import { useDispatch, useSelector } from "react-redux";
-import { CollectionContainerStyled } from "./styles/collection-container-styled";
+import { CollectionContainerStyled } from "./../sidebar/styles/collection-container-styled";
 import { Store } from "@/context/store";
 import { useQuery } from "@apollo/client";
 import { collectionQueries } from "@/services/queries/collection";
 import { GetCollectionsInput, GetCollectionsResponse } from "@/services/interfaces/collection";
 import { useEffect } from "react";
-import { setActiveCollection, setAllGames, setCollections } from "../context/collection-slice";
+import { setActiveCollection, setAllGames, setCollections } from "../../context/collection-slice";
 import { gameQueries } from "@/services/queries/game";
 import { GetGameResponse, GetGamesInput } from "@/services/interfaces/game";
 

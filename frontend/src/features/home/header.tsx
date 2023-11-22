@@ -2,6 +2,7 @@
 import { useSelector } from "react-redux";
 import { HeaderStyled } from "./styles/header-styled";
 import { Store } from "@/context/store";
+import { AddGame } from "./components/header/add-game";
 
 export const Header = () => {
 	const { collections, activeCollection, allGames } = useSelector((state: Store) => state.collection);
@@ -21,6 +22,8 @@ export const Header = () => {
 				<button className="menu">Configurações</button>
 				<button className="menu add-game">Adicionar</button>
 			</div>
+
+			<AddGame />
 		</HeaderStyled>
 	);
 };

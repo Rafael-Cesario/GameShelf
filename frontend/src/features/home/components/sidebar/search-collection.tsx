@@ -1,6 +1,6 @@
 "use client";
 import { useDispatch } from "react-redux";
-import { setSearch } from "../context/collection-slice";
+import { setSearch } from "../../context/collection-slice";
 
 export const SearchCollection = () => {
 	const dispatch = useDispatch();

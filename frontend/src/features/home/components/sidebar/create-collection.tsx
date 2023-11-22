@@ -6,7 +6,7 @@ import { useMutation } from "@apollo/client";
 import { CreateCollectionInput, CreateCollectionResponse } from "@/services/interfaces/collection";
 import { getCookiesUser } from "@/utils/cookies";
 import { useDispatch } from "react-redux";
-import { setCreateCollection } from "../context/collection-slice";
+import { setCreateCollection } from "../../context/collection-slice";
 import { setErrorNotification, setSuccessNotification } from "@/context/notification-slice";
 import { serviceErrors } from "@/services/interfaces/errors";
 import { LoadingButton } from "@/components/loading-button";
