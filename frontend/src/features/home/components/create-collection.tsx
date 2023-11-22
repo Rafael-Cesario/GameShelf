@@ -7,6 +7,13 @@ import { CreateCollectionInput, CreateCollectionResponse } from "@/services/inte
 import { getCookiesUser } from "@/utils/cookies";
 import { useDispatch } from "react-redux";
 import { setCreateCollection } from "../context/collection-slice";
+import { setErrorNotification, setSuccessNotification } from "@/context/notification-slice";
+import { serviceErrors } from "@/services/interfaces/errors";
+
+// [ Todo ]
+// Loading button
+// Display new collection on collections list
+// Catch errors: create collection
 
 export const CreateCollection = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -23,20 +30,18 @@ export const CreateCollection = () => {
 			const { id } = await getCookiesUser();
 			const { data } = await createCollectionMutation({ variables: { createCollectionData: { name, userID: id } } });
 			if (!data) throw new Error("No data received from the server");
-			dispatch(setCreateCollection({ collection: data.createCollection }));
 
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			const collection = { ...data.createCollection, games: [] };
+			dispatch(setCreateCollection({ collection }));
+
+			dispatch(setSuccessNotification({ message: `Nova coleção criada: ${name}` }));
+			setIsOpen(false);
+			setName("");
 		} catch (error: any) {
-			console.log(error.message);
+			const [errorCode] = error.message.toLowerCase().split(":");
+			const message = serviceErrors.collection[errorCode as keyof typeof serviceErrors.collection] || serviceErrors.default;
+			dispatch(setErrorNotification({ message }));
 		}
-
-		// [ Todo ]
-		// Collection slice
-		// Add new collection to slice
-		// Notification
-		// Catch errors
-		// Close create collection
-		// set new collection as active
 	};
 
 	return (

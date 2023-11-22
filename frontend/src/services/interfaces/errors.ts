@@ -7,6 +7,11 @@ interface Errors {
 		// Email/Password is wrong
 		unauthorized: string;
 	};
+
+	collection: {
+		// A collection with the same name already exist.
+		duplicated: string;
+	};
 }
 
 export const serviceErrors: Errors = {
@@ -15,5 +20,9 @@ export const serviceErrors: Errors = {
 	user: {
 		duplicated: "Este email já está em uso.",
 		unauthorized: "Email ou senha incorretos.",
+	},
+
+	collection: {
+		duplicated: "Uma coleção com o mesmo nome já existe.",
 	},
 };
