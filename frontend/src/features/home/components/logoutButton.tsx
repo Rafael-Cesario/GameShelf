@@ -7,7 +7,7 @@ export const LogoutButton = () => {
 	};
 
 	return (
-		<button className="logout" onClick={() => logout()}>
+		<button data-cy="logout" className="logout" onClick={() => logout()}>
 			Sair da conta
 		</button>
 	);

@@ -1,4 +1,4 @@
-import { CookiesName } from "@/app/api/cookies/route";
+import { CookiesName } from "@/services/interfaces/cookies";
 import { LoginResponse } from "@/services/interfaces/user";
 import { CyHttpMessages } from "cypress/types/net-stubbing";
 

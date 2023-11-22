@@ -4,5 +4,5 @@ import { setSearch } from "../context/collection-slice";
 
 export const SearchCollection = () => {
 	const dispatch = useDispatch();
-	return <input onChange={(e) => dispatch(setSearch(e.target.value))} type="text" placeholder="Buscar coleção" className="search-collection" />;
+	return <input data-cy="search-collection" onChange={(e) => dispatch(setSearch(e.target.value))} type="text" placeholder="Buscar coleção" className="search-collection" />;
 };

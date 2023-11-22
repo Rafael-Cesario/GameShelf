@@ -19,6 +19,7 @@ export const NotificationStyled = styled.div<{ type: NotificationTypes }>`
 	border-radius: ${Theme.radius};
 	background-color: #151515;
 	border-left: 0.8rem solid var(--type);
+	z-index: 2;
 
 	.top {
 		display: flex;

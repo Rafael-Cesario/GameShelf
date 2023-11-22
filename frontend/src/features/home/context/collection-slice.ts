@@ -24,6 +24,7 @@ export const collectionSlice = createSlice({
 		setCreateCollection(state, action: { payload: { collection: CollectionModel } }) {
 			state.collections.push(action.payload.collection);
 			state.activeCollection = action.payload.collection.id;
+			console.log(action.payload.collection.id);
 		},
 
 		setActiveCollection(state, action: { payload: string }) {
@@ -36,4 +37,4 @@ export const collectionSlice = createSlice({
 	},
 });
 
-export const { setCreateCollection, setCollections, setActiveCollection , setSearch} = collectionSlice.actions;
+export const { setCreateCollection, setCollections, setActiveCollection, setSearch } = collectionSlice.actions;

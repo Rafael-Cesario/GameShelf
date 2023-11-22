@@ -11,9 +11,6 @@ import { setErrorNotification, setSuccessNotification } from "@/context/notifica
 import { serviceErrors } from "@/services/interfaces/errors";
 import { LoadingButton } from "@/components/loading-button";
 
-// [ Todo ]
-// Display new collection on collections list
-
 export const CreateCollection = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [name, setName] = useState("");
@@ -45,12 +42,12 @@ export const CreateCollection = () => {
 
 	return (
 		<>
-			<button className="create-collection" onClick={() => setIsOpen(true)}>
+			<button data-cy="create-collection" className="create-collection" onClick={() => setIsOpen(true)}>
 				Criar nova coleção
 			</button>
 
 			{isOpen && (
-				<CreateCollectionStyled>
+				<CreateCollectionStyled data-cy="create-collection-container">
 					<div className="container">
 						<button className="close" onClick={() => setIsOpen(false)}>
 							x
@@ -60,12 +57,12 @@ export const CreateCollection = () => {
 							<label htmlFor="collection-name" className="field-title">
 								Nome
 							</label>
-							<input value={name} onChange={(e) => setName(e.target.value)} id="collection-name" type="text" placeholder="Digite um nome para sua coleção" />
+							<input data-cy="collection-name" value={name} onChange={(e) => setName(e.target.value)} id="collection-name" type="text" placeholder="Digite um nome para sua coleção" />
 							<span className="error">{error}</span>
 						</div>
 
 						{!loading && (
-							<button onClick={() => createCollection()} className="submit">
+							<button data-cy="submit" onClick={() => createCollection()} className="submit">
 								Criar
 							</button>
 						)}

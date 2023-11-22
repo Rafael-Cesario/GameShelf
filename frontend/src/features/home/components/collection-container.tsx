@@ -10,9 +10,6 @@ import { setActiveCollection, setCollections } from "../context/collection-slice
 import { gameQueries } from "@/services/queries/game";
 import { GetGameResponse, GetGamesInput } from "@/services/interfaces/game";
 
-// [ Todo ]
-// Get all games
-
 interface Props {
 	userID: string;
 }
@@ -30,7 +27,7 @@ export const CollectionContainer = ({ userID }: Props) => {
 	}, [getCollectionsData]);
 
 	return (
-		<CollectionContainerStyled>
+		<CollectionContainerStyled data-cy="collection-container">
 			<div className="collection">
 				<button onClick={() => dispatch(setActiveCollection("0"))} className={activeCollection === "0" ? "active" : ""}>
 					Todos
@@ -41,7 +38,7 @@ export const CollectionContainer = ({ userID }: Props) => {
 			{collections
 				.filter((collection) => collection.name.match(new RegExp(search, "i")))
 				.map((collection) => (
-					<div className="collection" key={collection.id}>
+					<div data-cy={"collection " + collection.id} className="collection" key={collection.id}>
 						<button onClick={() => dispatch(setActiveCollection(collection.id))} className={activeCollection === collection.id ? "active" : ""}>
 							{collection.name}
 						</button>
