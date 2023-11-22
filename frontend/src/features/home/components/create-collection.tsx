@@ -9,18 +9,17 @@ import { useDispatch } from "react-redux";
 import { setCreateCollection } from "../context/collection-slice";
 import { setErrorNotification, setSuccessNotification } from "@/context/notification-slice";
 import { serviceErrors } from "@/services/interfaces/errors";
+import { LoadingButton } from "@/components/loading-button";
 
 // [ Todo ]
-// Loading button
 // Display new collection on collections list
-// Catch errors: create collection
 
 export const CreateCollection = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [name, setName] = useState("");
 	const [error, setError] = useState("");
 
-	const [createCollectionMutation] = useMutation<CreateCollectionResponse, CreateCollectionInput>(collectionQueries.CREATE_COLLECTION);
+	const [createCollectionMutation, { loading }] = useMutation<CreateCollectionResponse, CreateCollectionInput>(collectionQueries.CREATE_COLLECTION);
 	const dispatch = useDispatch();
 
 	const createCollection = async () => {
@@ -64,9 +63,14 @@ export const CreateCollection = () => {
 							<input value={name} onChange={(e) => setName(e.target.value)} id="collection-name" type="text" placeholder="Digite um nome para sua coleção" />
 							<span className="error">{error}</span>
 						</div>
-						<button onClick={() => createCollection()} className="submit">
-							Criar
-						</button>
+
+						{!loading && (
+							<button onClick={() => createCollection()} className="submit">
+								Criar
+							</button>
+						)}
+
+						{loading && <LoadingButton className="submit" />}
 					</div>
 				</CreateCollectionStyled>
 			)}

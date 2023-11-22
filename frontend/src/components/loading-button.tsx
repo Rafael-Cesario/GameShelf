@@ -1,8 +1,8 @@
 import { LoadingButtonStyled } from "./styles/loding-button-styled";
 
-export const LoadingButton = () => {
+export const LoadingButton = ({ className }: { className: string }) => {
 	return (
-		<LoadingButtonStyled>
+		<LoadingButtonStyled className={className}>
 			<span>-</span>
 			<span>-</span>
 			<span>-</span>
