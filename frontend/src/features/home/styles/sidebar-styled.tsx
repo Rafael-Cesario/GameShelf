@@ -16,8 +16,7 @@ export const SidebarStyled = styled.div`
 	justify-content: space-between;
 
 	.title,
-	.search-collection,
-	.collection-container {
+	.search-collection {
 		margin-bottom: 2.5rem;
 	}
 
@@ -30,46 +29,6 @@ export const SidebarStyled = styled.div`
 		font-weight: bold;
 		width: 100%;
 		color: ${Theme.text};
-	}
-
-	.collection-container {
-		display: flex;
-		flex-direction: column;
-		padding: 0 8px;
-
-		.collection {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			margin-bottom: 0.5rem;
-
-			button {
-				padding: 0;
-				margin: 0;
-				background-color: transparent;
-				color: ${Theme.text + "50"};
-				font-size: 1rem;
-
-				&:hover {
-					color: ${Theme.text};
-				}
-			}
-
-			.active {
-				color: ${Theme.primary};
-			}
-
-			.amount {
-				background-color: ${Theme.background};
-				border-radius: ${Theme.radius};
-				padding: 4px 8px;
-				font-size: 0.8rem;
-			}
-		}
-
-		.collection:last-child {
-			margin-bottom: 0;
-		}
 	}
 
 	.create-collection {
