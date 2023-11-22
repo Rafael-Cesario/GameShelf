@@ -22,3 +22,16 @@ export interface CreateCollectionResponse {
 		games: GameModel[];
 	};
 }
+
+export interface GetCollectionsInput {
+	userID: string;
+}
+
+export interface GetCollectionsResponse {
+	getCollections: {
+		id: string;
+		name: string;
+		userID: string;
+		games: GameModel[];
+	}[];
+}

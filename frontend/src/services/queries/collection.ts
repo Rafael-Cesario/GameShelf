@@ -10,6 +10,25 @@ class CollectionQueries {
 			}
 		}
 	`;
+
+	GET_COLLECTIONS = gql`
+		query GetCollections($userID: String!) {
+			getCollections(userID: $userID) {
+				id
+				name
+				userID
+				games {
+					id
+					userID
+					collections {
+						id
+						name
+						userID
+					}
+				}
+			}
+		}
+	`;
 }
 
 export const collectionQueries = new CollectionQueries();

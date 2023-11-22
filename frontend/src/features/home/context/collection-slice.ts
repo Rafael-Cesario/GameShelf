@@ -3,18 +3,22 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface CollectionSlice {
 	collections: CollectionModel[];
-	activeCollection: string | null;
+	activeCollection: string;
 }
 
 const defaultValues: CollectionSlice = {
 	collections: [],
-	activeCollection: null,
+	activeCollection: "0",
 };
 
 export const collectionSlice = createSlice({
 	name: "collection",
 	initialState: defaultValues,
 	reducers: {
+		setCollections(state, action: { payload: { collections: CollectionModel[] } }) {
+			state.collections = action.payload.collections;
+		},
+
 		setCreateCollection(state, action: { payload: { collection: CollectionModel } }) {
 			state.collections.push(action.payload.collection);
 			state.activeCollection = action.payload.collection.id;
@@ -22,4 +26,4 @@ export const collectionSlice = createSlice({
 	},
 });
 
-export const { setCreateCollection } = collectionSlice.actions;
+export const { setCreateCollection, setCollections } = collectionSlice.actions;
