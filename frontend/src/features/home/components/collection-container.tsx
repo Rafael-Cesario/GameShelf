@@ -7,10 +7,10 @@ import { useQuery } from "@apollo/client";
 import { collectionQueries } from "@/services/queries/collection";
 import { GetCollectionsInput, GetCollectionsResponse } from "@/services/interfaces/collection";
 import { useEffect } from "react";
-import { setCollections } from "../context/collection-slice";
+import { setActiveCollection, setCollections } from "../context/collection-slice";
 
 // [ Todo ]
-// Collection on click active collection
+// Get all games
 
 interface Props {
 	userID: string;
@@ -30,7 +30,9 @@ export const CollectionContainer = ({ userID }: Props) => {
 		<CollectionContainerStyled>
 			{collections.map((collection) => (
 				<div className="collection" key={collection.id}>
-					<button className={activeCollection === collection.id ? "active" : ""}>{collection.name}</button>
+					<button onClick={() => dispatch(setActiveCollection(collection.id))} className={activeCollection === collection.id ? "active" : ""}>
+						{collection.name}
+					</button>
 					<span className="amount">{collection.games.length}</span>
 				</div>
 			))}

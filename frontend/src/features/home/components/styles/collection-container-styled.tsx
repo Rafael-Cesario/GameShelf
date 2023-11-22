@@ -22,13 +22,9 @@ export const CollectionContainerStyled = styled.div`
 			color: ${Theme.text + "50"};
 			font-size: 1rem;
 
-			&:hover {
+			&:hover:not(.active) {
 				color: ${Theme.text};
 			}
-		}
-
-		.active {
-			color: ${Theme.primary};
 		}
 
 		.amount {
@@ -36,6 +32,10 @@ export const CollectionContainerStyled = styled.div`
 			border-radius: ${Theme.radius};
 			padding: 4px 8px;
 			font-size: 0.8rem;
+		}
+
+		.active {
+			color: ${Theme.primary};
 		}
 	}
 

@@ -23,7 +23,11 @@ export const collectionSlice = createSlice({
 			state.collections.push(action.payload.collection);
 			state.activeCollection = action.payload.collection.id;
 		},
+
+		setActiveCollection(state, action: { payload: string }) {
+			state.activeCollection = action.payload;
+		},
 	},
 });
 
-export const { setCreateCollection, setCollections } = collectionSlice.actions;
+export const { setCreateCollection, setCollections, setActiveCollection } = collectionSlice.actions;
