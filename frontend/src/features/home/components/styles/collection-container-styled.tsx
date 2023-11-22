@@ -22,8 +22,10 @@ export const CollectionContainerStyled = styled.div`
 			color: ${Theme.text + "50"};
 			font-size: 1rem;
 
-			&:hover:not(.active) {
+			&:hover:not(.active),
+			&:focus:not(.active) {
 				color: ${Theme.text};
+				outline: none;
 			}
 		}
 
@@ -36,6 +38,7 @@ export const CollectionContainerStyled = styled.div`
 
 		.active {
 			color: ${Theme.primary};
+			outline: none;
 		}
 	}
 
