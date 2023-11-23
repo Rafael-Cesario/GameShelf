@@ -15,13 +15,23 @@ interface Props {
 
 export const CurrentGame = ({ game }: Props) => {
 	const { collections } = useSelector((state: Store) => state.collection);
-	const [gameData, setGameData] = useState<IGame>(game);
+
+	const [gameData, setGameData] = useState<IGame>({
+		id: game.id,
+		name: game.name,
+		rating: game.rating,
+		released: game.released,
+		background_image: game.background_image,
+		collections: [],
+	});
+
+	const saveGame = async () => {
+		console.log({ gameData });
+	};
 
 	const toggleCollection = (collection: CollectionModel) => {
 		const state = produce(gameData, (draft) => {
-			if (!draft.collections) draft.collections = [];
-
-			const collectionIndex = gameData.collections.indexOf(collection);
+			const collectionIndex = draft.collections.findIndex((c) => c.id === collection.id);
 
 			if (collectionIndex > -1) {
 				draft.collections.splice(collectionIndex, 1);
@@ -36,8 +46,6 @@ export const CurrentGame = ({ game }: Props) => {
 
 	const generateClass = (c: CollectionModel) => {
 		let name = "collection";
-
-		if (!gameData.collections) return name;
 
 		const hasCollection = gameData.collections.includes(c);
 		if (hasCollection) name += " active";
@@ -70,7 +78,9 @@ export const CurrentGame = ({ game }: Props) => {
 					</div>
 				</div>
 
-				<button className="save-game">Salvar</button>
+				<button onClick={() => saveGame()} className="save-game">
+					Salvar
+				</button>
 			</div>
 		</CurrentGameStyled>
 	);
