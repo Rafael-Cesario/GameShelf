@@ -8,9 +8,9 @@ datasource db {
 }
 
 model User {
-  id         String       @id @default(uuid())
-  email      String       @unique
-  password   String
+  id          String       @id @default(uuid())
+  email       String       @unique
+  password    String
   collections Collection[]
   games       Game[]
 
@@ -28,10 +28,14 @@ model Collection {
 }
 
 model Game {
-  User        User         @relation(fields: [userID], references: [id])
-  userID      String
-  id          String       @id
-  collections Collection[]
+  User             User         @relation(fields: [userID], references: [id])
+  userID           String
+  id               Int       @id
+  name             String
+  released         String
+  background_image String
+  rating           Float
+  collections      Collection[]
 
   @@map("games")
 }

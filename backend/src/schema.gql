@@ -3,8 +3,12 @@
 # ------------------------------------------------------
 
 input AddGameInput {
+  background_image: String!
   collections: [CollectionInput!]!
-  id: String!
+  id: Int!
+  name: String!
+  rating: Float!
+  released: String!
   userID: String!
 }
 
@@ -30,8 +34,12 @@ input CreateUserInput {
 }
 
 type GameModel {
+  background_image: String!
   collections: [CollectionModel!]!
-  id: String!
+  id: Int!
+  name: String!
+  rating: Float!
+  released: String!
   userID: String!
 }
 
@@ -52,7 +60,7 @@ type Mutation {
   createUser(createUserData: CreateUserInput!): String!
   deleteCollection(collectionID: String!): String!
   login(loginData: LoginInput!): LoginModel!
-  removeGame(gameID: String!): String!
+  removeGame(gameID: Float!): String!
   updateCollection(updateCollectionData: UpdateCollectionInput!): CollectionModel!
   updateGame(updateGameData: UpdateGameInput!): GameModel!
 }
@@ -70,6 +78,6 @@ input UpdateCollectionInput {
 
 input UpdateGameInput {
   addCollections: [CollectionInput]!
-  gameID: String!
+  gameID: Int!
   removeCollections: [CollectionInput]!
 }

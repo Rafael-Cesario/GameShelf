@@ -23,7 +23,7 @@ export class GameResolver {
 	}
 
 	@Mutation(() => String)
-	async removeGame(@Args("gameID") gameID: string) {
+	async removeGame(@Args("gameID") gameID: number) {
 		return await this.gameService.removeGame(gameID);
 	}
 }

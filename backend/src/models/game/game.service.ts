@@ -7,12 +7,12 @@ export class GameService {
 	constructor(private prisma: PrismaService) {}
 
 	async addGame(addGameData: AddGameInput) {
-		const { collections, id, userID } = addGameData;
+		const { collections, id } = addGameData;
 
 		const isDuplicated = await this.prisma.game.findUnique({ where: { id } });
 		if (isDuplicated) throw new BadRequestException("duplicated: This game was already added.");
 
-		await this.prisma.game.create({ data: { id, userID, collections: { connect: [...collections] } } });
+		await this.prisma.game.create({ data: { ...addGameData, collections: { connect: [...collections] } } });
 		return `Success: Your game was added to your collections and/or all games`;
 	}
 
@@ -37,7 +37,7 @@ export class GameService {
 		return game;
 	}
 
-	async removeGame(gameID: string) {
+	async removeGame(gameID: number) {
 		await this.prisma.game.delete({ where: { id: gameID } });
 		return "Success: Game removed from games";
 	}
