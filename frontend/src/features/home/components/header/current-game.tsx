@@ -36,6 +36,8 @@ export const CurrentGame = ({ game, setOpenAddGame }: Props) => {
 
 	const saveGame = async () => {
 		const addGameToCollections = (userID: string) => {
+			if (!gameData.collections.length) dispatch(setCollectionGames({ collectionID: "0", game: { ...gameData, userID } }));
+
 			gameData.collections.forEach((c) => {
 				dispatch(setCollectionGames({ collectionID: c.id, game: { ...gameData, userID } }));
 			});

@@ -4,8 +4,12 @@ class GameQueries {
 	GET_GAMES = gql`
 		query GetGames($userID: String!) {
 			getGames(userID: $userID) {
-				userID
+				background_image
 				id
+				name
+				rating
+				released
+				userID
 				collections {
 					userID
 					id
