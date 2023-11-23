@@ -2,15 +2,15 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { IGame } from "./add-game";
+import { GameModel } from "./add-game";
 import { GamesContainerStyled } from "./styles/games-container-styled";
 import { SearchGameStyled } from "./styles/search-game-styled";
 
 interface Props {
-	setCurrentGame(game: IGame): void;
+	setCurrentGame(game: GameModel): void;
 }
 
-const getDate = (game: IGame) => {
+const getDate = (game: GameModel) => {
 	const [year, month, day] = game.released.split("-");
 	const date = new Date(Number(year), Number(month) - 1, Number(day)).getTime();
 	return date;
@@ -23,7 +23,7 @@ export const formatDate = (date: string) => {
 
 export const SearchGame = ({ setCurrentGame }: Props) => {
 	const [gameName, setGameName] = useState("");
-	const [games, setGames] = useState<IGame[]>([]);
+	const [games, setGames] = useState<GameModel[]>([]);
 
 	const searchGame = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -31,7 +31,7 @@ export const SearchGame = ({ setCurrentGame }: Props) => {
 		const url = process.env.NEXT_PUBLIC_API_URL + "?key=" + process.env.NEXT_PUBLIC_API_KEY;
 		const search = `&search=${gameName}`;
 		const pageSize = `&page_size=20`;
-		const { results } = (await fetch(`${url}${search}${pageSize}`).then((data) => data.json())) as { results: IGame[] };
+		const { results } = (await fetch(`${url}${search}${pageSize}`).then((data) => data.json())) as { results: GameModel[] };
 
 		const games = results
 			.filter((game) => game.name.match(new RegExp(gameName, "i")))

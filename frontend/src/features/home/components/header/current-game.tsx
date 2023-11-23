@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import { IGame } from "./add-game";
 import { useSelector } from "react-redux";
 import { Store } from "@/context/store";
 import { CurrentGameStyled } from "./styles/current-game-styled";
@@ -8,15 +7,16 @@ import { formatDate } from "./search-game";
 import { useState } from "react";
 import { CollectionModel } from "@/services/interfaces/collection";
 import { produce } from "immer";
+import { GameModel } from "@/services/interfaces/game";
 
 interface Props {
-	game: IGame;
+	game: GameModel;
 }
 
 export const CurrentGame = ({ game }: Props) => {
 	const { collections } = useSelector((state: Store) => state.collection);
 
-	const [gameData, setGameData] = useState<IGame>({
+	const [gameData, setGameData] = useState<GameModel>({
 		id: game.id,
 		name: game.name,
 		rating: game.rating,

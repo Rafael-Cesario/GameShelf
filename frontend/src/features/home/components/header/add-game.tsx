@@ -3,19 +3,10 @@ import { useState } from "react";
 import { AddGameStyled } from "./styles/add-game-styled";
 import { SearchGame } from "./search-game";
 import { CurrentGame } from "./current-game";
-import { CollectionModel } from "@/services/interfaces/collection";
-
-export interface IGame {
-	id: number;
-	name: string;
-	background_image: string;
-	rating: number;
-	released: string;
-	collections: CollectionModel[];
-}
+import { GameModel } from "@/services/interfaces/game";
 
 export const AddGame = () => {
-	const [currentGame, setCurrentGame] = useState<IGame | false>(false);
+	const [currentGame, setCurrentGame] = useState<GameModel | false>(false);
 
 	return (
 		<AddGameStyled>

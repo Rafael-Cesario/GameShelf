@@ -1,8 +1,11 @@
 import { CollectionModel } from "./collection";
 
 export interface GameModel {
-	id: string;
-	userID: string;
+	id: number;
+	name: string;
+	background_image: string;
+	rating: number;
+	released: string;
 	collections: CollectionModel[];
 }
 
