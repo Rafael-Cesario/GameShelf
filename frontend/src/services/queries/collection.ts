@@ -18,13 +18,12 @@ class CollectionQueries {
 				name
 				userID
 				games {
+					background_image
 					id
+					name
+					rating
+					released
 					userID
-					collections {
-						id
-						name
-						userID
-					}
 				}
 			}
 		}

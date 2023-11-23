@@ -5,9 +5,11 @@ import { Store } from "@/context/store";
 import { CurrentGameStyled } from "./styles/current-game-styled";
 import { formatDate } from "./search-game";
 import { useState } from "react";
-import { CollectionModel } from "@/services/interfaces/collection";
 import { produce } from "immer";
-import { GameModel } from "@/services/interfaces/game";
+import { AddGameInput, GameModel } from "@/services/interfaces/game";
+import { getCookiesUser } from "@/utils/cookies";
+import { useMutation } from "@apollo/client";
+import { gameQueries } from "@/services/queries/game";
 
 interface Props {
 	game: GameModel;
@@ -15,8 +17,10 @@ interface Props {
 
 export const CurrentGame = ({ game }: Props) => {
 	const { collections } = useSelector((state: Store) => state.collection);
+	const [addGameMutation] = useMutation<any, AddGameInput>(gameQueries.ADD_GAME);
 
 	const [gameData, setGameData] = useState<GameModel>({
+		userID: "",
 		id: game.id,
 		name: game.name,
 		rating: game.rating,
@@ -27,28 +31,36 @@ export const CurrentGame = ({ game }: Props) => {
 
 	const saveGame = async () => {
 		console.log({ gameData });
+
+		try {
+			const { id } = await getCookiesUser();
+			const { data } = await addGameMutation({ variables: { addGameData: { ...gameData, userID: id } } });
+			console.log({ data });
+		} catch (error: any) {
+			console.log(error.message);
+		}
 	};
 
-	const toggleCollection = (collection: CollectionModel) => {
+	const toggleCollection = (collectionID: string) => {
 		const state = produce(gameData, (draft) => {
-			const collectionIndex = draft.collections.findIndex((c) => c.id === collection.id);
+			const collectionIndex = draft.collections.findIndex((c) => c.id === collectionID);
 
 			if (collectionIndex > -1) {
 				draft.collections.splice(collectionIndex, 1);
 				return;
 			}
 
-			draft.collections.push(collection);
+			draft.collections.push({ id: collectionID });
 		});
 
 		setGameData(state);
 	};
 
-	const generateClass = (c: CollectionModel) => {
+	const generateClass = (c: { id: string }) => {
 		let name = "collection";
 
-		const hasCollection = gameData.collections.includes(c);
-		if (hasCollection) name += " active";
+		const collectionIndex = gameData.collections.findIndex((collection) => collection.id === c.id);
+		if (collectionIndex > -1) name += " active";
 
 		return name;
 	};
@@ -71,7 +83,7 @@ export const CurrentGame = ({ game }: Props) => {
 
 					<div className="collections-container">
 						{collections.map((c) => (
-							<button onClick={() => toggleCollection(c)} className={generateClass(c)} key={c.id}>
+							<button onClick={() => toggleCollection(c.id)} className={generateClass(c)} key={c.id}>
 								{c.name}
 							</button>
 						))}

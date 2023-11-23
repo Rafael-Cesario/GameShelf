@@ -1,12 +1,11 @@
-import { CollectionModel } from "./collection";
-
 export interface GameModel {
+	userID: string;
 	id: number;
 	name: string;
 	background_image: string;
 	rating: number;
 	released: string;
-	collections: CollectionModel[];
+	collections: { id: string }[];
 }
 
 export interface GetGamesInput {
@@ -15,4 +14,8 @@ export interface GetGamesInput {
 
 export interface GetGameResponse {
 	getGames: GameModel[];
+}
+
+export interface AddGameInput {
+	addGameData: GameModel;
 }

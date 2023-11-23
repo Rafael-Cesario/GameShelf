@@ -10,6 +10,7 @@ export const Sidebar = () => {
 	const store = cookies();
 	const cookie = store.get("user");
 	const { id }: UserCookies = JSON.parse(cookie?.value || "");
+	console.log({ id });
 
 	return (
 		<SidebarStyled className="sidebar">
