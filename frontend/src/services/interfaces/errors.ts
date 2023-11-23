@@ -12,6 +12,10 @@ interface Errors {
 		// A collection with the same name already exist.
 		duplicated: string;
 	};
+
+	game: {
+		duplicated: string;
+	};
 }
 
 export const serviceErrors: Errors = {
@@ -24,5 +28,9 @@ export const serviceErrors: Errors = {
 
 	collection: {
 		duplicated: "Uma coleção com o mesmo nome já existe.",
+	},
+
+	game: {
+		duplicated: "Parece que esse jogo já está salvo.",
 	},
 };

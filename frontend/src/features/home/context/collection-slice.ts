@@ -42,7 +42,15 @@ export const collectionSlice = createSlice({
 			state.allGames.userID = action.payload.userID;
 			state.allGames.games = action.payload.games;
 		},
+
+		setCollectionGames(state, action: { payload: { collectionID: string; game: GameModel } }) {
+			state.allGames.games.push(action.payload.game);
+			state.collections.forEach((c) => {
+				const sameCollection = c.id === action.payload.collectionID;
+				if (sameCollection) c.games.push(action.payload.game);
+			});
+		},
 	},
 });
 
-export const { setCreateCollection, setCollections, setActiveCollection, setSearch, setAllGames } = collectionSlice.actions;
+export const { setCreateCollection, setCollections, setActiveCollection, setSearch, setAllGames, setCollectionGames } = collectionSlice.actions;

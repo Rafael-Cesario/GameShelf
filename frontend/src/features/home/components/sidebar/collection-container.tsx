@@ -17,9 +17,7 @@ interface Props {
 export const CollectionContainer = ({ userID }: Props) => {
 	const { data: getCollectionsData } = useQuery<GetCollectionsResponse, GetCollectionsInput>(collectionQueries.GET_COLLECTIONS, { variables: { userID } });
 	const { data: getGamesData } = useQuery<GetGameResponse, GetGamesInput>(gameQueries.GET_GAMES, { variables: { userID } });
-	const { collections, activeCollection, search } = useSelector((state: Store) => state.collection);
-	const allGames = getGamesData?.getGames || [];
-
+	const { collections, activeCollection, search, allGames } = useSelector((state: Store) => state.collection);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -33,7 +31,7 @@ export const CollectionContainer = ({ userID }: Props) => {
 				<button onClick={() => dispatch(setActiveCollection("0"))} className={activeCollection === "0" ? "active" : ""}>
 					Todos
 				</button>
-				<span className="amount">{allGames?.length}</span>
+				<span className="amount">{allGames.games.length}</span>
 			</div>
 
 			{collections

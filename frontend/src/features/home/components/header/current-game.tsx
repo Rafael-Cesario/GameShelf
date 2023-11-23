@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Store } from "@/context/store";
 import { CurrentGameStyled } from "./styles/current-game-styled";
 import { formatDate } from "./search-game";
@@ -10,15 +10,19 @@ import { AddGameInput, GameModel } from "@/services/interfaces/game";
 import { getCookiesUser } from "@/utils/cookies";
 import { useMutation } from "@apollo/client";
 import { gameQueries } from "@/services/queries/game";
+import { setErrorNotification, setSuccessNotification } from "@/context/notification-slice";
+import { serviceErrors } from "@/services/interfaces/errors";
+import { setCollectionGames } from "../../context/collection-slice";
 
 interface Props {
 	game: GameModel;
 	setOpenAddGame(state: boolean): void;
 }
 
-export const CurrentGame = ({ game , setOpenAddGame}: Props) => {
+export const CurrentGame = ({ game, setOpenAddGame }: Props) => {
 	const { collections } = useSelector((state: Store) => state.collection);
 	const [addGameMutation] = useMutation<any, AddGameInput>(gameQueries.ADD_GAME);
+	const dispatch = useDispatch();
 
 	const [gameData, setGameData] = useState<GameModel>({
 		userID: "",
@@ -31,20 +35,24 @@ export const CurrentGame = ({ game , setOpenAddGame}: Props) => {
 	});
 
 	const saveGame = async () => {
-		console.log({ gameData });
+		const addGameToCollections = (userID: string) => {
+			gameData.collections.forEach((c) => {
+				dispatch(setCollectionGames({ collectionID: c.id, game: { ...gameData, userID } }));
+			});
+		};
 
 		try {
 			const { id } = await getCookiesUser();
 			const { data } = await addGameMutation({ variables: { addGameData: { ...gameData, userID: id } } });
+			console.log({ gameData, data });
 
-			// [ Todo ]
-			// setCurrentgame to null
-			// clear search game
-			// send notification
-			console.log({ data });
+			setOpenAddGame(false);
+			addGameToCollections(id);
+			dispatch(setSuccessNotification({ message: "Seu jogo foi salvo com sucesso." }));
 		} catch (error: any) {
-			console.log(error.message);
-			// catch error > duplicated game already saved
+			const [errorCode] = error.message.toLowerCase().split(":");
+			const message = serviceErrors.game[errorCode as keyof typeof serviceErrors.game] || serviceErrors.default;
+			dispatch(setErrorNotification({ message }));
 		}
 	};
 
@@ -75,7 +83,9 @@ export const CurrentGame = ({ game , setOpenAddGame}: Props) => {
 
 	return (
 		<CurrentGameStyled>
-			<button onClick={() => setOpenAddGame(false)} className="close">x</button>
+			<button onClick={() => setOpenAddGame(false)} className="close">
+				x
+			</button>
 
 			<Image className="cover" width={1080} height={1920} alt="game image" src={game.background_image} />
 
