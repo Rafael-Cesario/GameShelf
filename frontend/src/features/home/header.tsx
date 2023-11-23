@@ -3,8 +3,10 @@ import { useSelector } from "react-redux";
 import { HeaderStyled } from "./styles/header-styled";
 import { Store } from "@/context/store";
 import { AddGame } from "./components/header/add-game";
+import { useState } from "react";
 
 export const Header = () => {
+	const [openAddGame, setOpenAddGame] = useState(false);
 	const { collections, activeCollection, allGames } = useSelector((state: Store) => state.collection);
 	const collection = collections.find((collection) => collection.id === activeCollection) || allGames;
 
@@ -20,10 +22,12 @@ export const Header = () => {
 				<button className="menu">Filtros</button>
 				<button className="menu">Ordem</button>
 				<button className="menu">Configurações</button>
-				<button className="menu add-game">Adicionar</button>
+				<button className="menu add-game" onClick={() => setOpenAddGame(true)}>
+					Adicionar
+				</button>
 			</div>
 
-			<AddGame />
+			{openAddGame && <AddGame setOpenAddGame={setOpenAddGame} />}
 		</HeaderStyled>
 	);
 };

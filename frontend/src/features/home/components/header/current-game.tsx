@@ -13,9 +13,10 @@ import { gameQueries } from "@/services/queries/game";
 
 interface Props {
 	game: GameModel;
+	setOpenAddGame(state: boolean): void;
 }
 
-export const CurrentGame = ({ game }: Props) => {
+export const CurrentGame = ({ game , setOpenAddGame}: Props) => {
 	const { collections } = useSelector((state: Store) => state.collection);
 	const [addGameMutation] = useMutation<any, AddGameInput>(gameQueries.ADD_GAME);
 
@@ -35,12 +36,19 @@ export const CurrentGame = ({ game }: Props) => {
 		try {
 			const { id } = await getCookiesUser();
 			const { data } = await addGameMutation({ variables: { addGameData: { ...gameData, userID: id } } });
+
+			// [ Todo ]
+			// setCurrentgame to null
+			// clear search game
+			// send notification
 			console.log({ data });
 		} catch (error: any) {
 			console.log(error.message);
+			// catch error > duplicated game already saved
 		}
 	};
 
+	// todo > Refactor
 	const toggleCollection = (collectionID: string) => {
 		const state = produce(gameData, (draft) => {
 			const collectionIndex = draft.collections.findIndex((c) => c.id === collectionID);
@@ -67,7 +75,7 @@ export const CurrentGame = ({ game }: Props) => {
 
 	return (
 		<CurrentGameStyled>
-			<button className="close">x</button>
+			<button onClick={() => setOpenAddGame(false)} className="close">x</button>
 
 			<Image className="cover" width={1080} height={1920} alt="game image" src={game.background_image} />
 

@@ -5,13 +5,17 @@ import { SearchGame } from "./search-game";
 import { CurrentGame } from "./current-game";
 import { GameModel } from "@/services/interfaces/game";
 
-export const AddGame = () => {
+interface Props {
+	setOpenAddGame(state: boolean): void;
+}
+
+export const AddGame = ({ setOpenAddGame }: Props) => {
 	const [currentGame, setCurrentGame] = useState<GameModel | false>(false);
 
 	return (
 		<AddGameStyled>
-			{!currentGame && <SearchGame setCurrentGame={setCurrentGame} />}
-			{currentGame && <CurrentGame game={currentGame} />}
+			{!currentGame && <SearchGame setOpenAddGame={setOpenAddGame} setCurrentGame={setCurrentGame} />}
+			{currentGame && <CurrentGame game={currentGame} setOpenAddGame={setOpenAddGame} />}
 		</AddGameStyled>
 	);
 };

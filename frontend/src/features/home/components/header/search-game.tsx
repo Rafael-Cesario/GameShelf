@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { GameModel } from "./add-game";
 import { GamesContainerStyled } from "./styles/games-container-styled";
 import { SearchGameStyled } from "./styles/search-game-styled";
+import { GameModel } from "@/services/interfaces/game";
 
 interface Props {
 	setCurrentGame(game: GameModel): void;
+	setOpenAddGame(state: boolean): void;
 }
 
 const getDate = (game: GameModel) => {
@@ -21,7 +22,7 @@ export const formatDate = (date: string) => {
 	return `${day}/${month}/${year}`;
 };
 
-export const SearchGame = ({ setCurrentGame }: Props) => {
+export const SearchGame = ({ setCurrentGame, setOpenAddGame }: Props) => {
 	const [gameName, setGameName] = useState("");
 	const [games, setGames] = useState<GameModel[]>([]);
 
@@ -51,7 +52,9 @@ export const SearchGame = ({ setCurrentGame }: Props) => {
 					<button className="search">Buscar</button>
 				</form>
 
-				<button className="close">x</button>
+				<button className="close" onClick={() => setOpenAddGame(false)}>
+					x
+				</button>
 			</SearchGameStyled>
 
 			<GamesContainerStyled>
