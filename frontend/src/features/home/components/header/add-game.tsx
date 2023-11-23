@@ -25,6 +25,7 @@ const formatDate = (date: string) => {
 export const AddGame = () => {
 	const [gameName, setGameName] = useState("");
 	const [games, setGames] = useState<IGame[]>([]);
+	const [activeGame, setActiveGame] = useState<IGame | false>(false);
 
 	const searchGame = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -44,11 +45,17 @@ export const AddGame = () => {
 
 	return (
 		<AddGameStyled>
-			<button className="close">x</button>
-			<form onSubmit={(e) => searchGame(e)} className="field">
-				<input onChange={(e) => setGameName(e.target.value)} className="name" type="text" placeholder="Digite um nome para procurar" />
-				<button className="search">Buscar</button>
-			</form>
+			<div className="top">
+				<h1 className="title">Adicionar jogo</h1>
+
+				<form onSubmit={(e) => searchGame(e)} className="add-game">
+					<input onChange={(e) => setGameName(e.target.value)} type="text" placeholder="Busque pelo nome de um jogo" />
+					<button className="search">Buscar</button>
+				</form>
+
+				<button className="close">x</button>
+			</div>
+
 			<div className="games-container">
 				{games.map((game) => (
 					<div key={game.id} className="game">

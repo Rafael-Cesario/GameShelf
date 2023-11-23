@@ -8,94 +8,87 @@ export const AddGameStyled = styled.div`
 	left: 0;
 	width: 100%;
 	min-height: 100%;
-	background-color: ${Theme.background + "90"};
-	backdrop-filter: blur(4px);
+	background-color: ${Theme.background};
 
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: 4rem;
-
-	.close {
-		background-color: transparent;
-		color: ${Theme.text};
-		font-size: 1.5rem;
-		text-align: right;
-		margin-bottom: 1rem;
-
-		&:hover {
-			background-color: ${Theme.error};
-			color: white;
-		}
-	}
-
-	.field {
+	.top {
 		display: flex;
-		justify-content: center;
-		width: 100%;
+		justify-content: space-between;
+		margin: 4rem 8rem;
 
-		.name {
-			width: 100%;
-			max-width: 800px;
-			height: 50px;
-			background-color: ${Theme.container};
-			border: 2px solid #22222250;
-			color: ${Theme.text};
-			margin-right: 1rem;
+		.title {
+			font-size: 1.2rem;
 		}
 
-		.search {
-			background-color: ${Theme.primary};
+		.add-game {
+			background-color: transparent;
+
+			input {
+				width: 30vw;
+				min-width: 300px;
+				margin-right: 1rem;
+				background-color: ${Theme.container};
+				color: ${Theme.text};
+			}
+
+			.search {
+				background-color: ${Theme.primary};
+				color: ${Theme.text};
+
+				&:hover {
+					opacity: 0.8;
+				}
+			}
+		}
+
+		.close {
+			background-color: transparent;
+			font-size: 1.5rem;
+			font-weight: normal;
 			color: ${Theme.text};
+
+			&:hover {
+				background-color: ${Theme.error};
+				color: white;
+			}
 		}
 	}
 
 	.games-container {
-		border: 2px solid #22222250;
-		min-height: 60vh;
-		background-color: ${Theme.container};
-		margin: 4rem 0;
-		border-radius: ${Theme.radius};
-		min-width: 50vw;
-		transition: 0.2s;
-
+		margin: 1rem;
+		margin-top: 8rem;
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		justify-content: center;
-		padding: 4rem;
+		grid-template-columns: repeat(auto-fit, min(400px));
 		column-gap: 2rem;
 		row-gap: 2rem;
+		justify-content: center;
 
 		.game {
-			position: relative;
-			cursor: pointer;
+			width: 400px;
+			height: fit-content;
 			transition: 0.2s;
+			cursor: pointer;
 
 			&:hover {
 				transform: scale(1.05);
 			}
 
 			.info {
-				display: flex;
-				flex-direction: column;
-				flex-wrap: wrap;
-				margin: 8px 0;
+				padding: 4px 8px;
+			}
 
-				.title {
-					font-size: 1rem;
-					font-weight: normal;
-					margin-bottom: 4px;
-				}
+			.title {
+				font-size: 1rem;
+				font-weight: normal;
+			}
 
-				.date {
-					font-size: 0.8rem;
-					color: ${Theme.text + "80"};
-				}
+			.date {
+				font-size: 0.8rem;
+				color: ${Theme.text + "50"};
 			}
 
 			.cover {
 				width: 400px;
-				height: 250px;
+				height: 210px;
 				object-fit: cover;
 				border-radius: ${Theme.radius};
 			}
