@@ -47,10 +47,45 @@ export const AddGameStyled = styled.div`
 
 	.games-container {
 		border: 2px solid #22222250;
-		width: 70vw;
 		min-height: 60vh;
 		background-color: ${Theme.container};
 		margin: 4rem 0;
 		border-radius: ${Theme.radius};
+
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		justify-content: center;
+		column-gap: 2rem;
+		row-gap: 2rem;
+		padding: 2rem;
+
+		.game {
+			position: relative;
+
+			.title {
+				position: absolute;
+				bottom: 0;
+				font-size: 1rem;
+				font-weight: normal;
+				background-color: ${Theme.container};
+				border-radius: ${Theme.radius};
+				margin: 8px;
+				padding: 10px 20px;
+			}
+
+			.add-game {
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				margin: 8px;
+			}
+
+			.cover {
+				width: 500px;
+				height: 300px;
+				object-fit: cover;
+				border-radius: ${Theme.radius};
+			}
+		}
 	}
 `;
