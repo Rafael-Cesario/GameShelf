@@ -78,6 +78,12 @@ export const CurrentGameStyled = styled.div`
 					opacity: 1;
 				}
 			}
+
+			.active {
+				background-color: ${Theme.primary};
+				color: white;
+				opacity: 1;
+			}
 		}
 	}
 

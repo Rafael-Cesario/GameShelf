@@ -5,6 +5,9 @@ import { useSelector } from "react-redux";
 import { Store } from "@/context/store";
 import { CurrentGameStyled } from "./styles/current-game-styled";
 import { formatDate } from "./search-game";
+import { useState } from "react";
+import { CollectionModel } from "@/services/interfaces/collection";
+import { produce } from "immer";
 
 interface Props {
 	game: IGame;
@@ -12,6 +15,35 @@ interface Props {
 
 export const CurrentGame = ({ game }: Props) => {
 	const { collections } = useSelector((state: Store) => state.collection);
+	const [gameData, setGameData] = useState<IGame>(game);
+
+	const toggleCollection = (collection: CollectionModel) => {
+		const state = produce(gameData, (draft) => {
+			if (!draft.collections) draft.collections = [];
+
+			const collectionIndex = gameData.collections.indexOf(collection);
+
+			if (collectionIndex > -1) {
+				draft.collections.splice(collectionIndex, 1);
+				return;
+			}
+
+			draft.collections.push(collection);
+		});
+
+		setGameData(state);
+	};
+
+	const generateClass = (c: CollectionModel) => {
+		let name = "collection";
+
+		if (!gameData.collections) return name;
+
+		const hasCollection = gameData.collections.includes(c);
+		if (hasCollection) name += " active";
+
+		return name;
+	};
 
 	return (
 		<CurrentGameStyled>
@@ -31,7 +63,7 @@ export const CurrentGame = ({ game }: Props) => {
 
 					<div className="collections-container">
 						{collections.map((c) => (
-							<button className="collection" key={c.id}>
+							<button onClick={() => toggleCollection(c)} className={generateClass(c)} key={c.id}>
 								{c.name}
 							</button>
 						))}

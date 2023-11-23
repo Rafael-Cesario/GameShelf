@@ -3,6 +3,7 @@ import { useState } from "react";
 import { AddGameStyled } from "./styles/add-game-styled";
 import { SearchGame } from "./search-game";
 import { CurrentGame } from "./current-game";
+import { CollectionModel } from "@/services/interfaces/collection";
 
 export interface IGame {
 	id: number;
@@ -10,6 +11,7 @@ export interface IGame {
 	background_image: string;
 	rating: number;
 	released: string;
+	collections: CollectionModel[];
 }
 
 export const AddGame = () => {
