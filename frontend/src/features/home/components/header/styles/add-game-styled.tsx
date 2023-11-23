@@ -43,6 +43,11 @@ export const AddGameStyled = styled.div`
 			color: ${Theme.text};
 			margin-right: 1rem;
 		}
+
+		.search {
+			background-color: ${Theme.primary};
+			color: ${Theme.text};
+		}
 	}
 
 	.games-container {
@@ -51,38 +56,46 @@ export const AddGameStyled = styled.div`
 		background-color: ${Theme.container};
 		margin: 4rem 0;
 		border-radius: ${Theme.radius};
+		min-width: 50vw;
+		transition: 0.2s;
 
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		justify-content: center;
+		padding: 4rem;
 		column-gap: 2rem;
 		row-gap: 2rem;
-		padding: 2rem;
 
 		.game {
 			position: relative;
+			cursor: pointer;
+			transition: 0.2s;
 
-			.title {
-				position: absolute;
-				bottom: 0;
-				font-size: 1rem;
-				font-weight: normal;
-				background-color: ${Theme.container};
-				border-radius: ${Theme.radius};
-				margin: 8px;
-				padding: 10px 20px;
+			&:hover {
+				transform: scale(1.05);
 			}
 
-			.add-game {
-				position: absolute;
-				bottom: 0;
-				right: 0;
-				margin: 8px;
+			.info {
+				display: flex;
+				flex-direction: column;
+				flex-wrap: wrap;
+				margin: 8px 0;
+
+				.title {
+					font-size: 1rem;
+					font-weight: normal;
+					margin-bottom: 4px;
+				}
+
+				.date {
+					font-size: 0.8rem;
+					color: ${Theme.text + "80"};
+				}
 			}
 
 			.cover {
-				width: 500px;
-				height: 300px;
+				width: 400px;
+				height: 250px;
 				object-fit: cover;
 				border-radius: ${Theme.radius};
 			}
