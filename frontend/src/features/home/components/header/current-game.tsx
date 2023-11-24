@@ -84,7 +84,7 @@ export const CurrentGame = ({ game, setOpenAddGame }: Props) => {
 	};
 
 	return (
-		<CurrentGameStyled>
+		<CurrentGameStyled data-cy="current-game">
 			<button onClick={() => setOpenAddGame(false)} className="close">
 				x
 			</button>

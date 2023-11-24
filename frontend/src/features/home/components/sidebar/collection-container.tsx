@@ -31,7 +31,7 @@ export const CollectionContainer = ({ userID }: Props) => {
 				<button onClick={() => dispatch(setActiveCollection("0"))} className={activeCollection === "0" ? "active" : ""}>
 					Todos
 				</button>
-				<span className="amount">{allGames.games.length}</span>
+				<span className="amount" data-cy="all-games-amount">{allGames.games.length}</span>
 			</div>
 
 			{collections

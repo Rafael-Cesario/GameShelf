@@ -1,6 +1,5 @@
 import { CollectionModel, CreateCollectionResponse } from "@/services/interfaces/collection";
 import { CookiesName, UserCookies } from "@/services/interfaces/cookies";
-import { GameModel } from "@/services/interfaces/game";
 import { CyHttpMessages } from "cypress/types/net-stubbing";
 
 const stubMutation = (req: CyHttpMessages.IncomingHttpRequest, operationName: string, data: object) => {
@@ -74,14 +73,26 @@ describe("Home e2e", () => {
 	});
 
 	describe("Header", () => {
-		describe("Add game", () => {
-			it("Search for a game to add", () => {
-				const gameName = "hollow knight";
-				cy.get('[data-cy="open-add-game-container"]').click();
-				cy.get(`[data-cy="search-game-input"]`).type(gameName);
-				cy.get(`[data-cy="search-game-button"]`).click();
-				cy.contains(gameName, { matchCase: false });
-			});
+		it("Add new game", () => {
+			const gameName = "hollow knight";
+
+			cy.intercept("POST", devURI, (req) => stubMutation(req, "AddGame", { data: { addGame: "New game added" } }));
+
+			cy.get('[data-cy="open-add-game-container"]').click();
+			cy.get(`[data-cy="search-game-input"]`).type(gameName);
+			cy.get(`[data-cy="search-game-button"]`).click();
+			cy.contains(gameName, { matchCase: false }).click();
+			cy.get('[data-cy="current-game"]').should("exist");
+
+			cy.contains(gameName, { matchCase: false }).click();
+			cy.get(".collections-container > :nth-child(1)").click();
+			cy.get(".save-game").click();
+			cy.wait("@AddGame");
+
+			cy.get(`[data-cy="game"]`).should("have.length", 1);
+			cy.get(`[data-cy="all-games-amount"]`).should("have.text", "1");
+			cy.get(`[data-cy="collection 1"] > .amount`).should("have.text", "1");
+			cy.get(`[data-cy="current-games-amount"]`).should("include.text", "1");
 		});
 	});
 });

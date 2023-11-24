@@ -11,7 +11,7 @@ export const Main = () => {
 	return (
 		<MainStyled>
 			{collection.games.map((game) => (
-				<div key={game.id} className="game">
+				<div data-cy="game" key={game.id} className="game">
 					<Image className="cover" alt="Game image" src={game.background_image} width={1920} height={1080} />
 					<h1 className="name">{game.name}</h1>
 				</div>
