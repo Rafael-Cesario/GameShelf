@@ -12,7 +12,7 @@ import { useMutation } from "@apollo/client";
 import { gameQueries } from "@/services/queries/game";
 import { setErrorNotification, setSuccessNotification } from "@/context/notification-slice";
 import { serviceErrors } from "@/services/interfaces/errors";
-import { setCollectionGames } from "../../context/collection-slice";
+import { setCollectionGames } from "../../../context/collection-slice";
 
 interface Props {
 	game: GameModel;

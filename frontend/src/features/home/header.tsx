@@ -2,7 +2,7 @@
 import { useSelector } from "react-redux";
 import { HeaderStyled } from "./styles/header-styled";
 import { Store } from "@/context/store";
-import { AddGame } from "./components/header/add-game";
+import { AddGame } from "./components/header/add-game/add-game";
 import { useState } from "react";
 
 export const Header = () => {
