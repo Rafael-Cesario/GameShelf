@@ -5,6 +5,7 @@ import { Store } from "@/context/store";
 import { AddGame } from "./components/header/add-game/add-game";
 import { useState } from "react";
 import { Configs } from "./components/header/configs/configs";
+import { GameSearch } from "./components/header/game-search";
 
 export const Header = () => {
 	const [openAddGame, setOpenAddGame] = useState(false);
@@ -23,7 +24,7 @@ export const Header = () => {
 			</div>
 
 			<div className="menu-container">
-				<input type="text" placeholder="Procurar" className="search-games" />
+				<GameSearch />
 				<button className="menu">Filtros</button>
 				<button className="menu">Ordem</button>
 				<Configs />
