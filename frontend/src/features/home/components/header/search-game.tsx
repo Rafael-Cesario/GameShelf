@@ -63,7 +63,11 @@ export const SearchGame = ({ setCurrentGame, setOpenAddGame }: Props) => {
 			</SearchGameStyled>
 
 			<GamesContainerStyled>
-				<p className="error">{error}</p>
+				{error && (
+					<p className="error" data-cy="search-error">
+						{error}
+					</p>
+				)}
 
 				{games.map((game) => (
 					<div onClick={() => setCurrentGame(game)} key={game.id} className="game">
