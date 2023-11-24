@@ -1,11 +1,13 @@
 import { Store } from "@/context/store";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ConfigsStyled } from "./styles/configs-styled";
 import { useMutation } from "@apollo/client";
 import { collectionQueries } from "@/services/queries/collection";
 import { UpdateCollectionInput, UpdateCollectionResponse } from "@/services/interfaces/collection";
 import { serviceErrors } from "@/services/interfaces/errors";
+import { setCollectionUpdate } from "@/features/home/context/collection-slice";
+import { setErrorNotification, setSuccessNotification } from "@/context/notification-slice";
 
 export const Configs = () => {
 	const { collections, activeCollection, allGames } = useSelector((state: Store) => state.collection);
@@ -13,7 +15,8 @@ export const Configs = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [name, setName] = useState(collection.name);
 	const [error, setError] = useState("");
-	const [updateCollectionMutation, { loading }] = useMutation<UpdateCollectionResponse, UpdateCollectionInput>(collectionQueries.UPDATE_COLLECTION);
+	const [updateCollectionMutation] = useMutation<UpdateCollectionResponse, UpdateCollectionInput>(collectionQueries.UPDATE_COLLECTION);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		const collection = collections.find((c) => c.id === activeCollection) || allGames;
@@ -21,26 +24,22 @@ export const Configs = () => {
 		setName(collection.name);
 	}, [activeCollection]);
 
+	// todo > Tests
 	const saveCollection = async () => {
 		if (collection.id === "0") return setError("Esta coleção não pode ser modificada.");
 
 		try {
 			const { data } = await updateCollectionMutation({ variables: { updateCollectionData: { id: collection.id, name } } });
-			console.log({ data });
-			console.log("hello");
+			if (!data) throw new Error("No data returned from the server");
 
-			// dispatch setCollection
-			// dispatch notification
-			// close configs
-			// Tests
+			dispatch(setCollectionUpdate(data.updateCollection));
+			dispatch(setSuccessNotification({ message: "Sua coleção foi salva com sucesso." }));
+			setIsOpen(false);
 		} catch (error: any) {
 			const [errorCode] = error.message.toLowerCase().split(":");
 			const message = serviceErrors.collection[errorCode as keyof typeof serviceErrors.collection] || serviceErrors.default;
-			console.log(error.message);
-			// dispatch();
+			dispatch(setErrorNotification({ message }));
 		}
-
-		// Todo > Update collection mutation
 	};
 
 	return (

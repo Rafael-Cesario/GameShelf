@@ -50,7 +50,12 @@ export const collectionSlice = createSlice({
 				if (sameCollection) c.games.push(action.payload.game);
 			});
 		},
+
+		setCollectionUpdate(state, action: { payload: CollectionModel }) {
+			const index = state.collections.findIndex((c) => c.id === action.payload.id);
+			state.collections.splice(index, 1, action.payload);
+		},
 	},
 });
 
-export const { setCreateCollection, setCollections, setActiveCollection, setSearch, setAllGames, setCollectionGames } = collectionSlice.actions;
+export const { setCreateCollection, setCollections, setActiveCollection, setSearch, setAllGames, setCollectionGames, setCollectionUpdate } = collectionSlice.actions;
