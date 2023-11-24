@@ -14,7 +14,9 @@ export const Header = () => {
 	return (
 		<HeaderStyled>
 			<div className="current-collection">
-				<h1 className="name">{collection.name}</h1>
+				<h1 data-cy="header-title" className="name">
+					{collection.name}
+				</h1>
 				<span className="games" data-cy="current-games-amount">
 					{collection.games.length} Jogos
 				</span>

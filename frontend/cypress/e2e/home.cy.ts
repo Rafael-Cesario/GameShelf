@@ -1,4 +1,4 @@
-import { CollectionModel, CreateCollectionResponse } from "@/services/interfaces/collection";
+import { CollectionModel, CreateCollectionResponse, UpdateCollectionResponse } from "@/services/interfaces/collection";
 import { CookiesName, UserCookies } from "@/services/interfaces/cookies";
 import { CyHttpMessages } from "cypress/types/net-stubbing";
 
@@ -93,6 +93,22 @@ describe("Home e2e", () => {
 			cy.get(`[data-cy="all-games-amount"]`).should("have.text", "1");
 			cy.get(`[data-cy="collection 1"] > .amount`).should("have.text", "1");
 			cy.get(`[data-cy="current-games-amount"]`).should("include.text", "1");
+		});
+
+		it("Update collection name", () => {
+			const newName = "Mistery";
+			const response: UpdateCollectionResponse = { updateCollection: { id: "3", userID: "123", name: newName, games: [] } };
+
+			cy.intercept("POST", devURI, (req) => stubMutation(req, "UpdateCollection", { data: response }));
+
+			cy.get(`[data-cy="collection 3"] > button`).click();
+			cy.get(`[data-cy="open-configs"]`).click();
+			cy.get(`[data-cy="input-collection-name"]`).clear().type(newName);
+			cy.get(`[data-cy="save"]`).click();
+			cy.wait("@UpdateCollection");
+
+			cy.get(`[data-cy="collection 3"] > button`).should("have.text", newName);
+			cy.get(`[data-cy="header-title"]`).should("have.text", newName);
 		});
 	});
 });

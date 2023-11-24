@@ -24,7 +24,6 @@ export const Configs = () => {
 		setName(collection.name);
 	}, [activeCollection]);
 
-	// todo > Tests
 	const saveCollection = async () => {
 		if (collection.id === "0") return setError("Esta coleção não pode ser modificada.");
 
@@ -61,7 +60,7 @@ export const Configs = () => {
 						<label className="collection-name" htmlFor="collection-name">
 							Nome
 						</label>
-						<input type="text" placeholder={collection.name} value={name} onChange={(e) => setName(e.target.value)} id="collection-name" />
+						<input data-cy="input-collection-name" type="text" placeholder={collection.name} value={name} onChange={(e) => setName(e.target.value)} id="collection-name" />
 						<span className="error" data-cy="error">
 							{error}
 						</span>
