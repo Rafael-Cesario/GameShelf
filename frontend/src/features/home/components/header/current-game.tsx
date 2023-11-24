@@ -17,9 +17,10 @@ import { setCollectionGames } from "../../context/collection-slice";
 interface Props {
 	game: GameModel;
 	setOpenAddGame(state: boolean): void;
+	setCurrentGame(state: GameModel | false): void;
 }
 
-export const CurrentGame = ({ game, setOpenAddGame }: Props) => {
+export const CurrentGame = ({ game, setOpenAddGame, setCurrentGame }: Props) => {
 	const { collections } = useSelector((state: Store) => state.collection);
 	const [addGameMutation] = useMutation<any, AddGameInput>(gameQueries.ADD_GAME);
 	const dispatch = useDispatch();
@@ -85,6 +86,10 @@ export const CurrentGame = ({ game, setOpenAddGame }: Props) => {
 
 	return (
 		<CurrentGameStyled data-cy="current-game">
+			<button className="back" onClick={() => setCurrentGame(false)}>
+				Voltar
+			</button>
+
 			<button onClick={() => setOpenAddGame(false)} className="close">
 				x
 			</button>

@@ -15,7 +15,7 @@ export const AddGame = ({ setOpenAddGame }: Props) => {
 	return (
 		<AddGameStyled>
 			{!currentGame && <SearchGame setOpenAddGame={setOpenAddGame} setCurrentGame={setCurrentGame} />}
-			{currentGame && <CurrentGame game={currentGame} setOpenAddGame={setOpenAddGame} />}
+			{currentGame && <CurrentGame setCurrentGame={setCurrentGame} game={currentGame} setOpenAddGame={setOpenAddGame} />}
 		</AddGameStyled>
 	);
 };

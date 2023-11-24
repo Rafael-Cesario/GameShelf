@@ -7,6 +7,20 @@ export const CurrentGameStyled = styled.div`
 	align-items: center;
 	margin: 4rem 2rem;
 
+	.back {
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-color: transparent;
+		color: ${Theme.text + "50"};
+		margin: 2rem;
+		font-size: 1rem;
+
+		&:hover {
+			color: ${Theme.text};
+		}
+	}
+
 	.close {
 		position: absolute;
 		top: 0;
