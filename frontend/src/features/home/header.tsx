@@ -4,6 +4,7 @@ import { HeaderStyled } from "./styles/header-styled";
 import { Store } from "@/context/store";
 import { AddGame } from "./components/header/add-game/add-game";
 import { useState } from "react";
+import { Configs } from "./components/header/configs/configs";
 
 export const Header = () => {
 	const [openAddGame, setOpenAddGame] = useState(false);
@@ -23,7 +24,7 @@ export const Header = () => {
 				<input type="text" placeholder="Procurar" className="search-games" />
 				<button className="menu">Filtros</button>
 				<button className="menu">Ordem</button>
-				<button className="menu">Configurações</button>
+				<Configs />
 				<button data-cy="open-add-game-container" className="menu add-game" onClick={() => setOpenAddGame(true)}>
 					Adicionar
 				</button>

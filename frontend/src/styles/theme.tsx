@@ -1,6 +1,6 @@
 export const Theme = {
 	background: "#111111",
-	text: "#eeeeee",
+	text: "#dddddd",
 	primary: "#1675E4",
 	container: "#141518",
 	error: "#ab4444",
