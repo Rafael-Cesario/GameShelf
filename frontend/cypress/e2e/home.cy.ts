@@ -1,5 +1,6 @@
 import { CollectionModel, CreateCollectionResponse, UpdateCollectionResponse } from "@/services/interfaces/collection";
 import { CookiesName, UserCookies } from "@/services/interfaces/cookies";
+import { GameModel } from "@/services/interfaces/game";
 import { CyHttpMessages } from "cypress/types/net-stubbing";
 
 const stubMutation = (req: CyHttpMessages.IncomingHttpRequest, operationName: string, data: object) => {
@@ -15,6 +16,12 @@ const collections: CollectionModel[] = [
 	{ id: "3", name: "Favorites", userID: "1", games: [] },
 ];
 
+const games: GameModel[] = [
+	{ background_image: "", collections: [], id: 1, name: "Hollow knight", rating: 5, released: "01/01/2000", userID: "1" },
+	{ background_image: "", collections: [], id: 2, name: "Red dead", rating: 5, released: "01/01/2000", userID: "1" },
+	{ background_image: "", collections: [], id: 3, name: "the return of obra dinn", rating: 5, released: "01/01/2000", userID: "1" },
+];
+
 describe("Home e2e", () => {
 	const { devURI } = Cypress.env();
 
@@ -23,7 +30,7 @@ describe("Home e2e", () => {
 		const value: UserCookies = { email: "user@email.com", id: "1", token: "qweasdzxc123" };
 		cy.setCookie(name, JSON.stringify(value));
 
-		cy.intercept("POST", devURI, (req) => stubMutation(req, "GetGames", { data: { getGames: [] } }));
+		cy.intercept("POST", devURI, (req) => stubMutation(req, "GetGames", { data: { getGames: games } }));
 		cy.intercept("POST", devURI, (req) => stubMutation(req, "GetCollections", { data: { getCollections: collections } }));
 		cy.visit("/");
 		cy.wait("@GetGames");
@@ -121,5 +128,13 @@ describe("Home e2e", () => {
 			cy.get(`[data-cy*="collection "]`).should("have.length", collections.length - 1);
 			cy.get('[data-cy="header-title"]').should("have.text", "Todos");
 		});
+	});
+
+	it("Search for a game", () => {
+		cy.get(`[data-cy="game-search"]`).type("Hello");
+		cy.get(`[data-cy="game"]`).should("not.exist");
+
+		cy.get(`[data-cy="game-search"]`).clear().type("hollow");
+		cy.get(`[data-cy="game"]`).should("have.length", 1);
 	});
 });

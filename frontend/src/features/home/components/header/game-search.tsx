@@ -3,5 +3,5 @@ import { setSearch } from "../../context/games-slice";
 
 export const GameSearch = () => {
 	const dispatch = useDispatch();
-	return <input onChange={(e) => dispatch(setSearch(e.target.value))} type="text" placeholder="Procurar" className="search-games" />;
+	return <input data-cy="game-search" onChange={(e) => dispatch(setSearch(e.target.value))} type="text" placeholder="Procurar" className="search-games" />;
 };
