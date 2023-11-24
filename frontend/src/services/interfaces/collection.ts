@@ -35,3 +35,14 @@ export interface GetCollectionsResponse {
 		games: GameModel[];
 	}[];
 }
+
+export interface UpdateCollectionInput {
+	updateCollectionData: {
+		id: string;
+		name: string;
+	};
+}
+
+export interface UpdateCollectionResponse {
+	updateCollection: CollectionModel;
+}

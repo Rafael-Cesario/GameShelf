@@ -31,7 +31,7 @@ export class CollectionService {
 		const hasCollection = await this.prisma.collection.findUnique({ where: { id } });
 		if (!hasCollection) throw new BadRequestException("notFound: collections not found");
 
-		const collection = await this.prisma.collection.update({ where: { id }, data: { name }, include: { games: true } });
+		const collection = await this.prisma.collection.update({ where: { id }, data: { name }, include: { games: { include: { collections: true } } } });
 		return collection;
 	}
 

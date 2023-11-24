@@ -28,6 +28,27 @@ class CollectionQueries {
 			}
 		}
 	`;
+
+	UPDATE_COLLECTION = gql`
+		mutation UpdateCollection($updateCollectionData: UpdateCollectionInput!) {
+			updateCollection(updateCollectionData: $updateCollectionData) {
+				userID
+				id
+				name
+				games {
+					userID
+					id
+					name
+					released
+					background_image
+					rating
+					collections {
+						id
+					}
+				}
+			}
+		}
+	`;
 }
 
 export const collectionQueries = new CollectionQueries();
