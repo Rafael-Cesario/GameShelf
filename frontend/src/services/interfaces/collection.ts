@@ -46,3 +46,11 @@ export interface UpdateCollectionInput {
 export interface UpdateCollectionResponse {
 	updateCollection: CollectionModel;
 }
+
+export interface DeleteCollectionInput {
+	collectionID: string;
+}
+
+export interface DeleteCollectionResponse {
+	deleteCollection: string;
+}

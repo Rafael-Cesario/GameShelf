@@ -55,7 +55,12 @@ export const collectionSlice = createSlice({
 			const index = state.collections.findIndex((c) => c.id === action.payload.id);
 			state.collections.splice(index, 1, action.payload);
 		},
+
+		setCollectionDelete(state, action: { payload: { collectionID: string } }) {
+			const index = state.collections.findIndex((c) => c.id === action.payload.collectionID);
+			state.collections.splice(index, 1);
+		},
 	},
 });
 
-export const { setCreateCollection, setCollections, setActiveCollection, setSearch, setAllGames, setCollectionGames, setCollectionUpdate } = collectionSlice.actions;
+export const { setCreateCollection, setCollections, setActiveCollection, setSearch, setAllGames, setCollectionGames, setCollectionUpdate, setCollectionDelete } = collectionSlice.actions;

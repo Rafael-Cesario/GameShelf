@@ -49,6 +49,12 @@ class CollectionQueries {
 			}
 		}
 	`;
+
+	DELETE_COLLECTION = gql`
+		mutation DeleteCollection($collectionID: String!) {
+			deleteCollection(collectionID: $collectionID)
+		}
+	`;
 }
 
 export const collectionQueries = new CollectionQueries();

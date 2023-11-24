@@ -92,6 +92,11 @@ export const ConfigsStyled = styled.div`
 		justify-content: flex-end;
 		align-items: center;
 
+		.error {
+			font-size: 1rem;
+			color: ${Theme.error};
+		}
+
 		.cancel {
 			background-color: ${Theme.container};
 			color: ${Theme.text};
