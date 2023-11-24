@@ -62,6 +62,12 @@ export const ConfigsStyled = styled.div`
 				opacity: 1;
 			}
 		}
+
+		.error {
+			margin: 10px 20px;
+			font-size: 0.8rem;
+			color: ${Theme.error};
+		}
 	}
 
 	.delete {
