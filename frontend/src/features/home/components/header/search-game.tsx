@@ -24,6 +24,7 @@ export const formatDate = (date: string) => {
 
 export const SearchGame = ({ setCurrentGame, setOpenAddGame }: Props) => {
 	const [gameName, setGameName] = useState("");
+	const [error, setError] = useState("");
 	const [games, setGames] = useState<GameModel[]>([]);
 
 	const searchGame = async (e: React.FormEvent) => {
@@ -39,6 +40,8 @@ export const SearchGame = ({ setCurrentGame, setOpenAddGame }: Props) => {
 			.filter((game) => game.rating !== 0)
 			.sort((a, b) => getDate(b) - getDate(a));
 
+		if (!games.length) setError("Nenhum jogo com este nome foi encontrado.");
+
 		setGames(games);
 	};
 
@@ -49,7 +52,9 @@ export const SearchGame = ({ setCurrentGame, setOpenAddGame }: Props) => {
 
 				<form onSubmit={(e) => searchGame(e)} className="add-game">
 					<input data-cy="search-game-input" onChange={(e) => setGameName(e.target.value)} type="text" placeholder="Busque pelo nome de um jogo" />
-					<button className="search" data-cy="search-game-button">Buscar</button>
+					<button className="search" data-cy="search-game-button">
+						Buscar
+					</button>
 				</form>
 
 				<button className="close" onClick={() => setOpenAddGame(false)}>
@@ -58,6 +63,8 @@ export const SearchGame = ({ setCurrentGame, setOpenAddGame }: Props) => {
 			</SearchGameStyled>
 
 			<GamesContainerStyled>
+				<p className="error">{error}</p>
+
 				{games.map((game) => (
 					<div onClick={() => setCurrentGame(game)} key={game.id} className="game">
 						<Image className="cover" width={1080} height={1920} alt="game image" src={game.background_image} />

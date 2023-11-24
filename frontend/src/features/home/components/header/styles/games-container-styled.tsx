@@ -10,6 +10,13 @@ export const GamesContainerStyled = styled.div`
 	row-gap: 2rem;
 	justify-content: center;
 
+	.error {
+		background-color: ${Theme.error};
+		text-align: center;
+		border-radius: ${Theme.radius};
+		padding: 10px 20px;
+	}
+
 	.game {
 		width: 400px;
 		height: fit-content;
