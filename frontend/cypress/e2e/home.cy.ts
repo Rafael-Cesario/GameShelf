@@ -1,5 +1,6 @@
 import { CollectionModel, CreateCollectionResponse } from "@/services/interfaces/collection";
 import { CookiesName, UserCookies } from "@/services/interfaces/cookies";
+import { GameModel } from "@/services/interfaces/game";
 import { CyHttpMessages } from "cypress/types/net-stubbing";
 
 const stubMutation = (req: CyHttpMessages.IncomingHttpRequest, operationName: string, data: object) => {
@@ -69,6 +70,18 @@ describe("Home e2e", () => {
 		it("logout", () => {
 			cy.get(`[data-cy="logout"]`).click();
 			cy.get('[data-cy="input-email"]').should("exist");
+		});
+	});
+
+	describe("Header", () => {
+		describe("Add game", () => {
+			it("Search for a game to add", () => {
+				const gameName = "hollow knight";
+				cy.get('[data-cy="open-add-game-container"]').click();
+				cy.get(`[data-cy="search-game-input"]`).type(gameName);
+				cy.get(`[data-cy="search-game-button"]`).click();
+				cy.contains(gameName, { matchCase: false });
+			});
 		});
 	});
 });

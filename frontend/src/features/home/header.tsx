@@ -22,7 +22,7 @@ export const Header = () => {
 				<button className="menu">Filtros</button>
 				<button className="menu">Ordem</button>
 				<button className="menu">Configurações</button>
-				<button className="menu add-game" onClick={() => setOpenAddGame(true)}>
+				<button data-cy="open-add-game-container" className="menu add-game" onClick={() => setOpenAddGame(true)}>
 					Adicionar
 				</button>
 			</div>

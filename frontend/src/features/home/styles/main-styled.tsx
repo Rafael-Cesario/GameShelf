@@ -5,10 +5,17 @@ export const MainStyled = styled.main`
 	display: flex;
 	flex-wrap: wrap;
 	align-content: flex-start;
+	margin: 0 1.5rem;
 
 	.game {
 		margin: 8px;
-		width: 15vw;
+		width: 12vw;
+		cursor: pointer;
+		transition: 0.2s;
+
+		&:hover {
+			transform: scale(1.05);
+		}
 
 		.cover {
 			width: inherit;

@@ -44,12 +44,12 @@ export const SearchGame = ({ setCurrentGame, setOpenAddGame }: Props) => {
 
 	return (
 		<>
-			<SearchGameStyled>
+			<SearchGameStyled data-cy="search-game">
 				<h1 className="title">Adicionar jogo</h1>
 
 				<form onSubmit={(e) => searchGame(e)} className="add-game">
-					<input onChange={(e) => setGameName(e.target.value)} type="text" placeholder="Busque pelo nome de um jogo" />
-					<button className="search">Buscar</button>
+					<input data-cy="search-game-input" onChange={(e) => setGameName(e.target.value)} type="text" placeholder="Busque pelo nome de um jogo" />
+					<button className="search" data-cy="search-game-button">Buscar</button>
 				</form>
 
 				<button className="close" onClick={() => setOpenAddGame(false)}>
