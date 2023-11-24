@@ -40,7 +40,7 @@ export const DeleteCollection = ({ setIsOpen }: Props) => {
 
 	if (!deleteButton) {
 		return (
-			<button onClick={() => setDeleteButton(true)} className="delete">
+			<button data-cy="delete-button" onClick={() => setDeleteButton(true)} className="delete">
 				Excluir esta coleção
 			</button>
 		);
@@ -49,7 +49,7 @@ export const DeleteCollection = ({ setIsOpen }: Props) => {
 	return (
 		<div className="check-delete">
 			<p className="error">{error}</p>
-			<button onClick={() => deleteCollection()} className="delete">
+			<button data-cy="check-delete" onClick={() => deleteCollection()} className="delete">
 				Clique novamente para confirmar que você realmente quer excluir esta coleção.
 			</button>
 			<button onClick={() => setDeleteButton(false)} className="cancel">

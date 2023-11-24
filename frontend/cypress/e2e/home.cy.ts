@@ -110,5 +110,16 @@ describe("Home e2e", () => {
 			cy.get(`[data-cy="collection 3"] > button`).should("have.text", newName);
 			cy.get(`[data-cy="header-title"]`).should("have.text", newName);
 		});
+
+		it("Delete a collection", () => {
+			cy.intercept("POST", devURI, (req) => stubMutation(req, "DeleteCollection", { data: { deleteCollection: "Deleted" } }));
+			cy.get(`[data-cy="collection 3"] > button`).click();
+			cy.get(`[data-cy="open-configs"]`).click();
+			cy.get(`[data-cy="delete-button"]`).click();
+			cy.get(`[data-cy="check-delete"]`).click();
+			cy.wait("@DeleteCollection");
+			cy.get(`[data-cy*="collection "]`).should("have.length", collections.length - 1);
+			cy.get('[data-cy="header-title"]').should("have.text", "Todos");
+		});
 	});
 });
