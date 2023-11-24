@@ -84,4 +84,24 @@ export const ConfigsStyled = styled.div`
 			opacity: 1;
 		}
 	}
+
+	.check-delete {
+		grid-area: 3 / 3;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		align-items: center;
+
+		.cancel {
+			background-color: ${Theme.container};
+			color: ${Theme.text};
+		}
+
+		.cancel,
+		.delete {
+			margin: 1rem 0;
+			width: 100%;
+			opacity: 1;
+		}
+	}
 `;

@@ -8,6 +8,7 @@ import { UpdateCollectionInput, UpdateCollectionResponse } from "@/services/inte
 import { serviceErrors } from "@/services/interfaces/errors";
 import { setCollectionUpdate } from "@/features/home/context/collection-slice";
 import { setErrorNotification, setSuccessNotification } from "@/context/notification-slice";
+import { DeleteCollection } from "./delete-colleciton";
 
 export const Configs = () => {
 	const { collections, activeCollection, allGames } = useSelector((state: Store) => state.collection);
@@ -68,7 +69,7 @@ export const Configs = () => {
 							Salvar alterações
 						</button>
 					</div>
-					<button className="delete">Excluir esta coleção</button>
+					<DeleteCollection />
 				</ConfigsStyled>
 			)}
 		</>
