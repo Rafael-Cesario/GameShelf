@@ -5,7 +5,7 @@ export interface GameModel {
 	background_image: string;
 	rating: number;
 	released: string;
-	collections: { id: string }[];
+	collections: { id: string; name: string }[];
 }
 
 export interface GetGamesInput {

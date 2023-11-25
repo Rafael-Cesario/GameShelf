@@ -20,7 +20,7 @@ export class CollectionService {
 	}
 
 	async getCollections(userID: string) {
-		const user = await this.prisma.user.findUnique({ where: { id: userID }, include: { collections: { include: { games: true } } } });
+		const user = await this.prisma.user.findUnique({ where: { id: userID }, include: { collections: { include: { games: { include: { collections: true } } } } } });
 		if (!user) throw new BadRequestException("notFound: User ID not found");
 
 		return user.collections;

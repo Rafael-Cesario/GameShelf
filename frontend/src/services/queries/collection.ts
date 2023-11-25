@@ -24,6 +24,10 @@ class CollectionQueries {
 					rating
 					released
 					userID
+					collections {
+						id
+						name
+					}
 				}
 			}
 		}
@@ -44,6 +48,7 @@ class CollectionQueries {
 					rating
 					collections {
 						id
+						name
 					}
 				}
 			}
