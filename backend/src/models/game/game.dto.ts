@@ -1,5 +1,5 @@
 import { Field, Float, InputType, Int } from "@nestjs/graphql";
-import { IsString } from "class-validator";
+import { IsNumber, IsString } from "class-validator";
 
 @InputType()
 export class AddGameInput {
@@ -35,7 +35,7 @@ class CollectionInput {
 
 @InputType()
 export class UpdateGameInput {
-	@IsString()
+	@IsNumber()
 	@Field(() => Int)
 	gameID: number;
 

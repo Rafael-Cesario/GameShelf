@@ -28,7 +28,7 @@ export const GameCollections = ({ props: { gameCollections, setGameCollections }
 
 		const state = produce(gameCollections, (draft) => {
 			if (hasCollection) draft.splice(collectionIndex, 1);
-			else draft.push(collection);
+			else draft.push({ id: collection.id });
 		});
 
 		setGameCollections(state);

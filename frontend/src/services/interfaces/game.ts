@@ -22,7 +22,7 @@ export interface AddGameInput {
 
 export interface UpdateGameInput {
 	updateGameData: {
-		gameID: string;
+		gameID: number;
 		addCollections?: { id: string }[];
 		removeCollections?: { id: string }[];
 	};
