@@ -24,6 +24,23 @@ class GameQueries {
 			addGame(addGameData: $addGameData)
 		}
 	`;
+
+	UPDATE_GAME = gql`
+		mutation UpdateGame($updateGameData: UpdateGameInput!) {
+			updateGame(updateGameData: $updateGameData) {
+				userID
+				id
+				name
+				released
+				background_image
+				rating
+				collections {
+					id
+					name
+				}
+			}
+		}
+	`;
 }
 
 export const gameQueries = new GameQueries();

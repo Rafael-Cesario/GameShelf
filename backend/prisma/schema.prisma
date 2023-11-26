@@ -30,7 +30,7 @@ model Collection {
 model Game {
   User             User         @relation(fields: [userID], references: [id])
   userID           String
-  id               Int       @id
+  id               Int          @id
   name             String
   released         String
   background_image String

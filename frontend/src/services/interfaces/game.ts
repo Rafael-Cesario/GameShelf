@@ -19,3 +19,15 @@ export interface GetGameResponse {
 export interface AddGameInput {
 	addGameData: GameModel;
 }
+
+export interface UpdateGameInput {
+	updateGameData: {
+		gameID: string;
+		addCollections?: { id: string }[];
+		removeCollections?: { id: string }[];
+	};
+}
+
+export interface UpdateGameResponse {
+	updateGame: GameModel;
+}

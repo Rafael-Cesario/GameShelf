@@ -13,13 +13,18 @@ export const GameDataStyled = styled.div`
 	flex-direction: column;
 	align-items: center;
 
+	.info,
+	.cover,
+	.buttons {
+		width: 30vw;
+	}
+
 	.close {
 		align-self: flex-end;
 		margin: 2rem;
 	}
 
 	.cover {
-		width: 30vw;
 		height: auto;
 		object-fit: cover;
 		border-radius: ${Theme.radius};
@@ -27,8 +32,6 @@ export const GameDataStyled = styled.div`
 	}
 
 	.info {
-		width: 30vw;
-
 		.name {
 			font-size: 1.2rem;
 		}
@@ -36,6 +39,22 @@ export const GameDataStyled = styled.div`
 		.date {
 			font-size: 0.8rem;
 			color: ${Theme.text + "50"};
+		}
+	}
+
+	.buttons {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+
+		button:nth-child(1) {
+			background-color: ${Theme.primary};
+			color: ${Theme.text};
+		}
+
+		button:nth-child(2) {
+			background-color: ${Theme.error};
+			color: white;
 		}
 	}
 `;

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { setGameData } from "../../context/games-slice";
 import { GameCollections } from "./game-collections";
 import { useEffect, useState } from "react";
+import { SaveGame } from "./save-game";
 
 export interface ICollection {
 	id: string;
@@ -38,7 +39,7 @@ export const GameData = () => {
 			<GameCollections props={{ gameCollections, setGameCollections }} />
 
 			<div className="buttons">
-				<button className="save">Salvar alterações</button>
+				<SaveGame collections={gameCollections} />
 				<button className="delete">Remover jogo</button>
 			</div>
 		</GameDataStyled>
