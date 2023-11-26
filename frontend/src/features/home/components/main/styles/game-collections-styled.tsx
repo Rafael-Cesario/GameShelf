@@ -37,10 +37,6 @@ export const GameCollectionsStyled = styled.div`
 			font-size: 0.8rem;
 			opacity: 0.4;
 			cursor: pointer;
-
-			&:hover {
-				opacity: 1;
-			}
 		}
 
 		.active {
