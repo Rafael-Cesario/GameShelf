@@ -60,7 +60,40 @@ export const collectionSlice = createSlice({
 			const index = state.collections.findIndex((c) => c.id === action.payload.collectionID);
 			state.collections.splice(index, 1);
 		},
+
+		setAllGamesUpdateOne(state, action: { payload: GameModel }) {
+			const gameIndex = state.allGames.games.findIndex((game) => game.id === action.payload.id);
+			state.allGames.games[gameIndex].collections = action.payload.collections;
+		},
+
+		setRemoveGames(state, action: { payload: { removedCollections: CollectionModel[]; removeGame: { id: number } } }) {
+			action.payload.removedCollections.forEach((gameCollection) => {
+				const collectionIndex = state.collections.findIndex((userCollection) => gameCollection.id === userCollection.id);
+				const gameIndex = state.collections[collectionIndex].games.findIndex((game) => game.id === action.payload.removeGame.id);
+				if (gameIndex > -1) state.collections[collectionIndex].games.splice(gameIndex, 1);
+			});
+		},
+
+		setAddGames(state, action: { payload: { addCollections: { id: string }[]; game: GameModel } }) {
+			action.payload.addCollections.forEach((collection) => {
+				const collectionIndex = state.collections.findIndex((userCollection) => userCollection.id === collection.id);
+				const gameIndex = state.collections[collectionIndex].games.findIndex((game) => game.id === action.payload.game.id);
+				if (gameIndex < 0) state.collections[collectionIndex].games.push(action.payload.game);
+			});
+		},
 	},
 });
 
-export const { setCreateCollection, setCollections, setActiveCollection, setSearch, setAllGames, setCollectionGames, setCollectionUpdate, setCollectionDelete } = collectionSlice.actions;
+export const {
+	setCreateCollection,
+	setCollections,
+	setActiveCollection,
+	setSearch,
+	setAllGames,
+	setCollectionGames,
+	setCollectionUpdate,
+	setCollectionDelete,
+	setAllGamesUpdateOne,
+	setRemoveGames,
+	setAddGames,
+} = collectionSlice.actions;

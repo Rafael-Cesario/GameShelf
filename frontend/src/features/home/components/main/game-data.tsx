@@ -9,6 +9,7 @@ import { SaveGame } from "./save-game";
 
 export interface ICollection {
 	id: string;
+	name: string;
 }
 
 export const GameData = () => {
@@ -18,7 +19,7 @@ export const GameData = () => {
 
 	useEffect(() => {
 		if (gameData) {
-			const collections = gameData.collections.map(({ id }) => ({ id }));
+			const collections = gameData.collections.map(({ id, name }) => ({ id, name }));
 			setGameCollections(collections);
 		}
 	}, [gameData]);

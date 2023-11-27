@@ -1,9 +1,10 @@
 import { Store } from "@/context/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ICollection } from "./game-data";
 import { useMutation } from "@apollo/client";
 import { gameQueries } from "@/services/queries/game";
 import { UpdateGameInput, UpdateGameResponse } from "@/services/interfaces/game";
+import { setAddGames, setAllGamesUpdateOne, setRemoveGames } from "../../context/collection-slice";
 
 interface Props {
 	collections: ICollection[];
@@ -13,14 +14,13 @@ export const SaveGame = ({ collections }: Props) => {
 	const { collections: userCollections } = useSelector((state: Store) => state.collection);
 	const { gameData } = useSelector((state: Store) => state.games);
 	const [updateGameMutation] = useMutation<UpdateGameResponse, UpdateGameInput>(gameQueries.UPDATE_GAME);
+	const dispatch = useDispatch();
 
 	const filterCollections = () => {
-		const filterCollections = userCollections.filter((userCollection) => {
+		return userCollections.filter((userCollection) => {
 			const hasCollection = collections.find((gameCollection) => gameCollection.id === userCollection.id);
 			if (!hasCollection) return userCollection;
 		});
-
-		return filterCollections.map(({ id }) => ({ id }));
 	};
 
 	// [ Todo ]
@@ -29,12 +29,17 @@ export const SaveGame = ({ collections }: Props) => {
 		try {
 			if (!gameData) throw new Error("Game Data is undefined");
 
-			const removeCollections = filterCollections();
-			const updateGameData = { gameID: gameData.id, addCollections: collections, removeCollections };
-			const { data } = await updateGameMutation({ variables: { updateGameData } });
-			// dispatch update gameData
-			// dispatch update all games
-			// dispatch remove game from removed collections and add game to added collections
+			const updateGameData = {
+				gameID: gameData.id,
+				addCollections: collections.map(({ id }) => ({ id })),
+				removeCollections: filterCollections().map(({ id }) => ({ id })),
+			};
+
+			await updateGameMutation({ variables: { updateGameData } });
+
+			dispatch(setAllGamesUpdateOne({ ...gameData, collections }));
+			dispatch(setRemoveGames({ removedCollections: filterCollections(), removeGame: { ...gameData, ...collections } }));
+			dispatch(setAddGames({ addCollections: collections, game: { ...gameData, ...collections } }));
 			// notification
 		} catch (error: any) {
 			// Todo
