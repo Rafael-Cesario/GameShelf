@@ -45,4 +45,6 @@ Here you can save your games like a game shelf. Add tags, genres, release date, 
 ### Preview
 
 ![Slide 16_9 - 1](https://user-images.githubusercontent.com/88716893/230511358-068edeb6-ee19-4915-b59a-1e752a82ad52.png)
+![Slide 16_9 - 3](https://github.com/Rafael-Cesario/GameShelf/assets/88716893/2867250f-0b02-4078-ab91-1f788aa844b2)
+
 
